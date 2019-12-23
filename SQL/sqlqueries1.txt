@@ -1,0 +1,147 @@
+
+SQL Quiries
+-------------------------
+2019-12-19[ thursday]
+-------------------------
+1.How to see databases.
+>>show databases;
+
+2.How to create database.
+>>create database sqlbcits;
+
+3.how to see databases.
+>>show databases;
+
+4.How to use databases.
+>>use sqlbcits;
+5.create table emp(eid int primary key,
+    ->  name varchar(20) not null,
+    ->  mobileno int,
+    -> sal double,
+    -> emailid varchar(30));
+6.desc emp;
+
+DML 
+
+7.insert emp values(111,'anil',9845783898,45000.0,'anilkumar@gmail.com');
+
+8.insert emp values(222,'vijay',98784838,50000.0,'vijaykumar@gmail.com'),
+                    (333,'babu',98989938,30000.0,'babukumar@gmail.com');
+
+9.insert emp values(444,'yogesh',99567338,20000.0,'yogeshr@gmail.com'),
+                   (555,'jaggu',89764538,25000.0,'jaggubr@gmail.com');
+
+10. select * from emp;
+
+11.update emp set name='charan' where eid=444;
+
+12.update emp set sal=15000.0 where eid=222;
+
+13.delete from emp where eid=555;
+
+14.insert into emp values(555,'jaggu',89764538,25000.0,'jaggubr@gmail.com');
+
+DDL
+
+15.alter table emp add loc varchar(20);
+
+16.alter table emp modify sal int;
+
+17. alter table emp change   eid id int;//renaming the particular column name
+
+18.alter table emp drop column loc;
+
+19. alter table emp rename to emp1;//renaming the table name
+
+20.drop table emp;
+
+21.truncate table emp;
+
+22. alter table emp add column loc varchar(40);
+
+23.alter table emp drop column loc;
+
+24.ALTER TABLE EMP
+     CHANGE ENAME NAME VARCHAR(60);
+
+25.SELECT * FROM EMP;
+
+26.alter table emp change mobileno mobno int;
+
+27.select * from emp;
+
+28.drop table student;
+
+29.show databases;
+
+30.truncate table student;
+
+31.rename table emp to emp1;
+
+32.select sal, (sal*100) addedsal from emp1;
+
+33. rename table emp1 to emp;
+
+OPERATORS
+   Arithmatic operators
+
+34.select sal, (sal+100) addedsal from emp1;
+
+35. select sal, sal-100 dedsal from emp;
+
+36.select sal,sal*12 as asal from emp;
+
+37.select sal,sal/30 prdpaidsal from emp;
+
+   Logocal Operators
+
+38. select * from emp where sal>20000;
+
+39. select * from emp where sal<30000;
+
+40.select * from emp where sal>=20000;
+
+41.update emp set name='kumar' where id=111;
+
+42.update emp set name='charan' where id=111;
+
+43.select distinct(name) from emp;//to select different/distinct values
+
+44.select distinct(name),(sal) from emp;
+
+45.select name as ename from emp as employee;// aliasing:'as' keyword is optional
+
+46. select id  empid from emp emp1;
+
+47.select 'cr' from emp;         //literals
+
+48.select '2019-12-19' from emp;
+
+49.create table employee_info(eid int primary key,
+    ->  name varchar(100),
+    -> mobileno bigint(10) not null,
+    -> emailid varchar(100),
+    -> dob date,
+    -> designation varchar(100),
+    -> salary double,
+    -> deptno int,
+    ->  doj date,
+    ->  bloodgroup varchar(100),
+    -> gender varchar(150));
+
+50.insert into employee_info values(123,'vijay',9908079945,'vijaykumar@gmail.com','1997-09-12','software dev',25300,10,'2019-12-10','a+','male');
+
+51.insert into employee_info values(439,'anil',9866645838,'anilkumar@gmail.com','1996-03-21','tester',20000,20,'2019-10-11','b+','male'),
+     (449,'baby',7899445838,'babylr@gmail.com','1996-03-19','hr',40000,30,'2018-10-11','o+','female'),
+     (433,'rajesh',9494556129,'rajeshjaikumar@gmail.com','1997-12-19','clerk',19000,20,'2017-10-14','a+','male'),
+     (401,'mohanraj',9676273905,'mohanrajcr@gmail.com','1998-12-19','analyst',15000,10,'2018-03-14','b+','male'),
+     (349,'jassukumar',7834987685,'jassukumar@gmail.com','1997-02-25','manager',23500,10,'2016-11-04','b+','male'),
+     (378,'jasmin',8794678327,'jasminbabu@gmail.com','1995-05-19','software dev',43500,30,'2015-07-08','o+','female'),
+     (754,'janaki',7846739287,'janakiram@gmail.com','1997-10-28','clerk',12500,20,'2017-07-16','b+','female'),
+     (659,'amreshpatel',8886745971,'amreshpatel@gmail.com','1995-07-28','tester',30000,10,'2019-12-16','o+','male'),
+     (786,'maheshpandey',9867451971,'maheshpandey@gmail.com','1996-12-28','clerk',15000,20,'2017-10-16','a+','male');
+
+
+
+
+

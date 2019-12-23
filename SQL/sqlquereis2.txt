@@ -1,0 +1,143 @@
+
+  SQL Quiries
+  -----------------
+  2019-12-20 [friday]
+  -------------------
+
+1.Create a table containing employee information?
+ >> create table employee_info(eid int primary key,
+       name varchar(100),
+       mobileno bigint(10) not null,
+       emailid varchar(100),
+       dob date,
+       designation varchar(100),
+       salary double,
+       deptno int,
+       doj date,
+       bloodgroup varchar(100),
+       gender varchar(150));
+
+2.insert the data into the table.
+  >>insert into employee_info values(123,'vijay',9908079945,'vijaykumar@gmail.com','1997-09-12','software dev',25300,10,'2019-12-10','a+','male');
+
+3.>>insert into employee_info values(439,'anil',9866645838,'anilkumar@gmail.com','1996-03-21','tester',20000,20,'2019-10-11','b+','male'),
+     (449,'baby',7899445838,'babylr@gmail.com','1996-03-19','hr',40000,30,'2018-10-11','o+','female'),
+     (433,'rajesh',9494556129,'rajeshjaikumar@gmail.com','1997-12-19','clerk',19000,20,'2017-10-14','a+','male'),
+     (401,'mohanraj',9676273905,'mohanrajcr@gmail.com','1998-12-19','analyst',15000,10,'2018-03-14','b+','male'),
+     (349,'jassukumar',7834987685,'jassukumar@gmail.com','1997-02-25','manager',23500,10,'2016-11-04','b+','male'),
+     (378,'jasmin',8794678327,'jasminbabu@gmail.com','1995-05-19','software dev',43500,30,'2015-07-08','o+','female'),
+     (754,'janaki',7846739287,'janakiram@gmail.com','1997-10-28','clerk',12500,20,'2017-07-16','b+','female'),
+     (659,'amreshpatel',8886745971,'amreshpatel@gmail.com','1995-07-28','tester',30000,10,'2019-12-16','o+','male'),
+     (786,'maheshpandey',9867451971,'maheshpandey@gmail.com','1996-12-28','clerk',15000,20,'2017-10-16','a+','male');
+
+4.Write a query to display all the records in the employee table.
+>>select * from employee_info;
+
+5.WAQ to display unique department numbers in the employee table.
+>>select distinct deptno from employee_info;
+
+6.WAQ  to display unique department numbers aswell as designation in the employee table.
+>>select distinct deptno,designation from employee_info;
+
+7. WAQD all the employees who is working as a software developers in employee table.
+>>select * from employee_info where designation='software dev';
+
+8.WAQD name,mobile number and who's salary is more than 20000.
+>>select ename,mobileno from employee_info where sal>20000;
+
+9.WAQD all the employees who's salary is less than or equal to15000.
+>>select ename,mobileno from employee_info where sal>15000;
+
+10.WAQTD all the records in employee table except who is working as a tester.
+>>select * from employee_info where designation!='tester';
+
+11.WAQTD incremented salary by 5000 in employee  table.
+>>select sal+5000 incremented from employee_info;
+
+12.WAQTD annual salary from employee table.
+>> select sal*12  annualsal from employee_info;
+
+13.WAQTD all the employees who is working as a software developers in department number 10.
+>>select * from employee_info where designation='software dev'and deptno=10;
+
+14.WAQTD all the employees who is working as a tester and hired after 2015.
+>> select * from employee_info where designation='tester'and doj>'2015-12-31';
+
+15.WAQTD all the employees who is working in dept number 30 and salary is more than 20000.
+>>select * from employee_info where designation='manager'and sal>20000 and deptno=30;
+
+16.WAQTD all the records who is working in dept number 20 or who is working as a hr.
+>>select * from employee_info where designation='hr' or deptno=20;
+
+17.WAQTD all the records who's date of birth is less than 1995 his blood group can be o+.
+>>select * from employee_info where dob>'1995-01-01' and bloodgroup='o+';
+
+18.WAQTD mailid who is working as a tester or analyst or developer.
+>>select ename,emailid from employee_info where designation='tester' or designation='analyst' or designation='software dev';
+
+19.select ename,emailid from employee_info where designation in('tester','analyst','software dev');
+
+20.WAQTD all the records except analyst.
+>>select * from employee_info where designation!='analyst';
+
+21.select * from employee_info where not designation= 'tester';
+
+22.WAQTD all  the employee who are not working in deptno 10,20,30;
+>>select * from employee_info where  not (deptno=10 or deptno=20 or deptno=30);
+
+23.WAQTD all the employees excluding tester who is working in deptno 40.
+>>select * from employee_info where not (designation='tester' and deptno=40);
+
+24.WAQTD all the employees working in dept number 10,20,30.
+>>select * from employee_info where deptno in(10,20,30);
+
+25.WAQTD all the employees working as a clerk or develper,tester,salesman.
+select * from employee_info where designation in('clerk','salesman','software dev','tester');
+
+26.WAQTD detail of hr,developer,tester,salesman who is working under dept number 10,30,40 and salary is greater than 15000.
+>>select * from employee_info where designation in('hr','salesman','software dev','tester')and deptno in(10,30,40) and sal>15000;
+
+27.WAQTD all the records ecluding who is working as a hr, tester.
+>> select * from employee_info where designation not in('hr','tester');
+
+28.WAQTD all the employees who are working in deptno in 20 30 excluding whos designation is analyst,hr,tester.
+>>select * from employee_info where designation not in('hr','tester','analyst')and deptno in(10,20);
+
+29.WAQTD all the employees whos salary range is 20000 to 25000.
+>> select * from employee_info where sal between 20000 and 25000;
+
+30.WAQTD the name ,age of employee whos age range is 20 to 30.
+>>select age,ename from employee_info where age between 20 and 30;
+
+31.WAQTD all the employees whos doj during is 2015.
+>>select age,ename from employee_info where doj between '2015-01-01' and '2015-12-31';
+
+32.WAQTD all the employees excluding whos doj in 2015.
+>>select age,ename from employee_info where doj not between '2015-01-01' and '2015-12-31';
+
+33.WAQTD all the employees excluding whos salary range is 50000 to 700000.
+>>select * from employee_info where sal not between 50000 and 70000;
+
+34.WAQTD all the employees deptno  is null
+>>select * from employee_info where deptno is null;
+
+35.WAQTD all the employees except whos salary is null.
+>> select * from employee_info where sal is not null;
+
+36.WAQTD all the employees whos name starts with s.
+>>select * from employee_info where ename like's%';
+
+37.WAQTD name,emailid from emp table whos names first letter is'a' and last letter is'z'.
+>>select * from employee_info where ename like'a%z';
+
+38.WAQTD all the employee whos name contain alteast one 'l'.
+>> select * from employee_info where ename like'%l%';
+
+39.WAQTD all the emoployee whos second letter should be 'p'.
+>>select * from employee_info where ename like'_p%';
+
+40.WAQTD all the employees whos having atlest 3 characters.
+>> select * from employee_info where ename like'___%';
+
+41.WAQTD all the employees whos emailid containig com.
+>> select * from employee_info where emailid like'%com%';
