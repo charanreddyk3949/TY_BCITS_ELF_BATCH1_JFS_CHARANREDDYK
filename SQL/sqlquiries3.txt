@@ -1,0 +1,245 @@
+
+2019-12-23 (monday)
+
+ 1.show databases;
+
+2.use sqlbcits;
+
+3. select * from employee_info;
+
+functions
+multi row functions:
+------------------------------------------------------
+
+4. select  avg (Salary) from Employee_info;
+
+5.select  max(salary) from Employee_info;
+
+6.select  min(Salary) from Employee_info;
+
+7.select  sum(salary) from Employee_info;
+
+8.select  count(salary) from Employee_info;
+
+single row functions: 
+---------------------------
+
+9.select  upper(name) from Employee_info;
+
+10.select  lower(name) from Employee_info;
+
+11. select  length(name) from Employee_info;
+
+12.select  concat(name,emailId) from Employee_info;
+
+13.select  reverse(name) from Employee_info;
+
+14.select substr(name,1,5) from Employee_info;
+
+15.select instr(name,'kuma') from Employee_info;
+
+
+
+16.select * from employee_info order by sal asc;// 'asc' is optional
+
+17.select * from employee_info order by sal desc;
+
+18.select * from employee_info  group by deptid having sal>20000 order by sal asc;
+
+19.select * from employee_info  group by deptid having count(deptId)>2 order by sal asc;
+
+tcl/dtl(trnsaction control language):
+--------------------------------------------
+
+20.insert into employee_info values(999,'shafi',9704400475,'brshafi@gmail.com','1993-12-13','tester',65000,40,'2014-09-07','ab+','male',30);
+
+21. rollback;  //it cant rollback because my sql is auto commited.
+
+22. set autocommit=0;
+
+23. insert into employee_info values(998,'shfi',9708400475,'bshafi@gmail.com','1993-02-13','tester',65000,40,'2014-01-07','ab+','male',30);
+
+24. select *  from employee_info;
+
+25. rollback;
+
+26.select *  from employee_info;
+
+subqueries:
+---------------
+
+27.select * from employee_info where sal>(select sal from employee_info where ename='baby');
+
+28.WAQTD department information of baby
+>>select * from department where deptid=(select deptid from employee_info where ename='baby');
+
+29.WAQTD all the employees whos sal is greater than charan.
+>>select * from employee_info where sal<=(select sal from employee_info where ename='charan');
+
+30.select * from employee_info where sal in (select sal from employee_info where deptid=10);
+
+31.select * from employee_info where sal >any(select sal from employee_info where deptid=10);
+
+32. set autocommit=0;
+
+33.  savapoint test;
+
+34. update employee_info set ename='aarya' where eid=998;
+
+35.savepoint test1;
+
+36. delete from employee_info where eid=999;
+
+37.select * from employee_info;
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+| eid | ename        | mobileno   | emailid                  | dob        | designation  | sal   | deptid | doj        | bloodgroup | gender | age  |
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+| 123 | vijay        | 9908079945 | vijaykumar@gmail.com     | 1997-09-12 | software dev | 35000 |     10 | 2019-12-10 | a+         | male   |   20 |
+| 349 | jassukumar   | 7834987685 | jassukumar@gmail.com     | 1997-02-25 | manager      | 23500 |     10 | 2016-11-04 | b+         | male   |   30 |
+| 378 | jasmin       | 8794678327 | jasminbabu@gmail.com     | 1995-05-19 | software dev | 43500 |     30 | 2015-07-08 | o+         | female |   27 |
+| 401 | mohanraj     | 9676273905 | mohanrajcr@gmail.com     | 1998-12-19 | analyst      | 15000 |     10 | 2018-03-14 | b+         | male   |   30 |
+| 433 | rajesh       | 9494556129 | rajeshjaikumar@gmail.com | 1997-12-19 | clerk        |  NULL |     20 | 2017-10-14 | a+         | male   |   21 |
+| 439 | anil         | 9866645838 | anilkumar@gmail.com      | 1996-03-21 | tester       | 20000 |     20 | 2019-10-11 | ab+        | male   |   39 |
+| 449 | baby         | 7899445838 | babylr@gmail.com         | 1996-03-19 | hr           | 40000 |     30 | 2018-10-11 | o+         | female |   25 |
+| 659 | amreshpatel  | 8886745971 | amreshpatel@gmail.com    | 1995-07-28 | tester       | 30000 |     10 | 2019-12-16 | o+         | male   |   26 |
+| 678 | charan       | 9745982739 | NULL                     | NULL       | NULL         | 15000 |   NULL | NULL       | NULL       | NULL   |   25 |
+| 754 | janaki       | 7846739287 | janakiram@gmail.com      | 1997-10-28 | clerk        | 12500 |     20 | 2017-07-16 | b+         | female |   29 |
+| 786 | maheshpandey | 9867451971 | maheshpandey@gmail.com   | 1996-12-28 | clerk        | 15000 |     40 | 2017-10-16 | a+         | male   |   25 |
+| 998 | aarya        | 9708400475 | bshafi@gmail.com         | 1993-02-13 | tester       | 65000 |     40 | 2014-01-07 | ab+        | male   |   30 |
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+
+38. rollback to test1;
+
+39.select * from employee_info;
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+| eid | ename        | mobileno   | emailid                  | dob        | designation  | sal   | deptid | doj        | bloodgroup | gender | age  |
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+| 123 | vijay        | 9908079945 | vijaykumar@gmail.com     | 1997-09-12 | software dev | 35000 |     10 | 2019-12-10 | a+         | male   |   20 |
+| 349 | jassukumar   | 7834987685 | jassukumar@gmail.com     | 1997-02-25 | manager      | 23500 |     10 | 2016-11-04 | b+         | male   |   30 |
+| 378 | jasmin       | 8794678327 | jasminbabu@gmail.com     | 1995-05-19 | software dev | 43500 |     30 | 2015-07-08 | o+         | female |   27 |
+| 401 | mohanraj     | 9676273905 | mohanrajcr@gmail.com     | 1998-12-19 | analyst      | 15000 |     10 | 2018-03-14 | b+         | male   |   30 |
+| 433 | rajesh       | 9494556129 | rajeshjaikumar@gmail.com | 1997-12-19 | clerk        |  NULL |     20 | 2017-10-14 | a+         | male   |   21 |
+| 439 | anil         | 9866645838 | anilkumar@gmail.com      | 1996-03-21 | tester       | 20000 |     20 | 2019-10-11 | ab+        | male   |   39 |
+| 449 | baby         | 7899445838 | babylr@gmail.com         | 1996-03-19 | hr           | 40000 |     30 | 2018-10-11 | o+         | female |   25 |
+| 659 | amreshpatel  | 8886745971 | amreshpatel@gmail.com    | 1995-07-28 | tester       | 30000 |     10 | 2019-12-16 | o+         | male   |   26 |
+| 678 | charan       | 9745982739 | NULL                     | NULL       | NULL         | 15000 |   NULL | NULL       | NULL       | NULL   |   25 |
+| 754 | janaki       | 7846739287 | janakiram@gmail.com      | 1997-10-28 | clerk        | 12500 |     20 | 2017-07-16 | b+         | female |   29 |
+| 786 | maheshpandey | 9867451971 | maheshpandey@gmail.com   | 1996-12-28 | clerk        | 15000 |     40 | 2017-10-16 | a+         | male   |   25 |
+| 998 | aarya        | 9708400475 | bshafi@gmail.com         | 1993-02-13 | tester       | 65000 |     40 | 2014-01-07 | ab+        | male   |   30 |
+| 999 | shafi        | 9704400475 | brshafi@gmail.com        | 1993-12-13 | tester       | 65000 |     40 | 2014-09-07 | ab+        | male   |   30 |
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+
+40.rollback to test;
+
+41.select * from employee_info;
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+| eid | ename        | mobileno   | emailid                  | dob        | designation  | sal   | deptid | doj        | bloodgroup | gender | age  |
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+| 123 | vijay        | 9908079945 | vijaykumar@gmail.com     | 1997-09-12 | software dev | 35000 |     10 | 2019-12-10 | a+         | male   |   20 |
+| 349 | jassukumar   | 7834987685 | jassukumar@gmail.com     | 1997-02-25 | manager      | 23500 |     10 | 2016-11-04 | b+         | male   |   30 |
+| 378 | jasmin       | 8794678327 | jasminbabu@gmail.com     | 1995-05-19 | software dev | 43500 |     30 | 2015-07-08 | o+         | female |   27 |
+| 401 | mohanraj     | 9676273905 | mohanrajcr@gmail.com     | 1998-12-19 | analyst      | 15000 |     10 | 2018-03-14 | b+         | male   |   30 |
+| 433 | rajesh       | 9494556129 | rajeshjaikumar@gmail.com | 1997-12-19 | clerk        |  NULL |     20 | 2017-10-14 | a+         | male   |   21 |
+| 439 | anil         | 9866645838 | anilkumar@gmail.com      | 1996-03-21 | tester       | 20000 |     20 | 2019-10-11 | ab+        | male   |   39 |
+| 449 | baby         | 7899445838 | babylr@gmail.com         | 1996-03-19 | hr           | 40000 |     30 | 2018-10-11 | o+         | female |   25 |
+| 659 | amreshpatel  | 8886745971 | amreshpatel@gmail.com    | 1995-07-28 | tester       | 30000 |     10 | 2019-12-16 | o+         | male   |   26 |
+| 678 | charan       | 9745982739 | NULL                     | NULL       | NULL         | 15000 |   NULL | NULL       | NULL       | NULL   |   25 |
+| 754 | janaki       | 7846739287 | janakiram@gmail.com      | 1997-10-28 | clerk        | 12500 |     20 | 2017-07-16 | b+         | female |   29 |
+| 786 | maheshpandey | 9867451971 | maheshpandey@gmail.com   | 1996-12-28 | clerk        | 15000 |     40 | 2017-10-16 | a+         | male   |   25 |
+| 998 | shfi         | 9708400475 | bshafi@gmail.com         | 1993-02-13 | tester       | 65000 |     40 | 2014-01-07 | ab+        | male   |   30 |
+| 999 | shafi        | 9704400475 | brshafi@gmail.com        | 1993-12-13 | tester       | 65000 |     40 | 2014-09-07 | ab+        | male   |   30 |
++-----+--------------+------------+--------------------------+------------+--------------+-------+--------+------------+------------+--------+------+
+
+42.select * from department;
++--------+-----------+-----------+
+| deptid | dname     | location  |
++--------+-----------+-----------+
+|     10 | admin     | bangalore |
+|     20 | hr        | mumbai    |
+|     30 | sales     | chennai   |
+|     40 | operation | hyd       |
++--------+-----------+-----------+
+
+43. savepoint a;
+
+44.insert into department values(50,'dev','pune');
+
+45.select * from department;
++--------+-----------+-----------+
+| deptid | dname     | location  |
++--------+-----------+-----------+
+|     10 | admin     | bangalore |
+|     20 | hr        | mumbai    |
+|     30 | sales     | chennai   |
+|     40 | operation | hyd       |
+|     50 | dev       | pune      |
++--------+-----------+-----------+
+
+46.savepoint b;
+
+47.delete from department where deptid=50;
+
+48. select * from department;
++--------+-----------+-----------+
+| deptid | dname     | location  |
++--------+-----------+-----------+
+|     10 | admin     | bangalore |
+|     20 | hr        | mumbai    |
+|     30 | sales     | chennai   |
+|     40 | operation | hyd       |
++--------+-----------+-----------+
+
+49.rollback to b;
+
+50.select * from department;
++--------+-----------+-----------+
+| deptid | dname     | location  |
++--------+-----------+-----------+
+|     10 | admin     | bangalore |
+|     20 | hr        | mumbai    |
+|     30 | sales     | chennai   |
+|     40 | operation | hyd       |
+|     50 | dev       | pune      |
++--------+-----------+-----------+
+
+51.rollback to a;
+
+52.select * from department;
++--------+-----------+-----------+
+| deptid | dname     | location  |
++--------+-----------+-----------+
+|     10 | admin     | bangalore |
+|     20 | hr        | mumbai    |
+|     30 | sales     | chennai   |
+|     40 | operation | hyd       |
++--------+-----------+-----------+
+
+
+
+---------------------
+joins
+---------------------
+cross joins:
+----------------------
+
+53.select * from employee_info cross join department;
+
+inner joins:
+-----------------------
+54.select * from employee_info e inner join department d where e.deptid=d.deptid;
+
+55.select e.deptid,e.ename,d.dname,d.deptid from employee_info e inner join department d where e.deptid=d.deptid;
+ 
+natural joins:
+--------------------
+56.select * from employee_info natural join department                //natural join (common records )else cross join output.
+
+outer joins
+left outer joins:
+----------------------
+58.select * from employee_info e left outer join department d on e.deptid=d.deptid;
+
+right outer join:
+----------------------
+59.select * from employee_info e right outer join department d on e.deptid=d.deptid;
+
