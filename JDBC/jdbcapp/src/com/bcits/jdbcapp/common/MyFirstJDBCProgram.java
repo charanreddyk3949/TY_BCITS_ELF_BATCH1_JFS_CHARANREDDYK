@@ -10,6 +10,12 @@ import java.sql.Statement;
 import com.mysql.jdbc.Driver;//it is not a part of JDBC
 
 public class MyFirstJDBCProgram {
+	private  MyFirstJDBCProgram() {
+		// TODO Auto-generated constructor stub
+	}
+	public MyFirstJDBCProgram(int a) {
+		
+	}
 
 	public static void main(String[] args) {
 		Connection con = null;
@@ -25,11 +31,12 @@ public class MyFirstJDBCProgram {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
 			// 2.Get the "DB Connection" via "Driver "
-			//String dbUrl = "jdbc:mysql:// 10.10.13.222:3306/employee_management_info?user=root&password=root";
-			String dbUrl = "jdbc:mysql://localhost:3306/employee_management_info";
+			// String dbUrl = "jdbc:mysql:// 10.10.13.222:3306/employee_management_info?user=root&password=root";
+		    String dbUrl = "jdbc:mysql://localhost:3306/employee_management_info";
 
 			//con = DriverManager.getConnection(dbUrl);
-			con = DriverManager.getConnection(dbUrl, "root", "root");
+			
+			con = DriverManager.getConnection(dbUrl,  "root","root");
  
 			// 3.Issue "SQL Queries" via "Connection"
 			String query = "Select * from employee_primary_info";

@@ -1,42 +1,47 @@
-package com.bcits.jdbcapp.pracice;
+package com.bcits.myproperties.commmon;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
-import com.mysql.jdbc.Driver;
-
-public class FindEmployee {
-	
+public class InsertPropertyProgram {
 	public static void main(String[] args) {
-		
-		Connection con=null;
-		Statement stmt=null;
-		ResultSet rs=null;
-		
-		
+		Connection con = null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		Properties properties=new Properties();
 		try {
-			//Load the "Driver"
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-			/*
-			 * Driver dref=new Driver(); DriverManager.deregisterDriver(dref);
-			 */
-			
-			//Get the "Connection "via "Driver"
-			String dbUrl="jdbc:mysql://localhost:3306/ employee_management_info?user=root&password=root";
-			con=DriverManager.getConnection(dbUrl);
-			
-			//"Issue the SQL Query" via "Connection"
-			String query=" select * from employee_primary_info "
-					+ " where empid=9 ";
-			stmt=con.createStatement();
-			rs=stmt.executeQuery(query);
+			FileInputStream inputStream=new FileInputStream("dbInfo.properties");
 		
-			//"Process the result" returned in SQL query
+			properties.load(inputStream);
+			String driverName=properties.getProperty("driveNm");
 			
+			// 1. Load the "Driver".
+			
+			/*
+			 * Driver driveRef = new Driver(); DriverManager.registerDriver(driveRef);
+			 */
+			//Class.forName(properties.getProperty("driveNm")).newInstance();
+			Class.forName(driverName).newInstance();
+
+			// 2.Get the "DB Connection" via "Driver "
+			//String dbUrl = "jdbc:mysql:// 10.10.13.222:3306/employee_management_info?user=root&password=root";
+			//String dbUrl = "jdbc:mysql://localhost:3306/employee_management_info";
+
+			//con = DriverManager.getConnection(dbUrl);
+			con = DriverManager.getConnection(properties.getProperty("dbUrl"), properties.getProperty("user"), properties.getProperty("password"));
+ 
+			// 3.Issue "SQL Queries" via "Connection"
+			String query = "Select * from employee_primary_info";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(query);
+
+			// 4."Process the result" returned by "SQL Queries"
 			while (rs.next()) {
 				int employeeID = rs.getInt("empid");
 				String employeeNM = rs.getString("name");
@@ -65,18 +70,14 @@ public class FindEmployee {
 
 			}
 
-			
-			
-			
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
-		}
-		finally {
+
+		} finally {
+
+			// 5.close all the " JDBC Objects"
 			try {
-				
-				//closing JDBC Objects
-				
 				if (con != null) {
 					con.close();
 				}
@@ -87,12 +88,11 @@ public class FindEmployee {
 					stmt.close();
 				}
 			} catch (SQLException e) {
-				
-				e.printStackTrace();
-			}
-			
-		}
-		
-	}
 
-}
+				e.printStackTrace();
+			} // end of try catch block
+
+		} // end finally
+
+	}// main end
+}// end class
