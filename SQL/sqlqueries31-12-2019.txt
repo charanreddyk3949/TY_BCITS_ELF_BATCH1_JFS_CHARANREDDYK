@@ -1,0 +1,71 @@
+SQL Queries
+---------------
+2019-12-30
+-----------------
+
+1.show databases;
+
+2.use  employee_management_info;
+
+3. Show tables;
+
+4.desc employee_secondary_info;
+
+5.insert into employee_secondary_info(empid,gender,personalmailid,age,nationality,ismarried,govtid,guardianname,guardiancontactno,joblocation)
+  values(1,'male','aniljob@gmail.com',22,'indians','no','547828987349','chandra',9847652389,'bangalore');
+
+6.insert into employee_secondary_info values(2,'male','aniljob@gmail.com',23,'indians','no','adaar card','mahesh',7856739879,'mumbai'),
+    -> values(3,'male','babumanis@gmail.com',25,'indians','no','pan card','ashley',7738952389,'chennai'),
+    -> values(4,'male','nagendra345@gmail.com',27,'indians','no','adaar card','gandhi',984573629,'hyderabad'),
+    -> values(5,'male','ravipuri@gmail.com',24,'indians','no','driving lisence','rahul',9879473626,'delhi'),
+    ->  values(6,'male','dileepammu@gmail.com',23,'indians','no','ration card','prasad',8773473626,'chittor'),
+    -> values(7,'male','prasadvaraammu@gmail.com',21,'indians','no','pan card','naveen',6782356393,'kolkatha'),
+    -> values(8,'male','ganesh@gmail.com',28,'indians','no','adaar card','latheesh',734775893,'mysore'),
+    -> values(9,'male','maheshmadi@gmail.com',20,'indians','no','pan card,'shetty',6474839282,'mysore'),
+    ->  values(10,'male','jagadeeshbabu@gmail.com',26,'indians','no','driving lisence','umesh',7629346742,'kochi');
+
+7.select * from employee_secondary_info;
+
+
+8.insert into department_info values(10,'developing','babu'),(20,'testing','vinay'),
+     ->(30,'sales','mahesh'),(40,'operation','vijay');
+
+9.select * from department_info;
++--------+------------+-----------------+
+| deptid | deptname   | deptmanagername |
++--------+------------+-----------------+
+|     10 | developing | babu            |
+|     20 | testing    | vinay           |
+|     30 | sales      | mahesh          |
+|     40 | operation  | vijay           |
++--------+------------+-----------------+
+
+
+10.insert into employee_bank_info values(1,734849274847,'SBI','palamaneru',746582748473),
+    -> (2,467646763576,'ICIC','marathalli',56678643473),
+    -> (3,648458947593,'HDFC','kannur',5839278494),
+    -> (4,464834947593,'AXIS','hebbala',4765889474),
+    -> (5,968785697967,'corporation bank','btm',47595889474),
+    -> (6,758574378685,'union bank','jpnagar',3576563357),
+    -> (7,565463712673,'andhra bank','ameerpet',5457328176),
+    -> (8,478688683729,'SBI','ashoknagar',32966489347),
+    -> (9,237846578238,'AXIS','electronic city',298656729374),
+    -> (10,09874578659,'karnataka bank','uttarahalli',783468734);
+
+11.select * from employee_bank_info;
++-------+--------------+------------------+-----------------+--------------+
+| empid | accountno    | bankname         | branchname      | ifsccode     |
++-------+--------------+------------------+-----------------+--------------+
+|     1 | 734849274847 | SBI              | palamaneru      | 746582748473 |
+|     2 | 467646763576 | ICIC             | marathalli      | 56678643473  |
+|     3 | 648458947593 | HDFC             | kannur          | 5839278494   |
+|     4 | 464834947593 | AXIS             | hebbala         | 4765889474   |
+|     5 | 968785697967 | corporation bank | btm             | 47595889474  |
+|     6 | 758574378685 | union bank       | jpnagar         | 3576563357   |
+|     7 | 565463712673 | andhra bank      | ameerpet        | 5457328176   |
+|     8 | 478688683729 | SBI              | ashoknagar      | 32966489347  |
+|     9 | 237846578238 | AXIS             | electronic city | 298656729374 |
+|    10 | 9874578659   | karnataka bank   | uttarahalli     | 783468734    |
++-------+--------------+------------------+-----------------+--------------+
+
+12.
