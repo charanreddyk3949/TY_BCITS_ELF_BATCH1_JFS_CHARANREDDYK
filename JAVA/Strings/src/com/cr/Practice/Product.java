@@ -10,7 +10,7 @@ public class Product {
 		this.sno=sno;
 	}
 	public String toString() {
-		return "pname="+name+"  price="+price+"  psno="+sno+"]";
+		return "pname="+name+"  price="+price+"  personsno="+sno+"]";
 	}
 
 }
