@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+       <label for="name">First Name</label><br>
+       <input type="text" name="name" id="">
+   </div><br>
+   <div>
+       <label for="name">Last Name</label><br>
+       <input type="text" name="name" id="">
+   </div><br>
+   <div>
+       <label for="name">Company Name</label><br>
+       <input type="text" name="name" id="">
+   </div><br>
+   <div>
+       <label for="id">Emp ID</label><br>
+       <input type="number" name="id" id="">
+   </div><br>
+   <div>
+       <label for="doj">Date Of Joining</label><br>
+       <input type="date" name="date" id="">
+   </div><br>
+   <div>
+       <label for="gender">Gender</label><br>
+       <input type="radio" name="name" id="gender">Male
+       <input type="radio" name="name" id="gender">Female
+       <input type="radio" name="name" id="gender">Others
+   </div><br>
+   <div>
+       <label for="skills">Skills</label><br>
+       <input type="checkbox" name="java" id="">Java <br>
+       <input type="checkbox" name="sql" id="">Sql <br>
+       <input type="checkbox" name="j2ee" id="">j2ee <br>
+       <input type="checkbox" name="hibernate" id="">Hibernate
+   </div><br>
+   <div>
+       <span>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <input type="button" value="Submit">
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <button>Reset</button>
+    </span>
+   </div>
+</body>
+</html>
