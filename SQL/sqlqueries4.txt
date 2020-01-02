@@ -1,0 +1,107 @@
+ 
+2019-12-28
+---------------
+saturday
+--------------------
+
+1. show databases;
+
+2.create database employee_management_info;
+
+3.show databases;
+
+4.use employee_management_info;
+
+5.create table employee_primary_info(empid int primary key,
+    -> name varchar(150),
+    -> mobileno long,
+    -> officialmailid varchar(150),
+    -> dateofbirth date,
+    -> dateofjoining date,
+    -> designation varchar(150),
+    -> bloodgroup varchar(100),
+    -> salary int,
+    -> deptid int,
+    -> managerid int);
+
+6.insert into employee_primary_info(empid,name,mobileno,officialmailid,dateofbirth,dateofjoining,designation,bloodgroup,salary,deptid,managerid)
+    -> values(123,'charan',9908069999,'charankumar@gmail.com','1997-12-09','2019-12-28','softwaredeveloper','b+',40000,10,456);
+
+7. insert into employee_primary_info values(321,'babu',6578349999,'babubrc@gmail.com','1995-02-09','2016-08-28','tester','a+',35000,30,123),
+    -> (234,'anil',9878349867,'anilkumar@gmail.com','1996-02-11','2017-08-01','manager','o+',20000,20,234),
+    -> (543,'ganesh',7389659867,'ganeshreddyk@gmail.com','1994-10-11','2012-08-17','clerk','ab+',25000,30,256),
+    -> (876,'jagadeesh',9866649867,'jagadeeshbr@gmail.com','1995-03-21','2018-08-01','analyst','a+',50000,20,111),
+    -> (786,'mahesh',9855545838,'maheshbabumnb@gmail.com','1998-05-21','2018-08-09','clerk','b+',21000,10,253);
+
+8.insert into employee_primary_info values(439,'nagendra',6793248919,'nagendraanumula@gmail.com','1997-01-10','2018-09-12','softwaredeveloper','ab+',23100,10,345),
+    ->  (442,'dileep',7682948919,'dileepkattamanchi@gmail.com','1996-01-29','2017-09-18','analyst','a+',31100,40,435),
+    -> (453,'prasad',9676363289,'prasadvara@gmail.com','1996-06-10','2019-09-21','tester','o-',39900,30,453),
+    -> (433,'nagendra',6793248919,'nagendraanumula@gmail.com','1997-01-10','2018-09-12','softwaredeveloper','ab+',23100,10,654);
+
+9.insert into employee_primary_info(empid,name,mobileno,officialmailid,dateofbirth,dateofjoining,designation,bloodgroup,salary,deptid)
+    -> values(978,'krishna',7863548919,'krishnamkumar@gmail.com','1994-02-10','2012-12-30','manager','o+',55100,40);
+
+10.Select * from employee_primary_info;
+
+11.create table employee_secondary_info(empid int primary key,
+    -> gender varchar(100),
+    -> personalmailid varchar(140),
+    -> age int,
+    -> nationality varchar(100),
+    -> ismarried varchar(100),
+    -> govtid varchar(100),
+    -> guardianname varchar(150),
+    -> guardiancontactno long,
+    -> joblocation varchar(150));
+
+12.desc employee_secondary_info;
+
+13.create table department_info(deptid int primary key,
+    -> deptname varchar(150),
+    -> deptmanagername varchar(150));
+
+14.desc department_info;
+
+15.create table employee_bank_info(empid int primary key,
+    -> accountno long,
+    -> bankname varchar(150),
+    -> branchname varchar(150),
+    -> ifsccode varchar(100));
+
+16. desc employee_bank_info;
+
+17.create table employee_address_info(empid int primary key,
+    -> addresstype varchar(300),
+    -> houseno int,
+    -> address1 varchar(250),
+    -> address2 varchar(250),
+    -> landmark varchar(100),
+    -> city varchar(100),
+    -> pincode long);
+
+18.desc employee_address_info;
+
+19. create table employee_education_info(empid int,
+    -> educationtype varchar(150),
+    ->  collagename varchar(150),
+    -> yearofpassedout date,
+    -> stream varchar(150),
+    -> percentage double,
+    -> primary key(empid,educationtype));
+
+20.desc employee_education_info;
+
+21. create table project_info(projid int primary key,
+    -> projname varchar(200),
+    -> technology varchar(100),
+    -> startdate date,
+    -> enddate date,
+    -> location varchar(150));
+
+22. desc project_info;
+
+23.create table employee_project_info(empid int,
+    -> projid int,
+    -> primary key(empid,projid));
+
+24.desc employee_project_info;
