@@ -1,0 +1,89 @@
+form{
+    border: 0px solid;
+    background-color: rgb(2, 26, 28);
+    width: 545px;
+    height: 490px;
+    margin-top: 150px;
+    margin-left: 300px;
+}
+input[type="button"][value="Sign Up"]{
+border: 0px solid;
+color: white;
+ margin-top: 30px;
+ margin-left: 20px;
+ width: 250px;
+ height: 50px;
+ background-color: lightseagreen;
+}
+button{
+border: 0px solid;
+background-color: slategrey;
+margin-top: 20px;
+color: lightsteelblue;
+margin-left: -4px;
+ width: 250px;
+ height: 50px;
+
+}
+h2{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+ margin-top: 40px;
+text-align: center;
+color: white;
+}
+input[type="text"][placeholder="First Name*"]{
+    background-color: rgb(2, 26, 28);
+    border: 2px solid slategrey;
+    color:lightsteelblue;
+    padding-left: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 240px;
+    height: 40px;
+    
+    }
+input[type="text"][placeholder="Last Name*"]{
+    background-color: rgb(2, 26, 28);
+    border: 2px solid slategrey;
+    padding-left: 10px;
+    color: lightsteelblue;
+        width: 234px;
+        height: 40px;
+        
+  }
+input[type="email"][placeholder="Email Address*"]{
+    background-color: rgb(2, 26, 28);
+    border: 2px solid slategrey;
+    color: lightsteelblue;
+    padding-left: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 490px;
+    height: 40px;
+    
+    }
+input[type="password"][placeholder="Set A Password*"]{
+    background-color: rgb(2, 26, 28);
+    color: lightsteelblue;
+    border: 2px solid slategrey;
+    margin-left: 20px;
+    padding-left: 10px;
+    margin-top: 20px;
+        width: 490px;
+        height: 40px;
+}      
+input[type="button"][value="GET STARTED"]{
+    border: 0px;
+    margin-left: 20px;
+    margin-top: 20px;
+    color: white;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 502px;
+    height: 50px;
+    background-color: lightseagreen;
+   }     
+
+    
+
