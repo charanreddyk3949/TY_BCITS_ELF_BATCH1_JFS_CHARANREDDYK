@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Events</title>
+   <style>
+   .prop{
+       display: none  ;
+   }
+   </style>
+<body>
+    <button onclick="showAlert()">
+    Click me!!!!
+</button>
+
+<button  onClick="myshowAlert()">
+    Click to creat element
+</button>
+
+<p id="cgcolor" onmouseover=" changeColorToBlue() " onmouseout=" changeColortoWhite() ">
+    MouseOver on me!!!!</p>
+
+<h1 id='disp' class="prop">Display properties</h1>
+<button id='myBtn' onclick="displayElement()" >Click to show h1 element</button>
+
+
+<input onkeyup="showData()" onkeydown="showDetail()" id="myIpt">
+
+<input id="inp" onkeyup="getInputValue()">
+<h1 id="show"> </h1>
+
+<script src="./event.js"></script>
+</head>
+</body>
+</html>
