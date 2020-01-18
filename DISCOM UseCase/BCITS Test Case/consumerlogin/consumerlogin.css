@@ -1,0 +1,38 @@
+ #head{
+    height: 120px;
+    background-color: cyan;
+    
+}
+#headImg{ 
+  margin-top: 0px;
+width: 200px;
+height: 100px;
+}
+#headText{
+   font-size: 35px;
+   color: mediumblue;
+   padding-left: -200px;
+   text-align: center;
+}
+#navbarSupportedContent{
+    
+    background-color: rgb(211, 122, 233);
+    width: 500px;
+    padding-left: 20px;
+
+}
+#clname{
+padding-left: 10px;
+}
+form.formc{
+  width: 500px;
+  height: 360px;
+  border-radius: 20px;
+  margin-left:200px ;
+  margin-top: 30px;
+  border: 1px solid black;
+  padding-left: 40px;
+  background-color: ghostwhite;
+   background-image: url("/images/Pylons_Main.jpg");
+} 
+ 

@@ -1,0 +1,9 @@
+div.cardcardcontainer{
+    width: 500px;
+    height: 600px;
+}
+
+input[type="email"][placeholder="Email address"]{
+    width: 200px;
+    height: 600px;
+}
