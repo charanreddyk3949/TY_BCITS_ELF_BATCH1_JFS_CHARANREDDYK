@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    
+    <!-- Another way of initialization and destruction phase -->
+    <bean id="message" class="com.bcits.springcore.beans.MessageBean" >
+       <property name="message" value="Hello World ..."></property>   
+ </bean>
+    
+    <!-- manual method for initialization and destruction phase -->
+    <!-- <bean id="message" class="com.bcits.springcore.beans.MessageBean" init-method="init" destroy-method="destroy" scope="prototype   ">
+       <property name="message" value="Hello World ..."></property>
+ </bean>  -->
+  
+  <!--    <bean id="employee" class="com.bcits.springcore.beans.EmployeeBean">
+        <property name="name" value="charan"></property>
+        <property name="age" value="23"></property>
+    </bean>
+    <bean id="employee2" class="com.bcits.springcore.beans.EmployeeBean">
+        <property name="name" value="vinodh"></property>
+        <property name="age" value="25"></property>
+    </bean>  -->
+    
+  <!-- single ton -->
+    <!-- <bean id="employee" class="com.bcits.springcore.beans.EmployeeBean" scope="singleton"></bean> -->
+    
+  <!-- prototype -->
+     <bean id="employee" class="com.bcits.springcore.beans.EmployeeBean" scope="prototype"></bean>
+
+</beans>
