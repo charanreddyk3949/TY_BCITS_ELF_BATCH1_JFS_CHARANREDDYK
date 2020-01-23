@@ -9,4 +9,4 @@ public class DepartmentBean {
 	private String deptName;
 	
 
-}
+}//End of class

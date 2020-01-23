@@ -7,8 +7,9 @@ import com.bcits.springcore.beans.EmployeeBean;
 
 public class EmployeeTest2 {
 	public static void main(String[] args) {
-		ApplicationContext context=new ClassPathXmlApplicationContext("employeeConfig.xml");
-		EmployeeBean employeeBean=context.getBean("employee",EmployeeBean.class);
+		ApplicationContext context=new ClassPathXmlApplicationContext("importAllConfig.xml");
+//		EmployeeBean employeeBean=context.getBean("employee",EmployeeBean.class);
+		EmployeeBean employeeBean=(EmployeeBean) context.getBean("employee");
 		
 		System.out.println("Name= "+employeeBean.getName());
 		System.out.println("Age= "+employeeBean.getAge());

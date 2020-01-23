@@ -43,5 +43,5 @@ public class EmployeeTest {
 		System.out.println("Age= " + employeeBean.getAge());
 		System.out.println("Name= " + employeeBean2.getName());
 		System.out.println("Age= " + employeeBean2.getAge());
-	}
-}
+	}// End of main
+}//End of class

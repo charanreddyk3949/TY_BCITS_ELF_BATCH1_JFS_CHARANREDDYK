@@ -16,6 +16,8 @@
        <property name="message" value="Hello World ..."></property>
  </bean>  -->
   
+  
+  
   <!--    <bean id="employee" class="com.bcits.springcore.beans.EmployeeBean">
         <property name="name" value="charan"></property>
         <property name="age" value="23"></property>
@@ -29,6 +31,6 @@
     <!-- <bean id="employee" class="com.bcits.springcore.beans.EmployeeBean" scope="singleton"></bean> -->
     
   <!-- prototype -->
-     <bean id="employee" class="com.bcits.springcore.beans.EmployeeBean" scope="prototype"></bean>
-
+     <!-- <bean id="employee" class="com.bcits.springcore.beans.EmployeeBean" scope="prototype"></bean>
+ -->
 </beans>
