@@ -3,7 +3,7 @@
     <%String msg = (String) request.getAttribute("msg");
     String errMsg=(String) request.getAttribute("errMsg");
     %>
-    
+    <jsp:include page="header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +15,9 @@
      <legend>Delete employee</legend>
     <form action="./delete">
      <label>Employee ID:</label>
-     <input type="text" name="empId"required>
+     <input type="number" name="empId"required>
           &nbsp;&nbsp;&nbsp;
-     <input type="submit" value="Search">
+     <input type="submit" value="Delete">
      </form>
    </fieldset>
 
@@ -29,3 +29,5 @@
 <% if(errMsg != null && !errMsg.isEmpty()) { %>
    <h3 style="color:red"><%=errMsg %></h3>
 <%} %>
+
+<jsp:include page="footer.jsp"></jsp:include>

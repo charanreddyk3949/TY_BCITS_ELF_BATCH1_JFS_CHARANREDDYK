@@ -14,6 +14,9 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.bcits.springmvcs " />
 	
+	<mvc:interceptors>
+	   <bean class="com.bcits.springmvcs.interceptor.MyEmployeeInterceptor"/>
+	</mvc:interceptors>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	    <property name="prefix" value="/WEB-INF/views/" />

@@ -9,9 +9,9 @@ public interface EmployeeDAO {
 	public EmployeeInfoBean authenticate(int empId, String password);
 	
 	public boolean addEmployee(EmployeeInfoBean bean);
-	public boolean deleteEmployee(int empId);
+	public boolean deleteEmployee(Integer empId);
 	public boolean updateEmployee(EmployeeInfoBean bean);
-	public EmployeeInfoBean getEmployee(int empId);
+	public EmployeeInfoBean getEmployee(Integer empId);
 	public List<EmployeeInfoBean> getAllEmployee();
 
 }

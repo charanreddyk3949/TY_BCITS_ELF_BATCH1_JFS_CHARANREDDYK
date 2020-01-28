@@ -18,7 +18,7 @@
      <legend>Search employee</legend>
     <form action="./search">
      <label>Employee ID:</label>
-     <input type="text" name="empId"required>
+     <input type="number" name="empId"required>
           &nbsp;&nbsp;&nbsp;
      <input type="submit" value="Search">
      </form>

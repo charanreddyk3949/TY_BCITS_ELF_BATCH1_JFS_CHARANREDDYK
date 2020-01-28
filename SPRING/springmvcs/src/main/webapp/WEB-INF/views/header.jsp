@@ -11,10 +11,10 @@
       <thead style="background: lime;">
          <tr style="height: 40px">
             <th><a href="./searchEmpForm">Search Employee</a></th>
-            <th><a href="./addEmployee">Add Employee</a></th>
-            <th><a href="#">Update Employee</a></th>
+            <th><a href="./addForm">Add Employee</a></th>
+            <th><a href="updateEmpForm">Update Employee</a></th>
             <th><a href="./deleteEmpForm">Delete Employee</a></th>
-            <th><a href="./getAllEmployees">GetAll Employees</a></th>
+            <th><a href="./getAllEmpForm">GetAll Employees</a></th>
             <th><a href="./logout">Logout</a></th>
          </tr>
       </thead>
