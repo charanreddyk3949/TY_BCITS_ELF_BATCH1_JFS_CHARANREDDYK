@@ -17,7 +17,7 @@ public class CreateCookieServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		Cookie myCookie=new Cookie("empName", "Banu");
-		myCookie.setMaxAge(5*24*60*60);
+		myCookie.setMaxAge(5*24*60*60 );
 		resp.addCookie(myCookie);
 		
 		PrintWriter out=resp.getWriter(); 

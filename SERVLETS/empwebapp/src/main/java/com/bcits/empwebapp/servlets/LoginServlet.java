@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet{
 			
 			session.setAttribute("EmployeePrimaryInfo", employeePrimaryInfo);
 			
-			out.println("<h1 style='color: navy'>Welcome "+ employeePrimaryInfo.getName() +"</h1>");
+			out.println("<h2 style='color: navy'>Welcome "+ employeePrimaryInfo.getName() +"</h2>");
 			
 			RequestDispatcher dispatcher=req.getRequestDispatcher("./employeeHomePage.html");
 			dispatcher.include(req, resp);

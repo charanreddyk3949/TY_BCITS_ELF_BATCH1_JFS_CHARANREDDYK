@@ -3,6 +3,7 @@ package com.bcits.empwebapp.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,10 @@ public class SearchEmployeeServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String empIdVal =  req.getParameter("empId");
 		
+		ServletContext context=getServletContext();
+		String myContexParamVal=context.getInitParameter("appName");
+		
+		
 		resp.setContentType("text/html");
 		
 		PrintWriter out=resp.getWriter();
@@ -22,8 +27,12 @@ public class SearchEmployeeServlet extends HttpServlet{
 		out.print("Emp Name= balu<br>");
 		out.print("Emp Age= 25<br>");
 		out.print("Salary= 300000<br>");
-		out.print("Designation= developer");
+		out.print("Designation= developer<br>");
+		
+		out.print("</h2>appName= "+myContexParamVal+"</h2>");   
 		out.print("</body>");
+		
+		
 		
 	}// End of doGet
 

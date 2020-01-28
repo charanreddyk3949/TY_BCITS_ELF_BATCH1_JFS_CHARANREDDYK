@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bcits.empwebapp.beans.EmployeePrimaryInfo;
-
+ 
 @WebServlet("/findEmployee")
 public class SearchEmployeeServlet2 extends HttpServlet {
 	
