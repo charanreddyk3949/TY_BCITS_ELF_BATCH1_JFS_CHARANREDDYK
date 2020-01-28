@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<User-info user-id="111">
+    <name>Charan</name>
+    <mobileNo>9908068809</mobileNo>
+    <officialMailid>charan@gmail.com</officialMailid>
+    <dateOfBirth>2020-01-28T13:12:48.368+05:30</dateOfBirth>
+    <dateOfJoining>2020-01-28T13:12:48.368+05:30</dateOfJoining>
+    <designation>Developer</designation>
+    <bloodGroup>b+</bloodGroup>
+    <salary>70000.0</salary>
+    <department-id>30</department-id>
+    <managerId>333</managerId>
+    <password>qwerty</password>
+    <user-other-info>
+        <gender>male</gender>
+        <aadhar>24872592510</aadhar>
+    </user-other-info>
+</User-info>

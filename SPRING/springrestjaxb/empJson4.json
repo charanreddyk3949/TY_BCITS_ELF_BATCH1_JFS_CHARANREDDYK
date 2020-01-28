@@ -1,0 +1,14 @@
+{
+	"name": "Charan",
+	"mobileNo": 9908068809,
+	"officialMailid": "charan@gmail.com",
+	"dateOfBirth": 1580207440882,
+	"dateOfJoining": 1580207440882,
+	"designation": "Developer",
+	"bloodGroup": "b+",
+	"salary": 70000.0,
+	"deptId": 30,
+	"managerId": 333,
+	"employeeId": 101,
+	"password": "qwerty"
+}

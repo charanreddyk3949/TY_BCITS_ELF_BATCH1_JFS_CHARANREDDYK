@@ -1,0 +1,32 @@
+{
+	"userId": 111,
+	"name": "Charan",
+	"mobileNo": 9908068809,
+	"officialMailid": "charan@gmail.com",
+	"dateOfBirth": 1580210018954,
+	"dateOfJoining": 1580210018954,
+	"designation": "Developer",
+	"bloodGroup": "b+",
+	"salary": 70000.0,
+	"deptId": 30,
+	"managerId": 333,
+	"password": "qwerty",
+	"otherInfoBean": {
+		"gender": "male",
+		"aadharNumber": 24872592510
+	},
+	"userAddressesList": [
+		{
+			"street": "abc street",
+			"city": "BLR",
+			"addressType": "t",
+			"housse-no": 1
+		},
+		{
+			"street": "xyz street",
+			"city": "Hyd",
+			"addressType": "c",
+			"housse-no": 2
+		}
+	]
+}

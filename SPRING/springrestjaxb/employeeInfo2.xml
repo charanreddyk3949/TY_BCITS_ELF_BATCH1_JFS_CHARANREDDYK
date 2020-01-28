@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Employee-info emp-id="10">
+    <name>Dileep</name>
+    <mobileNo>9808068809</mobileNo>
+    <officialMailid>dileep@gmail.com</officialMailid>
+    <dateOfBirth>1997-01-28T12:12:31.877+05:30</dateOfBirth>
+    <dateOfJoining>2020-01-28T12:12:31.877+05:30</dateOfJoining>
+    <designation>Developer</designation>
+    <bloodGroup>b+</bloodGroup>
+    <salary>70000.0</salary>
+    <department-id>20</department-id>
+    <managerId>333</managerId>
+</Employee-info>
