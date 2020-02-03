@@ -3,6 +3,7 @@ package com.bcits.discomusecase.consumerdao;
 import java.util.List;
 
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -11,7 +12,12 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.bcits.discomusecase.beans.BillHistory;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
+
+import com.bcits.discomusecase.beans.CurrentBill;
+import com.bcits.discomusecase.beans.MonthlyConsumption;
+import com.bcits.discomusecase.beans.PaymentDetails;
 
 @Repository
 public class ConsumerDAOHibernateImpl implements ConsumerDAO{
@@ -84,7 +90,6 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
         String address2=consumersMasterBean.getAddress2();
         String city=consumersMasterBean.getCity();
         String state=consumersMasterBean.getState();
-        long pinCode=consumersMasterBean.getPinCode();
         String region=consumersMasterBean.getRegion();
         String consumerType=consumersMasterBean.getConsumerType();
         String password=consumersMasterBean.getPassword();
@@ -129,6 +134,7 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
       	if (confirmPassword != null && confirmPassword.isEmpty()) {
 		 	consumersMasterBean2.setConfirmPassword(confirmPassword);
 		}
+      	
       	  
       	  transaction.commit();  
       	  isUpdate=true; 
@@ -160,5 +166,41 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 		
 		return list;
 	}//End of getAllConsumers()
+
+	@Override
+	public CurrentBill getBill(String rrNumber) {
+		EntityManager manager=factory.createEntityManager();
+		CurrentBill currentBill=manager.find(CurrentBill.class, rrNumber);
+		 return currentBill;	
+	}
+
+	@Override
+	public  List<BillHistory> getBillHistory() {
+		 EntityManager manager=factory.createEntityManager();
+		 String jpql=" from BillHistory";
+		 Query query=manager.createQuery(jpql,BillHistory.class);
+		 List<BillHistory> billHistory=query.getResultList();
+		 
+		return billHistory;
+	}
+
+	@Override
+	public PaymentDetails getPaymentDetails(String rrNumber) {
+		EntityManager manager=factory.createEntityManager();
+		PaymentDetails paymentDetails=manager.find(PaymentDetails.class, rrNumber);
+		return paymentDetails;
+	}
+
+	@Override
+	public List<MonthlyConsumption> getMonthlyConsuption() {
+		EntityManager manager =factory.createEntityManager();
+		String jpql=" from MonthlyConsumption";
+		 Query query=manager.createQuery(jpql);
+		List<MonthlyConsumption> consumptionList=query.getResultList();
+		
+		return consumptionList;
+	}//End of getMonthlyConsuption()
+
+	
 
 }//End of class

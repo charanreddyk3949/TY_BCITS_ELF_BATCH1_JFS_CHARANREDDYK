@@ -2,7 +2,12 @@ package com.bcits.discomusecase.consumerdao;
 
 import java.util.List;
 
+
+import com.bcits.discomusecase.beans.BillHistory;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
+import com.bcits.discomusecase.beans.CurrentBill;
+import com.bcits.discomusecase.beans.MonthlyConsumption;
+import com.bcits.discomusecase.beans.PaymentDetails;
 
 public interface ConsumerDAO {
 	
@@ -13,5 +18,11 @@ public interface ConsumerDAO {
 	public boolean updateConsumer(ConsumersMasterBean consumersMasterBean);
 	public ConsumersMasterBean getConsumer(String rrNumber);
 	public List<ConsumersMasterBean> getAllConsumers();
-
+	
+    public CurrentBill getBill(String rrNumber);
+    public List<BillHistory> getBillHistory();
+    
+    public PaymentDetails  getPaymentDetails(String rrNumber);
+    public List<MonthlyConsumption> getMonthlyConsuption();
+   
 }

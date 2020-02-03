@@ -2,12 +2,16 @@ package com.bcits.discomusecase.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bcits.discomusecase.beans.BillHistory;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
+import com.bcits.discomusecase.beans.CurrentBill;
+import com.bcits.discomusecase.beans.MonthlyConsumption;
+import com.bcits.discomusecase.beans.PaymentDetails;
 import com.bcits.discomusecase.consumerdao.ConsumerDAO;
-import com.bcits.discomusecase.customeexceptions.ConsumerException;
 
 @Service
 public class ConsumerServiceImpl implements ConsumerService{
@@ -57,5 +61,34 @@ public class ConsumerServiceImpl implements ConsumerService{
 		return dao.getAllConsumers();
 		
 	}//End of getAllConsumers()
+
+	@Override
+	public CurrentBill getBill(String rrNumber) {
+		
+		return dao.getBill(rrNumber);
+	}
+
+	@Override
+	public List<BillHistory> getBillHistory() {
+		
+		return dao.getBillHistory();
+		
+	}//End of getBillHistory()
+
+	@Override
+	public PaymentDetails getPaymentDetails(String rrNumber) {
+		
+		return dao.getPaymentDetails(rrNumber);
+		
+	}//End of getPaymentDetails()
+
+	@Override
+	public List<MonthlyConsumption> getMonthlyConsuption() {
+		
+		return dao.getMonthlyConsuption();
+		
+	}//End of getMonthlyConsuption()
+
+	
 
 }//End of service

@@ -10,8 +10,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-
-// @Data
+@Data
 @Entity
 @Table(name="consumer_master")
 public class ConsumersMasterBean implements Serializable{
@@ -43,8 +42,6 @@ public class ConsumersMasterBean implements Serializable{
 	private String password;
 	@Column(name="confirm_password")
 	private String confirmPassword;
-	
-	
 	
 	
 	

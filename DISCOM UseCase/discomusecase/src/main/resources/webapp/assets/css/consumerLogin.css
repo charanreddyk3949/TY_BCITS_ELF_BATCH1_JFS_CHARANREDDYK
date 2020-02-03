@@ -1,0 +1,65 @@
+ #head{
+    height: 100px;
+    background-color: cyan;
+    
+}
+#headImg{ 
+  margin-top: 0px;
+width: 200px;
+height: 100px;
+}
+#headText{
+   font-size: 25px;
+   
+   color: skyblue;
+   padding-top: 10PX;
+   text-align: center;
+   margin-right: 370px;
+}
+
+#navbarSupportedContent{
+    
+    background-color: slategrey;
+    width: 500px;
+    padding-left: 20px;
+
+}
+#clname{
+padding-left: 10px;
+}
+form.formc{
+  width: 500px;
+  height: 500px;
+  border-radius: 20px;
+  margin-left:200px ;
+  margin-top: 30px;
+  border: 1px solid black;
+  padding-left: 40px;
+  background-color: ghostwhite;
+   background-image: url("../images/Pylons_Main.jpg");
+} 
+input[type="image"]{
+   height: 160px;
+   width: 171px;
+   margin-top: 0px;
+   margin-left: 125px;
+}
+input[type="number"],input[type="password"],input[type="text"]{
+   margin-left: 50px;
+   width: 350px;
+   border-radius: 10px;
+   text-align: center;
+   height: 50px;
+
+}
+#nemp{
+   margin-left: 90px;
+}
+/* #postsubmit{
+   width: 210px;
+   height: 50px;
+   margin-left: 100px;
+   padding-left: 20px;
+   border-radius: 10px;
+   background-color: turquoise;
+} */

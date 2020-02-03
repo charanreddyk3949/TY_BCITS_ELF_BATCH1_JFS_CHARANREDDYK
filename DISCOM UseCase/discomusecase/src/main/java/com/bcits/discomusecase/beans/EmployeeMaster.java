@@ -11,10 +11,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="employee_master")
 public class EmployeeMaster implements Serializable{
+	
 	@Id
 	@Column(name="emp_id")
-	private int empId;
-	@Column
+	private Integer empId;
+	@Column(name="emp_name")
 	private String empName;
 	@Column
 	private String designation;

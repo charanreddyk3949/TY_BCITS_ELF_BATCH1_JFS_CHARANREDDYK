@@ -12,7 +12,9 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name="current_bill")
 public class CurrentBill implements Serializable {
@@ -24,16 +26,55 @@ public class CurrentBill implements Serializable {
 	private Double initialReading;
 	@Column(name="present_reading")
 	private Double presentReading;
-	@Column(name="total_units")
-	private Double totalUnits;
 	@Column(name="due_date")
 	private Date dueDate;
+	@Column(name="bill_amount")
+	private Double billAmount;
+	@Column
+	private int consumption;
 	
-//	@MapsId
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name="meterNumber")
-//	private ConsumersMasterBean consumerMaster;
-//	
 	
+	public String getRrNumber() {
+		return rrNumber;
+	}
+	public void setRrNumber(String rrNumber) {
+		this.rrNumber = rrNumber;
+	}
+	public Double getInitialReading() {
+		return initialReading;
+	}
+	public void setInitialReading(Double initialReading) {
+		this.initialReading = initialReading;
+	}
+	public Double getPresentReading() {
+		return presentReading;
+	}
+	public void setPresentReading(Double presentReading) {
+		this.presentReading = presentReading;
+	}
+	public Date getDueDate() {
+		return dueDate;
+	}
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+	public Double getBillAmount() {
+		return billAmount;
+	}
+	public void setBillAmount(Double billAmount) {
+		this.billAmount = billAmount;
+	}
+	public int getConsumption() {
+		return consumption;
+	}
+	public void setConsumption(int consumption) {
+		this.consumption = consumption;
+	}
+	
+	
+	
+	
+	
+		
 	
 }
