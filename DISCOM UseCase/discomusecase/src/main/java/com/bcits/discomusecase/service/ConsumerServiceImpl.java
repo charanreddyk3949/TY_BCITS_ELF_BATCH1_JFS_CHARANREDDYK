@@ -1,5 +1,6 @@
 package com.bcits.discomusecase.service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -89,6 +90,13 @@ public class ConsumerServiceImpl implements ConsumerService{
 		
 	}//End of getMonthlyConsuption()
 
+	@Override
+	public boolean billPaymentPage(String rrNumber, Date date, Double amtPaid) {
+		
+		return dao.billPaymentPage(rrNumber, date, amtPaid);
+	}
+
+	
 	
 
 }//End of service

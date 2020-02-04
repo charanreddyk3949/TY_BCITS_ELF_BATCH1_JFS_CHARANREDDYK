@@ -1,6 +1,14 @@
+<%@page import="com.bcits.discomusecase.beans.BillHistory"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+    <%String errMsg=(String) session.getAttribute("errMsg"); 
+       List<BillHistory> billData=(List<BillHistory>) request.getAttribute("billHistory");
+       
+    %>
+    
+    <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
     
     <spring:url var="css" value="/resources/css"/>
     <spring:url var="js" value="/resources/js"/>
@@ -43,36 +51,41 @@
   <li class="nav-item">
       <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
     </li>
+  
+  <li class="nav-item">
+    <a class="nav-link disabled" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#" tabindex="-1" >New Connection</a>
+  </li>
 </ul>
 <form class="form-inline my-2 my-lg-0">
-         <a href="../consumer/logout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
-        </form>
+  <input class="form-control mr-sm-2" type="search"style="font-size:13px" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
 </div>
 </nav>
-<a href="../consumer/paymentDetails" role="button" class="btn btn-info"style="width: 100%;color :white; font-size: 20px ">Payment Details</a>
-   
-    <div class="container">
-        <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">
-
-    <form action="" style="border: 1px solid black;width: 600px;height: 540px; margin-left: 300px; background-color: whitesmoke; ">
-        <div style="border: 1px solid black;text-align: center;background-color: #00ff00;height: 70px; color: white;">
-        <h1>Success</h1>
-        </div>
-        <div style="margin-top: 30px;">
-          <img src="${images}/paymentsuccess.jpg " alt="" style="height: 200px;width: 200px;margin-left: 200px;">
-        </div>
-
-        <h2 style="text-align: center; font-size: 30px;color:forestgreen;">Bill Payment is successfull (: </h2>
-        
-        
-        <div style="padding-top: 20px;text-align: center;">
-            <h2 style="color: dodgerblue;">DISCOM bill payment 500 is successfull !!!</h2>  
-        </div>
-        
-    </form>
- </div>
- </div>
-    
-    
+  <% if(billData != null) { %>
+       <div align="center">
+           <table border="1" style="width: 70%">
+              <tr style="background: navy; color: white">
+                 <th>RR Number</th>
+                 <th>Date</th>
+                 <th>Bill Amount</th>
+                 <th>Units</th>
+                 
+              </tr>
+              <%for(BillHistory billDetails :billData) { %>
+              <tr>
+                   <td><%= billDetails.getBillHistoryPK().getRrNumber() %></td>
+                   <td><%= billDetails.getBillHistoryPK().getDate() %></td>
+                   <td><%= billDetails.getBillAmount() %></td>
+                   <td><%= billDetails.getUnitsConsumed() %></td>
+              </tr>
+              <% } %>
+           </table>
+       </div>
+    <% } %>  
+ 
+<% if(errMsg !=null && !errMsg.isEmpty()) {%>
+<h3 style="color: red ;padding-left:550px"><%= errMsg %></h3>
+<% } %>
 </body>
-</html>>
+</html>

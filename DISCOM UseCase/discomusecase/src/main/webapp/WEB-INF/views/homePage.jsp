@@ -24,7 +24,7 @@
        <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
           <img id="headImg" src="${images}/discom.png" alt="">
           <form class="form-inline">
-              <p id="headText">Discom Electric Power Supply Limited  </p> 
+              <p id="headText">Discom Power Limited  </p> 
               <a href="">English</a>&nbsp;|&nbsp;
                <a href="" style="margin-right:20px">Kannada</a>
           </form>
@@ -41,15 +41,8 @@
           </li>
           <li class="nav-item">
               <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../employee/employeeLogin">Employee Portal</a>
-            </li>          
-          <li class="nav-item">
-            <a class="nav-link disabled" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#" tabindex="-1" >New Connection</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search"style="font-size:13px" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+            </li>            
+        </ul>       
       </div>
      </nav>
     

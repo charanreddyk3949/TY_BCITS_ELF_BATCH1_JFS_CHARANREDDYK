@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.bcits.discomusecase.beans.BillHistory;
@@ -32,6 +33,7 @@ public class EmployeeController {
 	
 	@Autowired
 	 private EmployeeService service;
+	
 	@Autowired
 	private ConsumerService servicec;
 	
@@ -56,9 +58,14 @@ public class EmployeeController {
 		if (employeeMaster != null) {
 			//Valid credentials
 			HttpSession session= req.getSession(true);
-			session.setAttribute("loggedinEmpInfo", employeeMaster);
+			modelMap.addAttribute("loggedinEmpInfo", employeeMaster);
 			
-			
+			EmployeeMaster master=service.getEmployeedetails(empId);
+			if (master != null) {
+				modelMap.addAttribute("EmployeeDetails", master);
+			}else {
+				session.setAttribute("msg", "No Employee Details Found");
+			}	
 			return "employeeHome";	
 		}else {
 			//Invalid credentials
@@ -67,18 +74,21 @@ public class EmployeeController {
 		}
 	}//End of authenticate()
 	
-	@GetMapping("/getConsumerDetails")
-	public String getEmployeeHome(int empId,@SessionAttribute(name = "loggedinEmpInfo" ,required = false) EmployeeMaster employeemaster,ModelMap modelMap) {
+	
+	//@RequestMapping(path = "/getConsumers" ,method = RequestMethod.GET)
+	@GetMapping("/employeeConsumerDetails")
+	public String getEmployeeHome(String region,@SessionAttribute(name = "loggedinEmpInfo" ,required = false) EmployeeMaster employeemaster,ModelMap modelMap) {
 		
 		if (employeemaster != null) {
 			//Valid Session
-			List<ConsumersMasterBean> masterBean= servicec.getAllConsumers();
-			List<BillHistory> histories=servicec.getBillHistory();
 			
-			if (masterBean != null || histories != null) {
-				modelMap.addAttribute("consumerDetails", masterBean);
-				modelMap.addAttribute("billData", histories);
+	       List<ConsumersMasterBean> masterBean= service.getemployeeConsumers(region);
+			if (masterBean != null ) {
+				
+			modelMap.addAttribute("consumerDetails",masterBean);
 			
+			}else {
+				modelMap.addAttribute("errMsg", "No consumers in this region");
 			}
 			return "employeeHome";
 		}else {

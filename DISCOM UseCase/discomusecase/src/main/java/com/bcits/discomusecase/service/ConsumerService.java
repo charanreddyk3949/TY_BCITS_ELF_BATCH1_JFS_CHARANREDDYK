@@ -1,5 +1,6 @@
 package com.bcits.discomusecase.service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,4 +25,6 @@ public ConsumersMasterBean authenticate(String rrNumber, String password);
 	
 	 public PaymentDetails  getPaymentDetails(String rrNumber);
 	 public List<MonthlyConsumption> getMonthlyConsuption();
+	 
+	 public boolean billPaymentPage(String rrNumber,Date date, Double billAmount);
 }//End of ConsumerService

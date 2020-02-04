@@ -1,13 +1,19 @@
 package com.bcits.discomusecase.consumerdao;
 
+import java.util.List;
+
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.EmployeeMaster;
+
 
 @Repository
 public class EmployeeDAOHibenateImpl implements EmployeeDAO{
@@ -27,5 +33,31 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 		}
 
 	}
+
+	@Override
+	public List<ConsumersMasterBean> getemployeeConsumers(String region) {
+	     EntityManager manager=factory.createEntityManager();
+		 String jpql=" from ConsumersMasterBean where region = :regionc";
+		  Query query=manager.createQuery(jpql);
+		  query.setParameter("regionc", region);
+		  List<ConsumersMasterBean> list=query.getResultList();
+		  if (list != null) {
+			  return list;
+		}else {
+			return null;
+		}
+		 
+	 
+	
+	}
+
+	
+
+	@Override
+	public EmployeeMaster getEmployeedetails(int empId) {
+		EntityManager manager=factory.createEntityManager();
+		EmployeeMaster employeeMasters=manager.find(EmployeeMaster.class, empId);
+		return employeeMasters;
+	}//End of getEmployeeDetails
 
 }

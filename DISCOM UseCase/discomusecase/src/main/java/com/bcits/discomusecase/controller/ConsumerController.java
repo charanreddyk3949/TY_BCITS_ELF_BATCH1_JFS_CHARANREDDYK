@@ -295,4 +295,24 @@ public class ConsumerController {
 		
 	}
 	
+	@PostMapping("/addPaymentDetails")
+  public String getPaymentDetails(String rrNumber,Date date,Double amtPaid,@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap) {
+	  if (consumersMasterBean != null) {
+		  
+		  Date date1=new Date();
+		 boolean isAdd= service.billPaymentPage(consumersMasterBean.getRrNumber(), date1, amtPaid);
+		 if (isAdd) {
+			 modelMap.addAttribute("msg", "Payment Successfull!!!");
+			
+		}else {
+			modelMap.addAttribute("errMsg", "Payment failed");
+		}
+		return "paymentPage";
+	}else {
+		modelMap.addAttribute("errMsg", "Please Login First");
+		
+		return "consumerLogin";
+	}
+  }
+	
 }//End of Class

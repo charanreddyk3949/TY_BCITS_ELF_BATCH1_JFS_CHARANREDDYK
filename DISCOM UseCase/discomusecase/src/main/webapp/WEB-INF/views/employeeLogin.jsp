@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+     <% String msg=(String) request.getAttribute("msg");
+       String errMsg=(String) request.getAttribute("errMsg"); %>
     <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
     
     <spring:url var="css" value="/resources/css"/>
@@ -23,7 +24,7 @@
     <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
       <img id="headImg" src="${images}/discom.png" alt="">
       <form class="form-inline">
-          <p id="headText">Discom Electric Power Supply Limited  </p> 
+          <p id="headText">Discom Power Limited  </p> 
           <a href="">English</a>&nbsp;|&nbsp;
            <a href="" style="margin-right:20px">Kannada</a>
       </form>
@@ -33,7 +34,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul  class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/homepage/homepage.html">Home </a>
+        <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/homepage">Home </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/consumerlogin/consumerlogin1.html">Consumer Portal</a>
@@ -42,27 +43,30 @@
           <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
         </li>
       
-      <li class="nav-item">
-        <a class="nav-link disabled" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#" tabindex="-1" >New Connection</a>
-      </li>
     </ul>
   </div>
 </nav>
 
+<%if(msg !=null && !msg.isEmpty()) {%>
+<h3 style="color: green"><%= msg %></h3>
+<% } %>
+ <%if(errMsg !=null && !errMsg.isEmpty()) {%>
+<h3 style="color: red; margin-left: 700px"><%= errMsg %></h3>
+<% } %>
     
      <body background="${images}/img2.jpg"
 	  style="background-size: cover; background-position: center; background-repeat: no-repeat; 
-	  background-size: cover; height: 724px;">
+	  background-size: cover; height: 724px;"/>
 
 	<div class="container">
 		<!--  <div class="card card-container">
             <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">    -->
-		<form id="cform" action="./employeeLogin">
+		<form id="cform" action="../employee/empLogin" method="post">
 			<h1>Employee Login</h1>
 			<br>
 			<br>
 			<br> <input type="image" src="${images}/user.png" alt="">
-			<input type="text" name="userId" id="" placeholder="employee Id"><br>
+			<input type="text" name="empId" id="empId" placeholder="employee Id"><br>
 			<br> <input type="password" name="password"
 				placeholder="password"><br>
 			<br>

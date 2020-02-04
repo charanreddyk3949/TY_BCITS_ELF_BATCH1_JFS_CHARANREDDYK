@@ -1,5 +1,6 @@
 package com.bcits.discomusecase.consumerdao;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -13,6 +14,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.bcits.discomusecase.beans.BillHistory;
+import com.bcits.discomusecase.beans.BillHistoryPK;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 
 import com.bcits.discomusecase.beans.CurrentBill;
@@ -200,6 +202,70 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 		
 		return consumptionList;
 	}//End of getMonthlyConsuption()
+
+	@Override
+	public boolean billPaymentPage(String rrNumber, Date date, Double amtPaid) {
+		CurrentBill bill=new CurrentBill();
+		EntityManager manager =factory.createEntityManager();
+		EntityTransaction transaction=manager.getTransaction();
+	    PaymentDetails paymentDetails=  new PaymentDetails();
+	    PaymentDetails details=manager.find(PaymentDetails.class, rrNumber);
+	    ConsumersMasterBean consumersMasterBean=manager.find(ConsumersMasterBean.class, rrNumber);
+	    boolean isAdded=false;		
+	  if(details == null) {
+	    paymentDetails.setRrNumber(rrNumber);
+	    paymentDetails.setTxnNumber(8756487);
+	    paymentDetails.setTxnDate(date);
+	    paymentDetails.setTxnType("Online payment");
+	    paymentDetails.setTxnAmount(amtPaid);
+	    paymentDetails.setAmtPaid(amtPaid);
+	    paymentDetails.setTxnStatus("Success");
+	    
+	    
+	     
+	    try {
+	    	transaction.begin();
+	    	manager.persist(paymentDetails);
+	       
+	    	transaction.commit();
+	    	isAdded= true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+		}	
+	  }else {
+		  try {
+			  transaction.begin();
+			  BillHistory billHistory=new BillHistory();
+			  BillHistoryPK billHistoryPK=new BillHistoryPK();
+			  billHistoryPK.setRrNumber(rrNumber);
+			  billHistoryPK.setDate(date);
+			  billHistory.setBillAmount(paymentDetails.getTxnAmount());
+			  billHistory.setRegion(consumersMasterBean.getRegion());
+			  billHistory.setUnitsConsumed(bill.getConsumption());
+			  billHistory.setBillHistoryPK(billHistoryPK);
+			  
+			  manager.persist(billHistory);
+			  
+			  
+			  details.setTxnNumber(9756487);
+			  details.setTxnDate(date);
+			  details.setTxnType("Online payment");
+			  details.setTxnAmount(amtPaid);
+			  details.setAmtPaid(amtPaid);
+			  details.setTxnStatus("Success");
+			  transaction.commit();
+		      isAdded= true;
+			
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		}
+		    
+	   isAdded=true;
+	}
+		return isAdded;
+	}
 
 	
 

@@ -1,6 +1,12 @@
+<%@page import="com.bcits.discomusecase.beans.PaymentDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+  
+  <%  String errMsg=(String) session.getAttribute("errMsg"); 
+       PaymentDetails paymentDetails=(PaymentDetails) session.getAttribute("consumerDetails");
+    %>
+    
+    <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
     
     <spring:url var="css" value="/resources/css"/>
     <spring:url var="js" value="/resources/js"/>
@@ -18,7 +24,6 @@
     <link rel="stylesheet" href="${css}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${css}/all.css">
 </head>
-<body>
 <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
   <img id="headImg" src="${images}/discom.png" alt="">
   <form class="form-inline">
@@ -49,30 +54,54 @@
         </form>
 </div>
 </nav>
-<a href="../consumer/paymentDetails" role="button" class="btn btn-info"style="width: 100%;color :white; font-size: 20px ">Payment Details</a>
-   
-    <div class="container">
-        <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">
+  <%if (paymentDetails != null) { %>
+       <div >
+           <table style="margin-left: 600px;font-size: 20px" >
+              <tr>
+                 <th>Transaction Number</th>
+                 <td>:</td>
+                <td> <%= paymentDetails.getTxnNumber() %></td>
+              </tr>
+               <tr>
+                 <th>Transaction Date</th>
+                 <td>:</td>
+                <td> <%= paymentDetails.getTxnDate() %></td>
+              </tr>
+              <tr>
+                 <th>RR Number</th>
+                 <td>:</td>
+                <td> <%= paymentDetails.getRrNumber() %></td>
+              </tr>
+              <tr>
+                 <th>Transaction Type</th>
+                 <td>:</td>
+                <td> <%= paymentDetails.getTxnType() %></td>
+              </tr>
+              <tr>
+                 <th>Amount Payable</th>
+                 <td>:</td>
+                <td> <%= paymentDetails.getAmtPaid() %></td>
+              </tr>
+              <tr>
+                 <th>Transaction Amount</th>
+                 <td>:</td>
+                <td> <%= paymentDetails.getTxnAmount() %></td>
+              </tr>
+              <tr>
+                 <th>Amount Payable</th>
+                 <td>:</td>
+                <td> <%= paymentDetails.getTxnStatus() %></td>
+              </tr>
+              
+           </table>
+       
+       </div>
+   <% }%>
+ 
+ 
 
-    <form action="" style="border: 1px solid black;width: 600px;height: 540px; margin-left: 300px; background-color: whitesmoke; ">
-        <div style="border: 1px solid black;text-align: center;background-color: #00ff00;height: 70px; color: white;">
-        <h1>Success</h1>
-        </div>
-        <div style="margin-top: 30px;">
-          <img src="${images}/paymentsuccess.jpg " alt="" style="height: 200px;width: 200px;margin-left: 200px;">
-        </div>
-
-        <h2 style="text-align: center; font-size: 30px;color:forestgreen;">Bill Payment is successfull (: </h2>
-        
-        
-        <div style="padding-top: 20px;text-align: center;">
-            <h2 style="color: dodgerblue;">DISCOM bill payment 500 is successfull !!!</h2>  
-        </div>
-        
-    </form>
- </div>
- </div>
-    
-    
+<% if(errMsg !=null && !errMsg.isEmpty()) {%>
+<h3 style="color: red ;padding-left:550px"><%= errMsg %></h3>
+<% } %>
 </body>
-</html>>
+</html>

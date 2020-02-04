@@ -8,6 +8,7 @@
     
      <% String msg=(String) request.getAttribute("msg");
        String errMsg=(String) request.getAttribute("errMsg");
+       String errSignupMsg=(String) request.getAttribute("errSignupMsg");
     %>
     
     
@@ -38,7 +39,7 @@
           <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
             <img id="headImg" src="${images}/discom.png" alt="">
             <form class="form-inline">
-                <p id="headText"style="margin-right:450px">Discom Electric Power Supply Limited </p> 
+                <p id="headText"style="margin-right:450px">Discom Power Limited </p> 
                 <a href="">English</a>&nbsp;|&nbsp;
                  <a href="" style="margin-right:20px">Kannada</a>
             </form>
@@ -56,22 +57,18 @@
               <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#">Home </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#">AboutUs</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#">Consumer Portal</a>
               </li>
-            
             <li class="nav-item">
-              <a class="nav-link disabled" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#" tabindex="-1" >New Connection</a>
-            </li>
+          <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
+        </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search"style="font-size:13px" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          
         </div>
       </nav>
+      <% if(errSignupMsg !=null && !errSignupMsg.isEmpty()) {%>
+       <h3 style="color: green; padding-left:370px"><%= errSignupMsg %></h3>
+       <% } %>
       
      <% if(msg !=null && !msg.isEmpty()) {%>
        <h3 style="color: green; padding-left:270px"><%= msg %></h3>

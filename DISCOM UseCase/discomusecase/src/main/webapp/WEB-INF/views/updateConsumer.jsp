@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+
     <% String msg=(String) request.getAttribute("msg");
        String errMsg=(String) request.getAttribute("errMsg");
     %>
@@ -64,13 +64,12 @@
     <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">
       
       
-      <body background="${images}/power-lines-fields-seen.jpg" style="background-size:cover;background-position: center; 
-            background-repeat: no-repeat; 
+      <body background="${images}/power-lines-fields-seen.jpg" style="background-size:cover;background-position: center; background-repeat: no-repeat; 
             background-size: cover; height: 724px;">
 
            <!--  <form id="consumersignupform"  > -->
-             <h1 id="heading">DISCOM Consumer Registration</h1>
-              <form action="../consumer/addConsumer" method="post">
+             <h1 id="heading">Edit Consumer</h1>
+              <form action="../consumer/updateConsumer" method="post">
                 <div class="form-row" >
                   <div class="col">
                     <label for="inputEmail4">Name</label>
@@ -86,10 +85,6 @@
                   <label for="inputEmail4">Email</label>
                   <input type="email" class="form-control" id="email"name="email" placeholder="enter email ID">
                 </div>
-                <div class="form-group col-md-12" style="margin-top: -20px;">
-                <label for="inputAddress">Mobile Number</label>
-                <input type="number" class="form-control" id="mobileNumber"name="mobileNumber" style="height: 25px" placeholder="enter mobile number...">
-              </div>
               </div>
               <div class="form-group" style="margin-top: -20px;">
                 <label for="inputAddress">Address</label>

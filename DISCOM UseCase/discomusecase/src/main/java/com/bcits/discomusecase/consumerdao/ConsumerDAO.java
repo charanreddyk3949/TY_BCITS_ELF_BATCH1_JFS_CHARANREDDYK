@@ -1,5 +1,6 @@
 package com.bcits.discomusecase.consumerdao;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,4 +26,5 @@ public interface ConsumerDAO {
     public PaymentDetails  getPaymentDetails(String rrNumber);
     public List<MonthlyConsumption> getMonthlyConsuption();
    
+    public boolean billPaymentPage(String rrNumber,Date date, Double amtPaid);
 }
