@@ -24,7 +24,7 @@
     <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
       <img id="headImg" src="${images}/discom.png" alt="">
       <form class="form-inline">
-          <p id="headText">Discom Power Limited  </p> 
+          <p id="headText" style="font-size: 45px;margin-right: 570px;">Discom Power Limited  </p> 
           <a href="">English</a>&nbsp;|&nbsp;
            <a href="" style="margin-right:20px">Kannada</a>
       </form>
@@ -59,8 +59,7 @@
 	  background-size: cover; height: 724px;"/>
 
 	<div class="container">
-		<!--  <div class="card card-container">
-            <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">    -->
+		
 		<form id="cform" action="../employee/empLogin" method="post">
 			<h1>Employee Login</h1>
 			<br>

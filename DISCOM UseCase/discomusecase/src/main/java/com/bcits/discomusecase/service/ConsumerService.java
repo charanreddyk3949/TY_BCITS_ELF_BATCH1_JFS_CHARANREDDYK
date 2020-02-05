@@ -26,5 +26,5 @@ public ConsumersMasterBean authenticate(String rrNumber, String password);
 	 public PaymentDetails  getPaymentDetails(String rrNumber);
 	 public List<MonthlyConsumption> getMonthlyConsuption();
 	 
-	 public boolean billPaymentPage(String rrNumber,Date date, Double billAmount);
+	 public boolean billPaymentPage(String rrNumber,Date date, Double amtPaid);
 }//End of ConsumerService

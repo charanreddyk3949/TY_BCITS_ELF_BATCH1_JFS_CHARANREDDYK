@@ -1,5 +1,6 @@
 package com.bcits.discomusecase.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public EmployeeMaster getEmployeedetails(int empId) {
+	public EmployeeMaster getEmployeedetails(Integer empId) {
 		
 		return dao.getEmployeedetails(empId);
 	}
+
+	@Override
+	public ConsumersMasterBean getConsumer(String rrNumber) {
+		
+		return dao.getConsumer(rrNumber);
+	}
+
+	@Override
+	public Double getFinalReading(String rrNumber) {
+		
+		return dao.getFinalReading(rrNumber);
+	}
+
+	
 
 }//End of Service

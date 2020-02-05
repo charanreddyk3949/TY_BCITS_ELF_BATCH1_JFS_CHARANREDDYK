@@ -50,21 +50,30 @@ public class EmployeeController {
 		
 	}//End of displayEmployeeLoginForm()
 	
+	@GetMapping("/billGenerationPage")
+	public String displayBillGenerationForm() {
+		
+		return "billGeneration";
+		
+	}//End of displayBillGenerationForm()
+	
+	
 	@PostMapping("/empLogin")
 	public String authenticate(Integer empId, String password,HttpServletRequest req, ModelMap modelMap) {
 
 		EmployeeMaster employeeMaster=service.authenticate(empId, password);
 		
+		
 		if (employeeMaster != null) {
 			//Valid credentials
 			HttpSession session= req.getSession(true);
-			modelMap.addAttribute("loggedinEmpInfo", employeeMaster);
+			session.setAttribute("loggedinEmpInfo", employeeMaster);
 			
 			EmployeeMaster master=service.getEmployeedetails(empId);
 			if (master != null) {
-				modelMap.addAttribute("EmployeeDetails", master);
+				modelMap.addAttribute("employeeDetails", master);
 			}else {
-				session.setAttribute("msg", "No Employee Details Found");
+				modelMap.addAttribute("msg", "No Employee Details Found");
 			}	
 			return "employeeHome";	
 		}else {
@@ -77,27 +86,95 @@ public class EmployeeController {
 	
 	//@RequestMapping(path = "/getConsumers" ,method = RequestMethod.GET)
 	@GetMapping("/employeeConsumerDetails")
-	public String getEmployeeHome(String region,@SessionAttribute(name = "loggedinEmpInfo" ,required = false) EmployeeMaster employeemaster,ModelMap modelMap) {
+	public String getAllConsumers(HttpSession session,ModelMap modelMap) {
+		EmployeeMaster employeemaster=(EmployeeMaster) session.getAttribute("loggedinEmpInfo");
 		
-		if (employeemaster != null) {
-			//Valid Session
-			
-	       List<ConsumersMasterBean> masterBean= service.getemployeeConsumers(region);
-			if (masterBean != null ) {
-				
-			modelMap.addAttribute("consumerDetails",masterBean);
-			
-			}else {
-				modelMap.addAttribute("errMsg", "No consumers in this region");
-			}
-			return "employeeHome";
-		}else {
-			//Invalid Session
-			modelMap.addAttribute("errMsg", "Please Login first");
+		if (session.isNew()) {
+			session.invalidate();
+             modelMap.addAttribute("errMsg", "Please Login first");
 			
 			return "empLogin";
+			}else {
+				if(employeemaster != null) {
+			   //Valid Session
+			   String region=employeemaster.getRegion();
+	           List<ConsumersMasterBean> masterBean= service.getemployeeConsumers(region);
+	           
+	           modelMap.addAttribute("consumerDetails",masterBean);
+	           return "employeeHome";
+			   }else {
+				modelMap.addAttribute("errMsg", "No consumers in this region");
+				return "employeeHome";
+			   }
+			   
 		}
 		
+	}//End of getAllEmployes()
+	@GetMapping("/consumerBillGeneration")
+	public String getAllConsumersBillGeneration(HttpSession session,ModelMap modelMap) {
+		EmployeeMaster employeemaster=(EmployeeMaster) session.getAttribute("loggedinEmpInfo");
+		
+		if (session.isNew()) {
+			session.invalidate();
+             modelMap.addAttribute("errMsg", "Please Login first");
+			
+			return "employeeLogin";
+			}else {
+				if(employeemaster != null) {
+			   //Valid Session
+			   String region=employeemaster.getRegion();
+	           List<ConsumersMasterBean> masterBean= service.getemployeeConsumers(region);
+	           
+	           modelMap.addAttribute("consumerBillDetails",masterBean);
+	           return "employeeHome";
+			   }else {
+				modelMap.addAttribute("errMsg", "No consumers in this region");
+				return "employeeHome";
+			   }
+			   
+		}
+		
+	}//End of getAllConsumersBillGeneration()
+	
+	@GetMapping("/getBillInputDetails")
+	public String setRrNumAndFinalReading(String rrNumber,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
+		
+	   if (employeeMaster != null) {
+		   ConsumersMasterBean consumersMasterBean=service.getConsumer(rrNumber);
+//		   Double finalReading=service.getFinalReading(rrNumber);
+		   CurrentBill currentBill=servicec.getBill(rrNumber);
+		   if (consumersMasterBean != null) {
+			 modelMap.addAttribute("consumerDetails", consumersMasterBean);
+			 modelMap.addAttribute("finalreadingValue", currentBill); 
+		   }
+		   return "billGeneration";
+		
+	}else {
+		modelMap.addAttribute("errMsg", "Please Login First");
+		return "employeeLogin";
 	}
 	
+	}//End of setRrNumAndFinalReading()
+	
+//	@PostMapping("/billGeneration")
+//	public String getGenerateBillAmount(String rrNumber,Double presentReading,String consumerType,Date dueDate,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
+//		
+//		if (employeeMaster != null) {
+//			Double billAmount=service.getBillGenerator(rrNumber, presentReading, consumerType, dueDate);
+//             if (billAmount != null) {
+//				modelMap.addAttribute("billDetails", billAmount);
+//				modelMap.addAttribute("msg","Bill is Generated Successfully!!!");
+//			    }
+//             return "billGeneration";
+//		}else {
+//			modelMap.addAttribute("errMsg", "Bill generation is failed Please try again.");
+//			
+//			return "billGeneration";
+//		  }
+//		
+//		
+//		
+//	}//getGenerateBillAmount()
+	
+
 }//End of controller

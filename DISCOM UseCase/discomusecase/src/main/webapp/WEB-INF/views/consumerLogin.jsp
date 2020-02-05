@@ -39,7 +39,7 @@
           <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
             <img id="headImg" src="${images}/discom.png" alt="">
             <form class="form-inline">
-                <p id="headText"style="margin-right:450px">Discom Power Limited </p> 
+                <p id="headText"style="font-size: 45px;margin-right: 570px;">Discom Power Limited </p> 
                 <a href="">English</a>&nbsp;|&nbsp;
                  <a href="" style="margin-right:20px">Kannada</a>
             </form>
@@ -54,13 +54,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul  class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#">Home </a>
+              <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/homePage">Home </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="#">Consumer Portal</a>
+                <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
               </li>
             <li class="nav-item">
-          <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
+          <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../employee/employeeLogin">Employee Portal</a>
         </li>
           </ul>
           

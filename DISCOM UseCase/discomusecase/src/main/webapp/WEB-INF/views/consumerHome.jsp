@@ -37,7 +37,7 @@
 <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
   <img id="headImg" src="${images}/discom.png" alt="">
   <form class="form-inline">
-      <p id="headText">Discom Power Limited  </p> 
+      <p id="headText"style="font-size: 45px;margin-right: 570px;">Discom Power Limited  </p> 
       
       <!-- <h4 id="headText1">LightenUp the Lives</h4> -->
       <a href="">English</a>&nbsp;|&nbsp;
@@ -50,10 +50,10 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 <ul  class="navbar-nav mr-auto">
   <li class="nav-item active">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/homepage/homepage.html">Home </a>
+    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/homePage">Home </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/consumerlogin/consumerlogin1.html">Consumer Portal</a>
+    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
   </li>
   <li class="nav-item">
       <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/updateConsumerForm">Update Consumer</a>

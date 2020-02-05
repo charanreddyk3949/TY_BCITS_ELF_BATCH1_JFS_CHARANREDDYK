@@ -20,6 +20,7 @@ import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.MonthlyConsumption;
 import com.bcits.discomusecase.beans.PaymentDetails;
+import com.bcits.discomusecase.customeexceptions.ConsumerException;
 
 @Repository
 public class ConsumerDAOHibernateImpl implements ConsumerDAO{
@@ -45,17 +46,23 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 		EntityTransaction transaction=manager.getTransaction();
 		
 		boolean isAdded = false;
-		try {	
-			transaction.begin();
-			manager.persist(consumersMasterBean);
-			transaction.commit();	
-			isAdded=true;
-			return isAdded;
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return isAdded;
+		
+		if (consumersMasterBean.getPassword().equals(consumersMasterBean.getConfirmPassword())) {
+			try {	
+				transaction.begin();
+				manager.persist(consumersMasterBean);
+				transaction.commit();	
+				isAdded=true;
+				return isAdded;
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				return isAdded;
+			}
+		}else {
+		    throw new ConsumerException("Password and Confirm Password Should Match.");
 		}	
+		
 	}//End of addConsumer()
 	
 

@@ -27,7 +27,7 @@
 <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
   <img id="headImg" src="${images}/discom.png" alt="">
   <form class="form-inline">
-      <p id="headText">Discom Power Limited  </p> 
+      <p id="headText" style="font-size: 45px;margin-right: 570px;">Discom Power Limited  </p> 
       
       <!-- <h4 id="headText1">LightenUp the Lives</h4> -->
       <a href="">English</a>&nbsp;|&nbsp;

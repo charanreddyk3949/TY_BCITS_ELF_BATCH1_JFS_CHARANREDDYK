@@ -24,7 +24,7 @@ public class BillHistory implements Serializable{
 	@Column
 	private String region;
 	@Column(name="units_consumed")
-	private int unitsConsumed;
+	private Double unitsConsumed;
 	
 	public BillHistoryPK getBillHistoryPK() {
 		return billHistoryPK;
@@ -45,11 +45,11 @@ public class BillHistory implements Serializable{
 	public void setRegion(String region) {
 		this.region = region;
 	}
-	public int getUnitsConsumed() {
+	public Double getUnitsConsumed() {
 		return unitsConsumed;
 	}
-	public void setUnitsConsumed(int unitsConsumed) {
-		this.unitsConsumed = unitsConsumed;
+	public void setUnitsConsumed(Double units) {
+		this.unitsConsumed = units;
 	}
 	
 

@@ -31,7 +31,7 @@ public class CurrentBill implements Serializable {
 	@Column(name="bill_amount")
 	private Double billAmount;
 	@Column
-	private int consumption;
+	private Double consumption;
 	
 	
 	public String getRrNumber() {
@@ -64,10 +64,10 @@ public class CurrentBill implements Serializable {
 	public void setBillAmount(Double billAmount) {
 		this.billAmount = billAmount;
 	}
-	public int getConsumption() {
+	public Double getConsumption() {
 		return consumption;
 	}
-	public void setConsumption(int consumption) {
+	public void setConsumption(Double consumption) {
 		this.consumption = consumption;
 	}
 	

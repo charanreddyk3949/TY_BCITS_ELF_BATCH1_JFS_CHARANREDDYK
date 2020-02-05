@@ -30,7 +30,7 @@
 <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
   <img id="headImg" src="${images}/discom.png" alt="">
   <form class="form-inline">
-      <p id="headText">Discom Power Limited  </p> 
+      <p id="headText"style="font-size: 45px;margin-right: 570px;">Discom Power Limited  </p> 
       
       <a href="">English</a>&nbsp;|&nbsp;
        <a href="" style="margin-right:20px">Kannada</a>
@@ -123,8 +123,8 @@
                     <label for="inputEmail4">Region</label>
                     <select id="inputState" class="form-control"id="region" name="region"style="height: 25px;font-size:15px;padding-top:0px">
                       <option selected disabled>select region</option>
-                      <option>Banglore North</option>
-                      <option>Banglore South</option>
+                      <option>Banglore-North</option>
+                      <option>Banglore-South</option>
                     </select>
                   </div>
                   <div class="col">
