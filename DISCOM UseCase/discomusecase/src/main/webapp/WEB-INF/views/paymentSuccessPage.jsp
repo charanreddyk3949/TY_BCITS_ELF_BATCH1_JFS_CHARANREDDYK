@@ -49,7 +49,6 @@
         </form>
 </div>
 </nav>
-<a href="../consumer/paymentDetails" role="button" class="btn btn-info"style="width: 100%;color :white; font-size: 20px ">Payment Details</a>
    
     <div class="container">
         <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">
@@ -66,7 +65,7 @@
         
         
         <div style="padding-top: 20px;text-align: center;">
-            <h2 style="color: dodgerblue;">DISCOM bill payment 500 is successfull !!!</h2>  
+            <h2 style="color: dodgerblue;">DISCOM bill payment  is successfull !!!</h2>  
         </div>
         
     </form>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bcits.discomusecase.beans.BillHistory;
 import com.bcits.discomusecase.beans.BillHistoryPK;
+import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 
 import com.bcits.discomusecase.beans.CurrentBill;
@@ -57,12 +58,12 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 			} catch (Exception e) {
 				
 				e.printStackTrace();
-				return isAdded;
+				
 			}
 		}else {
 		    throw new ConsumerException("Password and Confirm Password Should Match.");
 		}	
-		
+		return isAdded;
 	}//End of addConsumer()
 	
 
@@ -180,7 +181,19 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	public CurrentBill getBill(String rrNumber) {
 		EntityManager manager=factory.createEntityManager();
 		CurrentBill currentBill=manager.find(CurrentBill.class, rrNumber);
-		 return currentBill;	
+		String jpql="from CurrentBill where rrNumber= :rrNum";
+	    Query query=manager.createQuery(jpql);
+		query.setParameter("rrNum", rrNumber);
+		CurrentBill currentBill2=(CurrentBill) query.getSingleResult();
+		if (currentBill2 != null) {
+			 return currentBill2;
+		}else {
+			 CurrentBill  currentBill3=new CurrentBill();
+			currentBill3.setRrNumber(rrNumber);
+			currentBill3.setPresentReading(0.0);
+			 return currentBill3;
+		}
+			
 	}
 
 	@Override
@@ -273,6 +286,24 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	}
 		return isAdded;
 	}
+
+	@Override
+	public boolean addComments(ConsumerSupportRequest consumerSupportRequest) {
+		EntityManager manager=factory.createEntityManager();
+		EntityTransaction transaction=manager.getTransaction();
+		boolean isAdded= false;
+	   try {
+		   transaction.begin();
+			manager.persist(consumerSupportRequest);
+			transaction.commit();
+		    isAdded=true;	    
+		
+	  } catch (Exception e) {
+		e.printStackTrace();
+		transaction.rollback();
+	  }	
+		return isAdded;
+	}//End of addcomments()
 
 	
 

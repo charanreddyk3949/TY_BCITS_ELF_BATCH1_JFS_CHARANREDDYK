@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
+import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.EmployeeMaster;
 
 public interface EmployeeService {
@@ -18,5 +19,7 @@ public interface EmployeeService {
 	public ConsumersMasterBean getConsumer(String rrNumber);
 	public Double getFinalReading(String rrNumber);
 	
+    public boolean getBillGenerator(Date dueDate,CurrentBill currentBill);
+
 
 }

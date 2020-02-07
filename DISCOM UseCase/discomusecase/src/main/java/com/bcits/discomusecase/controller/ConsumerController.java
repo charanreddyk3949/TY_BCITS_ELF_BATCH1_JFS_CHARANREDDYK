@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.bcits.discomusecase.beans.BillHistory;
+import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 
 import com.bcits.discomusecase.beans.CurrentBill;
@@ -87,6 +88,11 @@ public class ConsumerController {
 	public String displayUpdateForm() {
 		return "updateConsumer";
 	}//End of displayUpdateEmployee()
+	
+	@GetMapping("/consumerQueriesForm")
+	public String displayconsumerQueriesForm() {
+		return "commentsForm";
+	}//End of displayUpdateEmployee()
 
 	
 	@PostMapping("/login")
@@ -98,7 +104,7 @@ public class ConsumerController {
 			//Valid credentials
 			HttpSession session= req.getSession(true);
 			session.setAttribute("loggedinEmpInfo", consumersMasterBean);
-			session.setAttribute("consumerDetails", masterBean);
+//			session.setAttribute("consumerDetails", masterBean);
 			return "consumerHome";	
 		}else {
 			//Invalid credentials
@@ -127,23 +133,17 @@ public class ConsumerController {
 	}
 	
 	@PostMapping("/addConsumer")
-	public String addEmployee(@SessionAttribute(name = "loggedinEmpInfo",required = false) ConsumersMasterBean consumersMasterBean,ModelMap modelMap, ConsumersMasterBean consumersBean2) {
-//		if(consumersMasterBean != null) {
-			//valid session
-			boolean masterBean=service.addConsumer(consumersBean2);
-			if(masterBean = true  ){
+	public String addConsumer(@SessionAttribute(name = "loggedinEmpInfo",required = false) ConsumersMasterBean consumersMasterBean,ModelMap modelMap, ConsumersMasterBean consumersBean2) {
+
+			
+			if(service.addConsumer(consumersBean2)){
 				modelMap.addAttribute("msg", "SignUp Successfully (: Please Login now");
 			}else {
-				modelMap.addAttribute("errSignupMsg", "Already exist sign Please:>");
+				modelMap.addAttribute("errSignupMsg", "Already exist Signin Please:>");
 			}
 			return "consumerLogin";	
 	
-//		}else {
-//			//Invalid session
-//             modelMap.addAttribute("errMsg", "Record is unable to add try again ");
-//			
-//			return "consumerSignup";		
-	//	}		
+
 	}//End of addConsumer()
 	
 	@PostMapping("/updateConsumer")
@@ -221,12 +221,15 @@ public class ConsumerController {
 		
 		return "consumerLogin";
 	}//End of logged out
+
+	
 	
 	@GetMapping("/getCurrentBill")
-	public String getBill(@SessionAttribute(name = "loggedinEmpInfo" ,required = false)ConsumersMasterBean bill,ModelMap modelMap) {
+	public String getBill(HttpSession session,@SessionAttribute(name = "loggedinEmpInfo" ,required = false)ConsumersMasterBean bill,ModelMap modelMap) {
 		
 		if(bill != null) {
-		 CurrentBill currentBill= service.getBill(bill.getRrNumber());
+			ConsumersMasterBean consumersMasterBean=(ConsumersMasterBean)session.getAttribute("loggedinEmpInfo");
+		 CurrentBill currentBill= service.getBill(consumersMasterBean.getRrNumber());
 		ConsumersMasterBean consumersMasterBean2=service.getConsumer(bill.getRrNumber());	
 			if (currentBill != null) {
 				modelMap.addAttribute("currentBillDetails", currentBill);
@@ -302,8 +305,8 @@ public class ConsumerController {
 		  Date date1=new Date();
 		 boolean isAdd= service.billPaymentPage(consumersMasterBean.getRrNumber(), date1, amtPaid);
 		 if (isAdd) {
-			 modelMap.addAttribute("msg", "Payment Successfull!!!");
-			
+			 
+			 return "paymentSuccessPage";
 		}else {
 			modelMap.addAttribute("errMsg", "Payment failed");
 		}
@@ -313,6 +316,25 @@ public class ConsumerController {
 		
 		return "consumerLogin";
 	}
-  }
+  }//End of getPaymentDetails()
+	
+	
+	@PostMapping("/addComments")
+	public String addComments(ConsumerSupportRequest consumerSupportRequest,@SessionAttribute(name = "loggedinEmpInfo" ,required = false) ConsumersMasterBean consumersMasterBean ,ModelMap modelMap) {
+		
+		if (consumersMasterBean != null) {
+			if (service.addComments(consumerSupportRequest)) {
+				modelMap.addAttribute("msg", "Request is posted Successfully!!!");
+			}else {
+				modelMap.addAttribute("errMsg", "Failed to add the Request");
+			}
+			return "commentsForm";
+		}else {
+			modelMap.addAttribute("errMsg", "Please Login First");
+			
+			return "consumerLogin";
+			
+		}
+	}//End of addComments()
 	
 }//End of Class

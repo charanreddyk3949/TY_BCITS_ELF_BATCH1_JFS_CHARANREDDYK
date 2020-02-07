@@ -10,6 +10,8 @@
      List<ConsumersMasterBean> consumersMasterBeanList=(List<ConsumersMasterBean>) request.getAttribute("consumerDetails");
      EmployeeMaster employeeMaster=(EmployeeMaster) request.getAttribute("employeeDetails");
      List<ConsumersMasterBean> consumersBillGenerationList=(List<ConsumersMasterBean>) request.getAttribute("consumerBillDetails"); 
+      
+     List<BillHistory> billList=(List<BillHistory>) request.getAttribute("billHistoryDetails");
       %>
     
     <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -74,12 +76,12 @@ background-size: cover; height: 724px;"> --%>
   
   <div class="row" style="margin-top: 200px;">
   <div class="col-3" >
-    <div class="list-group" id="list-tab" role="tablist" >
-     
+    <div class="list-group" id="list-tab" role="tablist" >     
       <a class="list-group-item list-group-item-action"style="background-color: aqua;color: black;font-size: 20px" id="list-profile-list" data-toggle="list" href="../employee/employeeConsumerDetails" role="tab" aria-controls="profile">Consumer Details</a>
-      <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-messages-list" data-toggle="list" href="../consumer/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
-      <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-settings-list" data-toggle="list" href="" role="tab" aria-controls="settings">Month Bill Collection</a>
+      <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-messages-list" data-toggle="list" href="../employee/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
       <a class="list-group-item list-group-item-action"style="background-color: aqua;color: black;font-size: 20px" id="list-settings-list" data-toggle="list" href="../employee/consumerBillGeneration" role="tab" aria-controls="settings">Month Bill Generation</a>
+     <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-settings-list" data-toggle="list" href="../employee/getRequests" role="tab" aria-controls="settings">View Consumer Requests</a>
+      
     </div>
   </div>
  <%if (employeeMaster != null) { %>
@@ -194,11 +196,36 @@ background-size: cover; height: 724px;"> --%>
    </table>
   <%} %>
   
+  
+  <% if(billList != null) { %>
+       <div align="center" style="margin-left: 200px;margin-top: 0px">
+       <h3 style="color: navy">Bill History Details</h3>
+           <table border="1" style="width: 900px">
+              <tr style="background: navy; color: white;height: 35px;">
+                 <th>RR Number</th>
+                 <th>Date</th>
+                 <th>Bill Amount</th>
+                 <th>Units</th>
+                 
+              </tr>
+              <%for(BillHistory billDetails :billList) { %>
+              <tr style="height: 35px">
+                   <td><%= billDetails.getBillHistoryPK().getRrNumber() %></td>
+                   <td><%= billDetails.getBillHistoryPK().getDate() %></td>
+                   <td><%= billDetails.getBillAmount() %></td>
+                   <td><%= billDetails.getUnitsConsumed() %></td>
+              </tr>
+              <% } %>
+           </table>
+       </div>
+    <% } %>  
+  
+  
   <%if(msg !=null && !msg.isEmpty()) {%>
-<h3 style="color: green"><%= msg %></h3>
+<h3 style="color: green; margin-left: 300px;"><%= msg %></h3>
 <% } %>
  <%if(errMsg !=null && !errMsg.isEmpty()) {%>
-<h3 style="color: green"><%= errMsg %></h3>
+<h3 style="color: red;text-align:  center;"><%= errMsg %></h3>
 <% } %>
 
 

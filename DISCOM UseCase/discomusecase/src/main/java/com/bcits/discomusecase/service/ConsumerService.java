@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import com.bcits.discomusecase.beans.BillHistory;
+import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.MonthlyConsumption;
@@ -27,4 +28,7 @@ public ConsumersMasterBean authenticate(String rrNumber, String password);
 	 public List<MonthlyConsumption> getMonthlyConsuption();
 	 
 	 public boolean billPaymentPage(String rrNumber,Date date, Double amtPaid);
+	 
+	 public boolean addComments(ConsumerSupportRequest consumerSupportRequest);
+
 }//End of ConsumerService

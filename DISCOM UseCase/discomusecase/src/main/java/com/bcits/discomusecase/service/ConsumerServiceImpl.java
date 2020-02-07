@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bcits.discomusecase.beans.BillHistory;
+import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.MonthlyConsumption;
 import com.bcits.discomusecase.beans.PaymentDetails;
 import com.bcits.discomusecase.consumerdao.ConsumerDAO;
+import com.bcits.discomusecase.customeexceptions.ConsumerException;
 
 @Service
 public class ConsumerServiceImpl implements ConsumerService{
@@ -22,8 +24,13 @@ public class ConsumerServiceImpl implements ConsumerService{
 
 	@Override
 	public ConsumersMasterBean authenticate(String rrNumber, String password) {
+		if (dao.authenticate(rrNumber, password) == null) {
+			
+			throw new ConsumerException("Please Provide Valid Credentials...");
+		}else {
+			return dao.authenticate(rrNumber, password);
+		}
 		
-		return dao.authenticate(rrNumber, password);
 	}//End of authenticate()
 
 	@Override
@@ -65,8 +72,13 @@ public class ConsumerServiceImpl implements ConsumerService{
 
 	@Override
 	public CurrentBill getBill(String rrNumber) {
+		if (dao.getBill(rrNumber) == null) {
+			throw new ConsumerException("New User No Current Bill is Found.");
+
+		}else {
+			return dao.getBill(rrNumber);
+		}
 		
-		return dao.getBill(rrNumber);
 	}
 
 	@Override
@@ -94,6 +106,12 @@ public class ConsumerServiceImpl implements ConsumerService{
 	public boolean billPaymentPage(String rrNumber, Date date, Double amtPaid) {
 		
 		return dao.billPaymentPage(rrNumber, date, amtPaid);
+	}
+
+	@Override
+	public boolean addComments(ConsumerSupportRequest consumerSupportRequest) {
+		
+		return dao.addComments(consumerSupportRequest);
 	}
 
 	

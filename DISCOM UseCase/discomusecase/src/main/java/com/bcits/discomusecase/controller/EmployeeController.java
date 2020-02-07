@@ -137,13 +137,14 @@ public class EmployeeController {
 	}//End of getAllConsumersBillGeneration()
 	
 	@GetMapping("/getBillInputDetails")
-	public String setRrNumAndFinalReading(String rrNumber,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
+	public String setRrNumAndFinalReading(String rrNumber,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap,HttpSession session) {
 		
 	   if (employeeMaster != null) {
 		   ConsumersMasterBean consumersMasterBean=service.getConsumer(rrNumber);
 //		   Double finalReading=service.getFinalReading(rrNumber);
 		   CurrentBill currentBill=servicec.getBill(rrNumber);
 		   if (consumersMasterBean != null) {
+			   session.setAttribute("finalreadingValue", currentBill);
 			 modelMap.addAttribute("consumerDetails", consumersMasterBean);
 			 modelMap.addAttribute("finalreadingValue", currentBill); 
 		   }
@@ -156,25 +157,48 @@ public class EmployeeController {
 	
 	}//End of setRrNumAndFinalReading()
 	
-//	@PostMapping("/billGeneration")
-//	public String getGenerateBillAmount(String rrNumber,Double presentReading,String consumerType,Date dueDate,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
-//		
-//		if (employeeMaster != null) {
-//			Double billAmount=service.getBillGenerator(rrNumber, presentReading, consumerType, dueDate);
-//             if (billAmount != null) {
-//				modelMap.addAttribute("billDetails", billAmount);
-//				modelMap.addAttribute("msg","Bill is Generated Successfully!!!");
-//			    }
-//             return "billGeneration";
-//		}else {
-//			modelMap.addAttribute("errMsg", "Bill generation is failed Please try again.");
-//			
-//			return "billGeneration";
-//		  }
-//		
-//		
-//		
-//	}//getGenerateBillAmount()
+	@PostMapping("/billGeneration")
+	public String getGenerateBillAmount(Date dueDate,CurrentBill currentBill,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap,HttpSession session) {
+		
+		if (employeeMaster != null) {
+			CurrentBill getCurrentBill=(CurrentBill) session.getAttribute("finalreadingValue");
+			currentBill.setRrNumber(getCurrentBill.getRrNumber());
+			currentBill.setInitialReading(getCurrentBill.getPresentReading());
+			
+			boolean currentBill2=service.getBillGenerator(dueDate, currentBill);
+					
+             if (currentBill2 ) {
+				modelMap.addAttribute("msg","Bill is Generated Successfully!!!");
+			    }
+             return "employeeHome";
+		}else {
+			modelMap.addAttribute("errMsg", "Bill generation is failed Please try again.");
+			
+			return "employeeHome";
+		  }
+		
+		
+		
+	}//getGenerateBillAmount()
+	
+	@GetMapping("/getBillHistory")
+	public String getBillHistory(BillHistory billHistory,@SessionAttribute (name = "loggedinEmpInfo",required = false) EmployeeMaster employeeMaster,ModelMap modelMap) {
+		
+		if (employeeMaster != null) {
+			List<BillHistory> history=servicec.getBillHistory();
+			if (history != null) {
+				modelMap.addAttribute("billHistoryDetails", history);
+			}else {
+				modelMap.addAttribute("errMsg", "No previous Bill present.");
+			}
+			return "employeeHome";
+			
+		}else {
+			modelMap.addAttribute("errMsg", "Please Login First");
+			return "employeeLogin";
+		}
+		
+	}//End of getBillhistory()
 	
 
 }//End of controller

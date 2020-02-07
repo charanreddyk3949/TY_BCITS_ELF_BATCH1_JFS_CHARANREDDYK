@@ -9,7 +9,7 @@
     
     <% String msg=(String) session.getAttribute("msg");
        String errMsg=(String) session.getAttribute("errMsg"); 
-       ConsumersMasterBean consumersMasterBean=(ConsumersMasterBean) session.getAttribute("consumerDetails");
+       ConsumersMasterBean consumersMasterBean=(ConsumersMasterBean) request.getAttribute("consumerDetails");
        List<BillHistory> billData=(List<BillHistory>) request.getAttribute("billHistory");
        CurrentBill currentBill=(CurrentBill) request.getAttribute("currentBillDetails");
       List<MonthlyConsumption> monthlyConsumptions=(List<MonthlyConsumption>)request.getAttribute("monthlyConsumptionList");
@@ -64,9 +64,30 @@
    </form>
 </div>
 </nav>
+  
+ 
+  
+  <!-- <div style="margin-top: 50px">
+    <a href="../consumer/getMontlyConsumptionList" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="width: 100%;background-color: blue;color: white">Monthly Consumption</a>
+    <a href="../consumer/getBillHistory" role="button" class="btn btn-info"style="width: 100%;color :white; font-size: 20px ">Bill History</a>
+    <a href="./getCurrentBill" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" style="width: 100%">Current Bill</a>
+   <a href="../consumer/consumerQueriesForm" role="button" class="btn btn-info"style="width: 100%;color :white; font-size: 20px ">Add Comments</a>  
+  </div> -->
+  
+  <div class="col-3" style="margin-top: 200px" >
+    <div class="list-group" id="list-tab" role="tablist" >     
+      <a class="list-group-item list-group-item-action"style="background-color: navy ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/getConsumer" role="tab" aria-controls="profile">Consumer Details</a>
+      <a class="list-group-item list-group-item-action"style="background-color: green ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/getMontlyConsumptionList" role="tab" aria-controls="profile">Monthly Consumption</a>
+      <a class="list-group-item list-group-item-action" style="background-color: navy;color: white;font-size: 20px"id="list-messages-list" data-toggle="list" href="../consumer/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
+      <a class="list-group-item list-group-item-action" style="background-color: aqua;color: white;font-size: 20px"id="list-settings-list" data-toggle="list" href="./getCurrentBill" role="tab" aria-controls="settings">Current Bill</a>
+      <a class="list-group-item list-group-item-action"style="background-color: navy;color: white;font-size: 20px" id="list-settings-list" data-toggle="list" href="../consumer/consumerQueriesForm" role="tab" aria-controls="settings">Add Comments</a>
+    </div>
+  </div>
+  
   <%if (consumersMasterBean != null) { %>
-       <div >
-           <table style="margin-left: 600px;font-size: 20px" >
+       <div align="center" style="margin-top: -300px">
+       <h3 style="color: navy">Consumer Details</h3>
+           <table style="font-size: 20px" >
               <tr>
                  <th>RR Number</th>
                  <td>:</td>
@@ -107,16 +128,10 @@
        
        </div>
    <% }%>
- 
-  
-  <div style="margin-top: 50px">
-    <a href="../consumer/getMontlyConsumptionList" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="width: 100%;background-color: blue;color: white">Monthly Consumption</a>
-    <a href="../consumer/getBillHistory" role="button" class="btn btn-info"style="width: 100%;color :white; font-size: 20px ">Bill History</a>
-    <a href="./getCurrentBill" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" style="width: 100%">Current Bill</a>
-  </div>
   
   <% if(billData != null) { %>
-       <div align="center">
+       <div align="center" style="margin-left: 300px;margin-top: -300px">
+       <h3 style="color: navy">Bill History Details</h3>
            <table border="1" style="width: 70%">
               <tr style="background: navy; color: white">
                  <th>RR Number</th>
@@ -142,20 +157,15 @@
   
   
    <%if (currentBill != null) { %>
-       <div >
-           <table style="margin-left: 600px;font-size: 20px" >
+       <div align="center" style="margin-top: -200px">
+       <h3 style="color: navy">Current Bill Details</h3>
+           <table style="font-size: 20px" >
               <tr>
                  <th>RR Number</th>
                  <td>:</td>
                 <td> <%= currentBill.getRrNumber() %></td>
               </tr>
               
-            <%--   <tr>
-                 <th>Region</th>
-                 <td>:</td>
-                <td> <%= consumersMasterBean.getRegion() %></td>
-              </tr> --%>
-               
                <tr>
                  <th>Initial Reading</th>
                  <td>:</td>
@@ -186,13 +196,14 @@
            </table>
        
        </div>
-        <a href="../consumer/paymentPage" role="button" class="btn btn-info"style="width: 200px;color :white; font-size: 20px;margin-left: 600px ">Online Payment</a>
+        <a href="../consumer/paymentPage" role="button" class="btn btn-info"style="width: 200px;color :white; font-size: 20px;margin-left: 700px ">Online Payment</a>
    <% }%>
  
  
  
  <% if(monthlyConsumptions != null) { %>
-       <div align="center">
+       <div align="center" style="margin-left: 400px; margin-top: -300px">
+        <h3 style="color: navy">Monthly Consumption Details</h3>
            <table border="1" style="width: 70%">
               <tr style="background: navy; color: white">
                  <th>RR Number</th>

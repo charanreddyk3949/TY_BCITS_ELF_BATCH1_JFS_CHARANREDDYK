@@ -4,9 +4,9 @@ public class TariffBillGenerator {
 	
 	Double units;
 	String consumerType;
-	static Double amount;
+	 Double amount;
 	
-	public static Double getBill(Double units,String consumerType) {
+	public Double getBill(Double units,String consumerType) {
 		if(consumerType.equalsIgnoreCase("Residential")) {
 			 if(units <= 100) {
 				 amount=units*4;

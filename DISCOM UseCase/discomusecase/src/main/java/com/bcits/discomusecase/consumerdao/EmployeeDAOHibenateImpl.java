@@ -1,6 +1,7 @@
 package com.bcits.discomusecase.consumerdao;
 
 import java.util.Date;
+
 import java.util.List;
 
 
@@ -14,10 +15,10 @@ import org.springframework.stereotype.Repository;
 
 import com.bcits.discomusecase.beans.BillHistory;
 import com.bcits.discomusecase.beans.BillHistoryPK;
+import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.EmployeeMaster;
-import com.bcits.discomusecase.beans.PaymentDetails;
 import com.bcits.discomusecase.beans.TariffBillGenerator;
 
 
@@ -52,14 +53,10 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 		}else {
 			return null;
 		}
-		 
-	 
 	
 	}
-
 	
-
-	@Override
+    @Override
 	public EmployeeMaster getEmployeedetails(Integer empId) {
 		EntityManager manager=factory.createEntityManager();
 		EmployeeMaster employeeMasters=manager.find(EmployeeMaster.class, empId);
@@ -92,7 +89,7 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 	}//End of getFinalReading()
 
 	@Override
-	public boolean getBillGenerator(CurrentBill currentBill) {
+	public boolean getBillGenerator(Date dueDate,CurrentBill currentBill) {
         EntityManager manager=factory.createEntityManager();
         EntityTransaction transaction=manager.getTransaction();
         CurrentBill  bill= manager.find(CurrentBill.class, currentBill.getRrNumber());
@@ -101,13 +98,14 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
         Double billAmount=0.0;
        
        if (consumersMasterBean != null) {
-    	    if(bill != null) {
-    	    initialReading=bill.getPresentReading();
-    	  
-    	   BillHistory billHistory =new BillHistory();
+    	  if(bill != null) {
+    	   initialReading=bill.getPresentReading();
+  
     	   BillHistoryPK billHistoryPK=new BillHistoryPK();
     	   billHistoryPK.setRrNumber(bill.getRrNumber());
-    	   billHistoryPK.setDate(bill.getDueDate());
+    	   billHistoryPK.setDate(new Date());
+    	   
+    	   BillHistory billHistory =new BillHistory();
     	   billHistory.setBillAmount(bill.getBillAmount());
     	   billHistory.setRegion(consumersMasterBean.getRegion());
     	   billHistory.setUnitsConsumed(bill.getConsumption());
@@ -116,51 +114,66 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
     	   transaction.begin();
     	   manager.persist(billHistory);
     	   transaction.commit();
-    	   
-    	   
-    	   Double unitsConsumed=bill.getPresentReading()-initialReading;
-    	   billAmount=TariffBillGenerator.getBill(unitsConsumed, consumersMasterBean.getRegion());
+    	  
     	   try {
+   	       Double unitsConsumed=currentBill.getPresentReading()-initialReading;
+   	    TariffBillGenerator billGenerator=new TariffBillGenerator();
+           billAmount=billGenerator.getBill(unitsConsumed, consumersMasterBean.getConsumerType());
+    	   transaction.begin();
     	   bill.setBillAmount(billAmount);
     	   bill.setConsumption(unitsConsumed);
-    	   bill.setDueDate(currentBill.getDueDate());
+    	   bill.setDueDate(dueDate);
     	   bill.setInitialReading(initialReading);
-    	   bill.setPresentReading(unitsConsumed);    
+    	   bill.setPresentReading(currentBill.getPresentReading());    
     	   transaction.commit();
-    	  
+           
+    	   return true;
 		   } catch (Exception e) {
-			e.printStackTrace();
+			   e.printStackTrace();
+			return false;
 		   }
     	  
-		  
+		 
 	   }else {
-		   Double unitsConsumed=bill.getPresentReading()-initialReading;
-		   billAmount=TariffBillGenerator.getBill(unitsConsumed, consumersMasterBean.getRegion());
+		   Double unitsConsumed=currentBill.getPresentReading()-initialReading;
+		   TariffBillGenerator generator=new TariffBillGenerator();
+		   billAmount=generator.getBill(unitsConsumed, consumersMasterBean.getConsumerType());
 	   
 		   try {
 			   Double presentReading=unitsConsumed+initialReading;
 			   transaction.begin();
+			   
 			   currentBill.setRrNumber(consumersMasterBean.getRrNumber());
 			   currentBill.setConsumption(unitsConsumed);
 			   currentBill.setBillAmount(billAmount);
 			   currentBill.setInitialReading(initialReading);
-			   currentBill.setPresentReading(presentReading);
+			
 		  
-			manager.persist(bill);
+			manager.persist(currentBill);
 			transaction.commit();
 			manager.close();
-			
+			return true; 
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+			return false;
+		
 		}
-		   manager.close();
-		   return true; 
-	  }//End of else
-	   return false;
+		   
+    }//End of else
        }
-	return true;
-        
+	return false;        
 	}//End of getBillGenerator()
+
+	
+	@Override
+	public List<ConsumerSupportRequest> getAllRequests(String region) {
+		EntityManager manager=factory.createEntityManager();
+		
+		String jpql="from ConsumerSupportRequest where region= :regionVal";
+		Query query=manager.createQuery(jpql);
+		query.setParameter("regionValue",region);
+		List<ConsumerSupportRequest> requestList=query.getResultList();
+		return requestList;
+	}
 
 }//End of getConsumer()
