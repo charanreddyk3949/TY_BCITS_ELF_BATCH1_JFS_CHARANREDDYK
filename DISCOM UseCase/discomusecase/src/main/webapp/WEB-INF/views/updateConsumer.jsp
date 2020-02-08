@@ -71,14 +71,16 @@
              <h1 id="heading">Edit Consumer</h1>
               <form action="../consumer/updateConsumer" method="post">
                 <div class="form-row" >
-                  <div class="col">
+                
+                <div class="form-group col-md-12"style="margin-top: 0px;">
+                  <label for="inputAddress">RR Number</label>
+                  <input type="text" class="form-control" id="rrNumber" name="rrNumber" placeholder="enter rr number...">
+                </div>
+                  <div class="col col-md-12">
                     <label for="inputEmail4">Name</label>
                     <input type="text" class="form-control"id="firstName" name="firstName" placeholder="First name">
                   </div>
-                  <div class="col">
-                    <label for="inputEmail4">LastName</label>
-                    <input type="text" class="form-control" id="lastName"name="lastName"placeholder="Last name">
-                  </div>
+                  
                 </div>
               <div class="form-row">
                 <div class="form-group col-md-12">
@@ -90,74 +92,28 @@
                 <label for="inputAddress">Address</label>
                 <input type="text" class="form-control" id="address1"name="address1" placeholder="HouseNo.street...">
               </div>
-              <div class="form-group"style="margin-top: -20px;">
-                <label for="inputAddress2">Address 2</label>
-                <input type="text" class="form-control" id="address2"name="address2" placeholder="Apartment...">
-              </div>
-              <div class="form-row"style="margin-top: -20px;">
-                <div class="form-group col-md-6">
-                  <label for="inputCity">City</label>
-                  <input type="text" class="form-control" id="city"name="city"placeholder="city...">
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="inputState">State</label>
-                  <select id="inputState" class="form-control" id="state" name="state" style="height: 25px;font-size:15px;padding-top:0px">
-                    <option selected disabled>select state</option>
-                    <option>Karnataka</option>
-                    <option>Andhra Pradesh</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-2"style="margin-top: 0px;">
-                  <label for="inputZip">Pincode</label>
-                  <input type="text" class="form-control" id="pinCode" name="pinCode"placeholder="pincode">
-                </div>
-              </div>
+              
+              
             
                 <div class="form-row" style="margin-top: -20px;">
                   <div class="col">
                     <label for="inputEmail4">Region</label>
                     <select id="inputState" class="form-control"id="region" name="region"style="height: 25px;font-size:15px;padding-top:0px">
                       <option selected disabled>select region</option>
-                      <option>Banglore North</option>
-                      <option>Banglore South</option>
+                      <option>Banglore-North</option>
+                      <option>Banglore-South</option>
                     </select>
                   </div>
-                  <div class="col">
-                    <label for="inputEmail4">Consumer Type</label>
-                    <select id="inputState" class="form-control"id="consumerType" name="consumerType"style="height: 25px;font-size:15px;padding-top:0px">
-                      <option selected disabled>select consumer</option>
-                      <option>Residential </option>
-                      <option>Commertial</option>
-                      <option>Industries</option>
-                    </select>
-                </div>
-
-              </div>
-              <div class="form-group"style="margin-top: 0px;">
-                <label for="inputAddress">Meter Number</label>
-                <input type="text" class="form-control" id="rrNumber" name="rrNumber" placeholder="enter service/meter number...">
-              </div>
-
-             
-                <div class="form-row"style="margin-top: -20px;">
-                  <div class="form-group col-md-6">
+         </div>
+              
+                <div class="form-row"style="margin-top: 10px;">
+                  <div class="form-group col-md-12">
                     <label for="inputpassword">Password</label>
                     <input type="password" class="form-control" id="password"name="password"placeholder="Enter password">
-                  </div>
-                  <div class="form-group col-md-6"style="margin-top: 0px;">
-                    <label for="confirminputPassword4">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword"name="confirmPassword"placeholder="Confirm password">
-                  </div>
+                  </div> 
                 </div>
 
-              <div class="form-group"style="margin-top: -20px;">
-                <div class="form-check" style="margin-left: 20px;">
-                  <input class="form-check-input" type="checkbox" id="gridCheck">
-                  <label class="form-check-label" for="gridCheck">
-                    Check me out
-                  </label>
-                </div>
-              </div>
+            
               <button id="button" type="submit" class="btn btn-primary" class="form-group col-md-5"style="margin-left: 350px;margin-top: -20px;">Submit</button>
            </form>
 

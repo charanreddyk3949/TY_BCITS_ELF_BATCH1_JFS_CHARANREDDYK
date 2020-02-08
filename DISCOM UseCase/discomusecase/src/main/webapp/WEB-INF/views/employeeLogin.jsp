@@ -34,13 +34,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul  class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/homepage">Home </a>
+        <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../home/homePage">Home </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/consumerlogin/consumerlogin1.html">Consumer Portal</a>
+        <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
+          <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../employee/employeeLogin">Employee Portal</a>
         </li>
       
     </ul>
@@ -54,7 +54,7 @@
 <h3 style="color: red; margin-left: 700px"><%= errMsg %></h3>
 <% } %>
     
-     <body background="${images}/img2.jpg"
+     <body background="${images}/bulb1.jpg"
 	  style="background-size: cover; background-position: center; background-repeat: no-repeat; 
 	  background-size: cover; height: 724px;"/>
 

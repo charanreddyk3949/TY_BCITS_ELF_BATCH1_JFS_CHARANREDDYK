@@ -32,7 +32,7 @@
   
 </head>
 <body>
-          <body background="${images}/Pylons_Main.jpg" style="background-size:cover;background-position: center; 
+          <body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; 
           background-repeat: no-repeat; 
           background-size: cover; height: 724px;">
 

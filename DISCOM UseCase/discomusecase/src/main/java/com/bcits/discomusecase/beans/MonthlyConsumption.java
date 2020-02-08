@@ -27,13 +27,13 @@ public class MonthlyConsumption implements Serializable {
 	private Double finalReading;
 	
 	@Column(name = "consumption_units")
-	private int consumptionUnits;
+	private Double consumptionUnits;
 	
 	
 	public MonthlyConsumptionPK getMonthlyConsumption() {
 		return MonthlyConsumption;
 	}
-	public void setMonthlyConsumption(MonthlyConsumptionPK monthlyConsumption) {
+	public void setMonthlyConsumptionPK(MonthlyConsumptionPK monthlyConsumption) {
 		MonthlyConsumption = monthlyConsumption;
 	}
 	public Date getFinalDate() {
@@ -49,10 +49,10 @@ public class MonthlyConsumption implements Serializable {
 		this.initialReading = initialReading;
 	}
 	
-	public int getConsumptionUnits() {
+	public Double getConsumptionUnits() {
 		return consumptionUnits;
 	}
-	public void setConsumptionUnits(int consumptionUnits) {
+	public void setConsumptionUnits(Double consumptionUnits) {
 		this.consumptionUnits = consumptionUnits;
 	}
 	

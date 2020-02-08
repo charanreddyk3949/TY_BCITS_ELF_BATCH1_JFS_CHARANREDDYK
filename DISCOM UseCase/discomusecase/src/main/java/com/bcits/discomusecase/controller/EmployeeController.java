@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.bcits.discomusecase.beans.BillHistory;
+import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.EmployeeMaster;
@@ -56,6 +57,16 @@ public class EmployeeController {
 		return "billGeneration";
 		
 	}//End of displayBillGenerationForm()
+	
+	
+	@GetMapping("/employeeLogout")
+	public String getLogout(HttpSession session,ModelMap  modelMap) {
+		session.invalidate();
+		modelMap.addAttribute("errMsg", "Lougged Out SuccessFully!!");
+		
+		return "employeeLogin";
+		
+	}//End of getLogout()
 	
 	
 	@PostMapping("/empLogin")
@@ -158,7 +169,7 @@ public class EmployeeController {
 	}//End of setRrNumAndFinalReading()
 	
 	@PostMapping("/billGeneration")
-	public String getGenerateBillAmount(Date dueDate,CurrentBill currentBill,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap,HttpSession session) {
+	public String getGenerateBillAmount(Date dueDate,Date initialDate,CurrentBill currentBill,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap,HttpSession session) {
 		
 		if (employeeMaster != null) {
 			CurrentBill getCurrentBill=(CurrentBill) session.getAttribute("finalreadingValue");
@@ -182,10 +193,11 @@ public class EmployeeController {
 	}//getGenerateBillAmount()
 	
 	@GetMapping("/getBillHistory")
-	public String getBillHistory(BillHistory billHistory,@SessionAttribute (name = "loggedinEmpInfo",required = false) EmployeeMaster employeeMaster,ModelMap modelMap) {
+	public String getBillHistory(BillHistory billHistory,HttpSession session,@SessionAttribute (name = "loggedinEmpInfo",required = false) EmployeeMaster employeeMaster,ModelMap modelMap) {
 		
 		if (employeeMaster != null) {
-			List<BillHistory> history=servicec.getBillHistory();
+		        CurrentBill currentBill =(CurrentBill) session.getAttribute("finalreadingValue");
+			List<BillHistory> history=servicec.getBillHistory(currentBill.getRrNumber());
 			if (history != null) {
 				modelMap.addAttribute("billHistoryDetails", history);
 			}else {
@@ -201,4 +213,21 @@ public class EmployeeController {
 	}//End of getBillhistory()
 	
 
+	@GetMapping("/displayRequests")
+	public String getAllRequests(HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
+		if (employeeMaster != null) {
+			EmployeeMaster master=(EmployeeMaster) session.getAttribute("loggedinEmpInfo");
+			List<ConsumerSupportRequest> consumerSupportRequest=service.getAllRequests(master.getRegion());
+			if (consumerSupportRequest != null) {
+				modelMap.addAttribute("consumerRequestList", consumerSupportRequest);
+			}else {
+				modelMap.addAttribute("errMsg", "No Requests Found");
+			}
+			return "employeeHome";
+		}else {
+			modelMap.addAttribute("errMsg", "Please Login First");
+			return "employeeLogin";
+		}
+	}
+	
 }//End of controller

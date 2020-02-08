@@ -7,8 +7,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-    <% String msg=(String) session.getAttribute("msg");
-       String errMsg=(String) session.getAttribute("errMsg"); 
+    <% String msg=(String) request
+    .getAttribute("msg");
+       String errMsg=(String) request.getAttribute("errMsg"); 
        ConsumersMasterBean consumersMasterBean=(ConsumersMasterBean) request.getAttribute("consumerDetails");
        List<BillHistory> billData=(List<BillHistory>) request.getAttribute("billHistory");
        CurrentBill currentBill=(CurrentBill) request.getAttribute("currentBillDetails");
@@ -64,7 +65,9 @@
    </form>
 </div>
 </nav>
-  
+    <body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; 
+          background-repeat: no-repeat; 
+          background-size: cover; height: 724px;"/>
  
   
   <!-- <div style="margin-top: 50px">
@@ -76,18 +79,18 @@
   
   <div class="col-3" style="margin-top: 200px" >
     <div class="list-group" id="list-tab" role="tablist" >     
-      <a class="list-group-item list-group-item-action"style="background-color: navy ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/getConsumer" role="tab" aria-controls="profile">Consumer Details</a>
-      <a class="list-group-item list-group-item-action"style="background-color: green ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/getMontlyConsumptionList" role="tab" aria-controls="profile">Monthly Consumption</a>
-      <a class="list-group-item list-group-item-action" style="background-color: navy;color: white;font-size: 20px"id="list-messages-list" data-toggle="list" href="../consumer/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
+      <a class="list-group-item list-group-item-action"style="background-color: aqua ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/getConsumer" role="tab" aria-controls="profile">Consumer Details</a>
+<!--       <a class="list-group-item list-group-item-action"style="background-color: green ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/getMontlyConsumptionList" role="tab" aria-controls="profile">Monthly Consumption</a>
+ -->      <a class="list-group-item list-group-item-action" style="background-color: navy;color: white;font-size: 20px"id="list-messages-list" data-toggle="list" href="../consumer/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
       <a class="list-group-item list-group-item-action" style="background-color: aqua;color: white;font-size: 20px"id="list-settings-list" data-toggle="list" href="./getCurrentBill" role="tab" aria-controls="settings">Current Bill</a>
       <a class="list-group-item list-group-item-action"style="background-color: navy;color: white;font-size: 20px" id="list-settings-list" data-toggle="list" href="../consumer/consumerQueriesForm" role="tab" aria-controls="settings">Add Comments</a>
     </div>
   </div>
   
   <%if (consumersMasterBean != null) { %>
-       <div align="center" style="margin-top: -300px">
-       <h3 style="color: navy">Consumer Details</h3>
-           <table style="font-size: 20px" >
+       <div align="center" style="margin-top: -300px;color: white;">
+       <h3 style="color: blue;">Consumer Details</h3>
+           <table style="font-size: 20px ;border:2px solid white;" >
               <tr>
                  <th>RR Number</th>
                  <td>:</td>
@@ -130,14 +133,15 @@
    <% }%>
   
   <% if(billData != null) { %>
-       <div align="center" style="margin-left: 300px;margin-top: -300px">
-       <h3 style="color: navy">Bill History Details</h3>
-           <table border="1" style="width: 70%">
+       <div align="center" style="margin-left: 300px;margin-top: -300px;">
+       <h3 style="color: blue">Bill History Details</h3>
+           <table border="1" style="width: 70%;background-color: black;color: white">
               <tr style="background: navy; color: white">
                  <th>RR Number</th>
                  <th>Date</th>
                  <th>Bill Amount</th>
                  <th>Units</th>
+                 <th>Status</th>
                  
               </tr>
               <%for(BillHistory billDetails :billData) { %>
@@ -146,6 +150,7 @@
                    <td><%= billDetails.getBillHistoryPK().getDate() %></td>
                    <td><%= billDetails.getBillAmount() %></td>
                    <td><%= billDetails.getUnitsConsumed() %></td>
+                   <td><%= billDetails.getStatus() %></td>
               </tr>
               <% } %>
            </table>
@@ -157,9 +162,9 @@
   
   
    <%if (currentBill != null) { %>
-       <div align="center" style="margin-top: -200px">
-       <h3 style="color: navy">Current Bill Details</h3>
-           <table style="font-size: 20px" >
+       <div align="center" style="margin-top: -200px;color: white;">
+       <h3 style="color: blue">Current Bill Details</h3>
+           <table style="font-size: 20px;" >
               <tr>
                  <th>RR Number</th>
                  <td>:</td>
@@ -194,16 +199,16 @@
               </tr>
              
            </table>
+               <a href="../consumer/paymentPage" role="button" class="btn btn-info"style="width: 200px;color :white; font-size: 20px;margin-left: 00px ">Online Payment</a>
        
        </div>
-        <a href="../consumer/paymentPage" role="button" class="btn btn-info"style="width: 200px;color :white; font-size: 20px;margin-left: 700px ">Online Payment</a>
    <% }%>
  
  
  
  <% if(monthlyConsumptions != null) { %>
        <div align="center" style="margin-left: 400px; margin-top: -300px">
-        <h3 style="color: navy">Monthly Consumption Details</h3>
+        <h3 style="color: blue">Monthly Consumption Details</h3>
            <table border="1" style="width: 70%">
               <tr style="background: navy; color: white">
                  <th>RR Number</th>

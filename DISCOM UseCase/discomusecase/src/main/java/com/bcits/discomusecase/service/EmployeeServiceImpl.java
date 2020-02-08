@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bcits.discomusecase.beans.BillHistory;
+import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.EmployeeMaster;
@@ -54,6 +56,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return dao.getBillGenerator(dueDate, currentBill);
 	}
 
-	
+	@Override
+	public List<ConsumerSupportRequest> getAllRequests(String region) {
+		
+		return dao.getAllRequests(region);
+	}
+
+	@Override
+	public List<BillHistory> getBillHistory(String status) {
+		
+		return dao.getBillHistory(status);
+	}
 
 }//End of Service

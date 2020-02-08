@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.bcits.discomusecase.beans.BillHistory;
 import com.bcits.discomusecase.beans.BillHistoryPK;
 import com.bcits.discomusecase.beans.ConsumerSupportRequest;
+import com.bcits.discomusecase.beans.ConsumerSupportRequestPK;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 
 import com.bcits.discomusecase.beans.CurrentBill;
@@ -181,26 +182,29 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	public CurrentBill getBill(String rrNumber) {
 		EntityManager manager=factory.createEntityManager();
 		CurrentBill currentBill=manager.find(CurrentBill.class, rrNumber);
-		String jpql="from CurrentBill where rrNumber= :rrNum";
-	    Query query=manager.createQuery(jpql);
-		query.setParameter("rrNum", rrNumber);
-		CurrentBill currentBill2=(CurrentBill) query.getSingleResult();
-		if (currentBill2 != null) {
-			 return currentBill2;
-		}else {
+//		String jpql="from CurrentBill where rrNumber= :rrNum";
+//	    Query query=manager.createQuery(jpql);
+//		query.setParameter("rrNum", rrNumber);
+//		CurrentBill currentBill2=(CurrentBill) query.getSingleResult();
+		if (currentBill != null) {
+			 return currentBill;
+		}
+		else {
 			 CurrentBill  currentBill3=new CurrentBill();
 			currentBill3.setRrNumber(rrNumber);
 			currentBill3.setPresentReading(0.0);
 			 return currentBill3;
+			
 		}
 			
 	}
 
 	@Override
-	public  List<BillHistory> getBillHistory() {
+	public  List<BillHistory> getBillHistory(String rrNumber) {
 		 EntityManager manager=factory.createEntityManager();
-		 String jpql=" from BillHistory";
-		 Query query=manager.createQuery(jpql,BillHistory.class);
+		 String jpql=" from BillHistory b where b.billHistoryPK.rrNumber= :rrNum";
+		 Query query=manager.createQuery(jpql);
+		 query.setParameter("rrNum", rrNumber);
 		 List<BillHistory> billHistory=query.getResultList();
 		 
 		return billHistory;
@@ -229,6 +233,7 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 		EntityManager manager =factory.createEntityManager();
 		EntityTransaction transaction=manager.getTransaction();
 	    PaymentDetails paymentDetails=  new PaymentDetails();
+	     CurrentBill currentBill= manager.find(CurrentBill.class, rrNumber);
 	    PaymentDetails details=manager.find(PaymentDetails.class, rrNumber);
 	    ConsumersMasterBean consumersMasterBean=manager.find(ConsumersMasterBean.class, rrNumber);
 	    boolean isAdded=false;		
@@ -240,8 +245,7 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	    paymentDetails.setTxnAmount(amtPaid);
 	    paymentDetails.setAmtPaid(amtPaid);
 	    paymentDetails.setTxnStatus("Success");
-	    
-	    
+    
 	     
 	    try {
 	    	transaction.begin();
@@ -260,14 +264,14 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 			  BillHistoryPK billHistoryPK=new BillHistoryPK();
 			  billHistoryPK.setRrNumber(rrNumber);
 			  billHistoryPK.setDate(date);
-			  billHistory.setBillAmount(paymentDetails.getTxnAmount());
+			  billHistory.setBillAmount(amtPaid);
 			  billHistory.setRegion(consumersMasterBean.getRegion());
-			  billHistory.setUnitsConsumed(bill.getConsumption());
+			  billHistory.setUnitsConsumed(currentBill.getConsumption());
 			  billHistory.setBillHistoryPK(billHistoryPK);
-			  
+			  billHistory.setStatus("Paid");
+		
 			  manager.persist(billHistory);
-			  
-			  
+  
 			  details.setTxnNumber(9756487);
 			  details.setTxnDate(date);
 			  details.setTxnType("Online payment");
@@ -288,12 +292,17 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	}
 
 	@Override
-	public boolean addComments(ConsumerSupportRequest consumerSupportRequest) {
+	public boolean addComments(String rrNumber,String region,ConsumerSupportRequest consumerSupportRequest) {
 		EntityManager manager=factory.createEntityManager();
 		EntityTransaction transaction=manager.getTransaction();
 		boolean isAdded= false;
 	   try {
 		   transaction.begin();
+		   ConsumerSupportRequestPK consumerSupportRequestPK=new ConsumerSupportRequestPK();
+		   consumerSupportRequestPK.setRrNumber(rrNumber);
+		   consumerSupportRequestPK.setDate(new Date());
+		   consumerSupportRequest.setConsumerSupportRequestPK(consumerSupportRequestPK);
+		   consumerSupportRequest.setRegion(region);
 			manager.persist(consumerSupportRequest);
 			transaction.commit();
 		    isAdded=true;	    

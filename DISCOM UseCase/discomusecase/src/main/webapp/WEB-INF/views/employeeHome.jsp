@@ -1,3 +1,4 @@
+<%@page import="com.bcits.discomusecase.beans.ConsumerSupportRequest"%>
 <%@page import="com.bcits.discomusecase.beans.BillHistory"%>
 <%@page import="java.util.List"%>
 <%@page import="com.bcits.discomusecase.beans.ConsumersMasterBean"%>
@@ -11,6 +12,9 @@
      EmployeeMaster employeeMaster=(EmployeeMaster) request.getAttribute("employeeDetails");
      List<ConsumersMasterBean> consumersBillGenerationList=(List<ConsumersMasterBean>) request.getAttribute("consumerBillDetails"); 
       
+     List<ConsumerSupportRequest> requestList=(List<ConsumerSupportRequest>) request.getAttribute("consumerRequestList");
+
+     
      List<BillHistory> billList=(List<BillHistory>) request.getAttribute("billHistoryDetails");
       %>
     
@@ -33,9 +37,9 @@
     <link rel="stylesheet" href="${css}/all.css">
 </head>
 
-<%-- <body background="${images}/Pylons_Main.jpg" style="background-size:cover;background-position: center; 
+<body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; 
 background-repeat: no-repeat; 
-background-size: cover; height: 724px;"> --%>
+background-size: cover; height: 724px;">
 
 <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
   <img id="headImg" src="${images}/discom.png" alt="">
@@ -63,16 +67,10 @@ background-size: cover; height: 724px;"> --%>
     </li>
 </ul>
 <form class="form-inline my-2 my-lg-0">
-         <a href="" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
+         <a href="../employee/employeeLogout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
         </form>
 </div>
 </nav>
-
-<!-- <div style="margin-top: 50px">
-    <a href="../employee/employeeConsumerDetails" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="width: 100%;background-color: blue;color: white">Consumer Details</a>
-    <a href="../consumer/getBillHistory" role="button" class="btn btn-info"style="width: 100%;color :white; font-size: 20px ">Bill History</a>
-    <a href="./getCurrentBill" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" style="width: 100%">Current Bill</a>
-  </div> -->
   
   <div class="row" style="margin-top: 200px;">
   <div class="col-3" >
@@ -80,32 +78,32 @@ background-size: cover; height: 724px;"> --%>
       <a class="list-group-item list-group-item-action"style="background-color: aqua;color: black;font-size: 20px" id="list-profile-list" data-toggle="list" href="../employee/employeeConsumerDetails" role="tab" aria-controls="profile">Consumer Details</a>
       <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-messages-list" data-toggle="list" href="../employee/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
       <a class="list-group-item list-group-item-action"style="background-color: aqua;color: black;font-size: 20px" id="list-settings-list" data-toggle="list" href="../employee/consumerBillGeneration" role="tab" aria-controls="settings">Month Bill Generation</a>
-     <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-settings-list" data-toggle="list" href="../employee/getRequests" role="tab" aria-controls="settings">View Consumer Requests</a>
+     <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-settings-list" data-toggle="list" href="../employee/displayRequests" role="tab" aria-controls="settings">View Consumer Requests</a>
       
     </div>
   </div>
  <%if (employeeMaster != null) { %>
        <div >
-           <table style="margin-left: 400px;font-size: 20px;border: 1px" >
+          <table style="margin-left: 400px;font-size: 20px;border: 1px;color: white;" >
            <h1 style="margin-left: 400px;color:  navy">Employee Details</h1>
               <tr style="margin-top:  70px">
                  <th>Emoployee Name</th>
-               
+                 <th>:</th>
                 <td> <%= employeeMaster.getEmpName() %></td>
               </tr>
                <tr>
                  <th>Employee Id</th>
-                 
+                 <th>:</th>
                 <td> <%= employeeMaster.getEmpId() %></td>
               </tr>
                <tr>
                  <th>Designation</th>
-                 
+                 <th>:</th>
                 <td> <%= employeeMaster.getDesignation() %></td>
               </tr>
               <tr>
                  <th>Region</th>
-                 
+                 <th>:</th>
                 <td> <%= employeeMaster.getRegion() %></td>
               </tr>
               
@@ -117,9 +115,9 @@ background-size: cover; height: 724px;"> --%>
 
 
   <%if(consumersMasterBeanList != null){ %>
-  
-   <table style="margin-left: 450px;font-size: 20px;margin-top : -150px;border: 1px;width: 70%" >
-    <h1 style="margin-left: 300px;color: navy">Consumer Details</h1>
+   <h1 style="margin-left: 300px;color: navy;">Consumer Details</h1>
+   <table style="margin-left: 450px;font-size: 20px;margin-top : -150px;border: 1px;width: 70%;color:white;background: black" >
+   
      <thead style="background: navy;color: white">
         <tr style="height: 35px">
            <th>SN No.</th>
@@ -159,9 +157,8 @@ background-size: cover; height: 724px;"> --%>
    </table>
    <% } %>
    
-     <%if(consumersBillGenerationList != null){ %>
-  
-   <table style="margin-left: 450px;font-size: 20px;margin-top : -150px;border: 1px;width: 70%" >
+  <%if(consumersBillGenerationList != null){ %>
+     <table style="margin-left: 450px;font-size: 20px;margin-top : -150px;border: 1px;width: 70%;background-color: black;color:white" >
     <h1 style="margin-left: 300px;color: navy">Consumer Bill Pendings</h1>
      <thead style="background: navy;color: white">
         <tr style="height: 35px">
@@ -220,6 +217,31 @@ background-size: cover; height: 724px;"> --%>
        </div>
     <% } %>  
   
+  
+  <% if(requestList != null) { %>
+       <div align="center" style="margin-left: 100px;color: white;">
+       <h3 style="color: navy">Consumer Request Details</h3>
+           <table border="1" style="width: 1000px;background-color: black">
+              <tr style="background: navy; color: white;height: 35px;font-size: 20px">
+                 <th>RR Number</th>
+                 <th>Email</th>
+                 <th>Date</th>
+                 <th>Region</th>
+                 <th>Request</th>
+                 
+              </tr>
+              <%for(ConsumerSupportRequest consumerRequest :requestList) { %>
+              <tr style="height: 35px;font-size: 17px">
+                   <td><%= consumerRequest.getConsumerSupportRequestPK().getRrNumber() %></td>
+                   <td><%= consumerRequest.getEmail() %></td>
+                   <td><%= consumerRequest.getConsumerSupportRequestPK().getDate() %></td>
+                   <td><%= consumerRequest.getRegion() %></td>
+                   <td><%= consumerRequest.getText() %></td>
+              </tr>
+              <% } %>
+           </table>
+       </div>
+    <% } %>  
   
   <%if(msg !=null && !msg.isEmpty()) {%>
 <h3 style="color: green; margin-left: 300px;"><%= msg %></h3>

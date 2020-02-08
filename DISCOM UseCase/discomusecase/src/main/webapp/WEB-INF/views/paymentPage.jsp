@@ -50,20 +50,24 @@
         </form>
 </div>
 </nav>
+
+<body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; background-repeat: no-repeat; background-size: cover; height: 724px;">
+
+
 <div class="container">
         <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">
 
-    <form action="../consumer/addPaymentDetails" method="post" style="border: 1px solid black;width: 600px;height: 560px;border-radius: 10px;background-color:lavender; margin-left: 300px; ">
+    <form action="../consumer/addPaymentDetails" method="post" style="border: 1px solid black;width: 600px;height: 570px;border-radius: 10px;background-color:lavender; margin-left: 150px; ">
 
         <h1 style="text-align: center; color: navy;">Payment</h1>
         <div style="margin-top: 30px;">
             
             <span >
           <!-- <p style="font-size: 25px; padding-bottom: -50px;">Pay Using</p> -->
-            <img  src="./images/visa.jpg" alt="" style="height: 50px; width: 100px;margin-left: 100PX;" >
-            <img src="./images/master card.png" alt="" style="height: 50px; width: 100px;" >
-            <img src="/images/rupay card.jpg" alt="" style="height: 50px; width: 100px;">
-            <img src="/images/upi card.jpg" alt="" style="height: 50px; width: 100px;">
+            <img  src="${images}/visa.jpg" alt="" style="height: 50px; width: 100px;margin-left: 100PX;" >
+            <img src="${images}/master card.png" alt="" style="height: 50px; width: 100px;" >
+            <img src="${images}/rupay card.jpg" alt="" style="height: 50px; width: 100px;">
+            <img src="${images}/upi card.jpg" alt="" style="height: 50px; width: 100px;">
             </span>
         </div>
 
@@ -94,9 +98,9 @@
         <div style="padding-top: 20px;text-align: center;">
             <input type="submit" value="PAY NOW" style="height: 50px;width: 200px;background-color: turquoise;border-radius: 10PX;">   
         </div>
-        <div style="text-align:center; font-size: 20PX;">
+        <!-- <div style="text-align:center; font-size: 20PX;">
             <a href="" >Cancel</a>
-        </div>
+        </div> -->
         
     </form>
  </div>

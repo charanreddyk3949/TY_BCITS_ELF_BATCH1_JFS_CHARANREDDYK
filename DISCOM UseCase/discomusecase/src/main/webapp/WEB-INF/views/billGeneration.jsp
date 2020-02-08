@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="${css}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${css}/all.css">
 </head>
+<body>
 <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
   <img id="headImg" src="${images}/discom.png" alt="">
   <form class="form-inline">
@@ -53,23 +54,23 @@
   <li class="nav-item">
     <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
   </li>
-  <li class="nav-item">
-      <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../employee/employeeLogin">Employee Portal</a>
-    </li>
+  
 </ul>
 <form class="form-inline my-2 my-lg-0">
          <a href="../consumer/logout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
         </form>
 </div>
 </nav>
+
+  <body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; 
+          background-repeat: no-repeat; 
+          background-size: cover; height: 724px;">
+
 <%if(consumersMasterBean != null && currentBill != null) {%>
 
-
-
-
-    <div style="border: 1px solid black; margin-left: 500px;margin-top: 100px;width: 500px;height: 550px;border-radius: 15px;">
-            <form class="formsignin" action="./billGeneration" method="post">
-                <h2 style="text-align: center;">Bill Generation</h2>
+   <div style="border: 1px solid black; margin-left: 500px;margin-top: 100px;width: 500px;height: 550px;border-radius: 15px;background-color:white">
+            <form class="formsignin" action="./billGeneration" method="post" >
+                <h2 style="text-align: center;color:blue;">Bill Generation</h2>
                 <div style="margin-left: 150px;margin-top: 30px;">
                    <label> RR Number</label><br>
                    <input type="text" id="rrNumber" name="rrNumber"  value="<%= currentBill.getRrNumber() %>" style="width: 250px;height: 35px;">
@@ -90,19 +91,17 @@
                 <label> Due date</label><br>
                 <input type="date" id="dueDate" name="dueDate" style="width: 250px;height: 35px;" placeholder="yyyy/MM/dd">
                </div><br>
-               <button style="margin-left: 190px; background-color: cyan;color: black;font-size: 20px;margin-top: 20px;">Generate</button>
+               <button style="margin-left: 190px; background-color: cyan;color: black;font-size: 20px;borde-radious:5px">Generate</button>
             
-             <%-- <div style="margin-left: 150px;margin-top: 20px;">
-                <label> Bill Amount</label><br>
-                <input type="number" id="billAmount" name="billAmount" value="<%=amount%>" style="width: 250px;height: 35px;" placeholder="enter final reading..">
-               </div>  --%>
+            
             </form>
 
         </div>
         
         
- <% } %>
- 
+ <% }%>
+
+
    <%if(msg !=null && !msg.isEmpty()) {%>
 <h3 style="color: green" align="center"><%= msg %></h3>
 <% } %>

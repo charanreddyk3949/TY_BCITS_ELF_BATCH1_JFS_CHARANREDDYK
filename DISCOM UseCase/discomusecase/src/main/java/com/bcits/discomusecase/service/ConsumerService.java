@@ -22,13 +22,13 @@ public ConsumersMasterBean authenticate(String rrNumber, String password);
 	public List<ConsumersMasterBean> getAllConsumers();
     
     public CurrentBill getBill(String rrNumber);
-	public List<BillHistory> getBillHistory();
+	public List<BillHistory> getBillHistory(String rrNumber);
 	
 	 public PaymentDetails  getPaymentDetails(String rrNumber);
 	 public List<MonthlyConsumption> getMonthlyConsuption();
 	 
 	 public boolean billPaymentPage(String rrNumber,Date date, Double amtPaid);
 	 
-	 public boolean addComments(ConsumerSupportRequest consumerSupportRequest);
+	 public boolean addComments(String rrNumber,String region,ConsumerSupportRequest consumerSupportRequest);
 
 }//End of ConsumerService

@@ -35,14 +35,12 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 <ul  class="navbar-nav mr-auto">
   <li class="nav-item active">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/homepage/homepage.html">Home </a>
+    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../home/homePage">Home </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/consumerlogin/consumerlogin1.html">Consumer Portal</a>
+    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
   </li>
-  <li class="nav-item">
-      <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
-    </li>
+  
 </ul>
 <form class="form-inline my-2 my-lg-0">
          <a href="../consumer/logout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>

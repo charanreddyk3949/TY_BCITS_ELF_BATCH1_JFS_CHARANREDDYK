@@ -148,7 +148,7 @@ public class ConsumerController {
 	
 	@PostMapping("/updateConsumer")
 //	@RequestMapping(name = "/updateConsumer", method = RequestMethod.POST)
-	public String updateEmp(int rrNumber, @SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap,HttpSession session,ConsumersMasterBean consumersMasterBean2) {
+	public String updateEmp(String rrNumber, @SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap,HttpSession session,ConsumersMasterBean consumersMasterBean2) {
 		
 		if(consumersMasterBean != null) {
 			 if(service.updateConsumer(consumersMasterBean2)) {
@@ -236,7 +236,7 @@ public class ConsumerController {
 //				modelMap.addAttribute("consumerMasterBean", consumersMasterBean2);
 				return "consumerHome";
 			}else {
-				modelMap.addAttribute("errMsg", "Bill is Not yet  generated");
+				modelMap.addAttribute("errMsg", "New User Bill is Not yet  generated");
 			}
 			return "consumerHome";
 		}else {
@@ -246,10 +246,11 @@ public class ConsumerController {
 		}//End of getBill
 	
 	@GetMapping("/getBillHistory")
-	public String getBillHistory(@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean history,ModelMap modelMap) {
+	public String getBillHistory(HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean history,ModelMap modelMap) {
 	   
 		if(history != null) {
-		List<BillHistory> billHistory= service.getBillHistory();
+			ConsumersMasterBean consumersMasterBean=(ConsumersMasterBean) session.getAttribute("loggedinEmpInfo");
+		List<BillHistory> billHistory= service.getBillHistory(consumersMasterBean.getRrNumber());
 	   
 		if (billHistory != null) {	
 			modelMap.addAttribute("billHistory", billHistory);
@@ -320,10 +321,13 @@ public class ConsumerController {
 	
 	
 	@PostMapping("/addComments")
-	public String addComments(ConsumerSupportRequest consumerSupportRequest,@SessionAttribute(name = "loggedinEmpInfo" ,required = false) ConsumersMasterBean consumersMasterBean ,ModelMap modelMap) {
+	public String addComments(HttpSession session,ConsumerSupportRequest consumerSupportRequest,@SessionAttribute(name = "loggedinEmpInfo" ,required = false) ConsumersMasterBean consumersMasterBean ,ModelMap modelMap) {
 		
 		if (consumersMasterBean != null) {
-			if (service.addComments(consumerSupportRequest)) {
+		    ConsumersMasterBean consumersMasterBean2=(ConsumersMasterBean) session.getAttribute("loggedinEmpInfo");
+		    String rrNumber=consumersMasterBean2.getRrNumber();
+		    String region=consumersMasterBean2.getRegion();
+			if (service.addComments(rrNumber, region, consumerSupportRequest)) {
 				modelMap.addAttribute("msg", "Request is posted Successfully!!!");
 			}else {
 				modelMap.addAttribute("errMsg", "Failed to add the Request");

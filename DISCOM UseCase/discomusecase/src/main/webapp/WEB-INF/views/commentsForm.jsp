@@ -33,7 +33,7 @@
   
 </head>
 <body>
-          <body background="${images}/Pylons_Main.jpg" style="background-size:cover;background-position: center; 
+          <body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; 
           background-repeat: no-repeat; 
           background-size: cover; height: 724px;">
 
@@ -60,9 +60,10 @@
             <li class="nav-item">
                 <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
               </li>
-            <li class="nav-item">
-          <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../employee/employeeLogin">Employee Portal</a>
-        </li>
+           <form class="form-inline my-2 my-lg-0" >
+                <a href="../consumer/logout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid;text-align: right;">Logout</a>
+           </form>
+       </form>
           </ul>
           
         </div>
@@ -72,27 +73,21 @@
        <% } %>
       
      
-  <div>
-    <h2 style="margin-left: 100px;color: navy;">Comments</h2>
-   <form action="./addComments" method="post">
-    <div class="form-group col-8" style="margin-top: 40px;margin-left: 5px;">
-      <label for="exampleFormControlInput1" style="margin-left: 60px;">RR Number</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1"name="rrNumber" placeholder="enter rr number">
-    </div>
-     <div class="form-group col-8" style="margin-left: 60px;">
-      <label for="exampleFormControlInput1" >Enter date</label>
-      <input type="date" class="form-control" id="exampleFormControlInput1"name="date" value="<%= new Date() %>">
-    </div>
-     <div class="form-group col-8" style="margin-left: 60px;">
+  <div align="center">
+   <form action="./addComments" method="post"
+    style="border: 1px solid black;margin-top: 100px;width: 700px;height: 500px;   box-shadow: 5px 10px inset;">
+    <h2 style="color: blue;">Comments</h2>
+  
+     <div class="form-group col-8" style="color: blue">
       <label for="exampleFormControlInput1">Email address</label>
-      <input type="email" class="form-control" id="exampleFormControlInput1" name="email"placeholder="name@example.com">
+      <input type="email" class="form-control" id="exampleFormControlInput1" name="email"placeholder="enter mail...">
      </div>
-     </div>
-     <div class="form-group col-8" style="margin-left: 60px;">
+     
+     <div class="form-group col-8" style="color : blue;">
       <label for="exampleFormControlTextarea1"> Textarea</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" name="text" rows="5"></textarea>
+      <textarea class="form-control" id="exampleFormControlTextarea1" name="text" rows="5" placeholder="enter text here..."></textarea>
      </div>
-     <button style="margin-left: 80px; background-color: cyan;color: black;font-size: 20px;margin-top: 20px;height: 40px;width: 120px;border-radius: 10px">Submit</button>
+     <button style="margin-left: 0px; background-color: cyan;color: black;font-size: 20px;margin-top: 20px;height: 40px;width: 120px;border-radius: 10px">Submit</button>
   </form>
 </div>    
  

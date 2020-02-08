@@ -3,6 +3,7 @@ package com.bcits.discomusecase.consumerdao;
 import java.util.Date;
 import java.util.List;
 
+import com.bcits.discomusecase.beans.BillHistory;
 import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
@@ -24,5 +25,7 @@ public interface EmployeeDAO {
     public boolean getBillGenerator(Date dueDate,CurrentBill currentBill);
 	
     public List<ConsumerSupportRequest> getAllRequests(String region);
+    
+    public List<BillHistory> getBillHistory(String status);
 
 }//End of EmployueeDAO

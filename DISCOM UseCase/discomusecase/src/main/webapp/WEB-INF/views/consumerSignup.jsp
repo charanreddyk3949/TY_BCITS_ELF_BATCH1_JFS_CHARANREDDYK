@@ -139,8 +139,8 @@
 
               </div>
               <div class="form-group"style="margin-top: 0px;">
-                <label for="inputAddress">Meter Number</label>
-                <input type="text" class="form-control" id="rrNumber" name="rrNumber" placeholder="enter service/meter number...">
+                <label for="inputAddress">RR Number</label>
+                <input type="text" class="form-control" id="rrNumber" name="rrNumber" placeholder="enter rr number...">
               </div>
 
              
