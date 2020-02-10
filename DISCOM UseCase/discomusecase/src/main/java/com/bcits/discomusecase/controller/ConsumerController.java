@@ -41,6 +41,7 @@ public class ConsumerController {
 	
 	@Autowired
 	 private ConsumerService service;
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		CustomDateEditor dateEditor=new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
@@ -99,18 +100,18 @@ public class ConsumerController {
 	public String authenticate(String rrNumber, String password,HttpServletRequest req, ModelMap modelMap) {
 
 		ConsumersMasterBean consumersMasterBean=service.authenticate(rrNumber, password);
-		ConsumersMasterBean masterBean=service.getConsumer(consumersMasterBean.getRrNumber());
+//		ConsumersMasterBean masterBean=service.getConsumer(consumersMasterBean.getRrNumber());
 		if (consumersMasterBean != null) {
 			//Valid credentials
 			HttpSession session= req.getSession(true);
 			session.setAttribute("loggedinEmpInfo", consumersMasterBean);
-//			session.setAttribute("consumerDetails", masterBean);
+
 			return "consumerHome";	
-		}else {
-			//Invalid credentials
-			modelMap.addAttribute("errMsg", "Invalid Credentials");
-			return "consumerLogin";
-		}
+		 }else {
+				//Invalid credentials
+				modelMap.addAttribute("errMsg", "Invalid Credentials");
+				return "consumerLogin";
+			}
 	}//End of authenticate()
 	
 	
@@ -148,10 +149,12 @@ public class ConsumerController {
 	
 	@PostMapping("/updateConsumer")
 //	@RequestMapping(name = "/updateConsumer", method = RequestMethod.POST)
-	public String updateEmp(String rrNumber, @SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap,HttpSession session,ConsumersMasterBean consumersMasterBean2) {
+	public String updateEmp( @SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap,HttpSession session,ConsumersMasterBean consumersMasterBean2) {
 		
 		if(consumersMasterBean != null) {
-			 if(service.updateConsumer(consumersMasterBean2)) {
+			ConsumersMasterBean  bean=(ConsumersMasterBean) session.getAttribute("loggedinEmpInfo");
+			String rrNumber=bean.getRrNumber();
+			 if(service.updateConsumer(rrNumber,consumersMasterBean2)) {
 				 modelMap.addAttribute("msg", "Consumer is Updated successfully!!!");
 			 }else {
 				modelMap.addAttribute("errMsg", "Consumer Details Not Found");
@@ -233,7 +236,6 @@ public class ConsumerController {
 		ConsumersMasterBean consumersMasterBean2=service.getConsumer(bill.getRrNumber());	
 			if (currentBill != null) {
 				modelMap.addAttribute("currentBillDetails", currentBill);
-//				modelMap.addAttribute("consumerMasterBean", consumersMasterBean2);
 				return "consumerHome";
 			}else {
 				modelMap.addAttribute("errMsg", "New User Bill is Not yet  generated");

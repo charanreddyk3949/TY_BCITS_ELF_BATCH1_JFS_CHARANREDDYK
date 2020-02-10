@@ -215,6 +215,7 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
    	       Double unitsConsumed=currentBill.getPresentReading()-initialReading;
    	    TariffBillGenerator billGenerator=new TariffBillGenerator();
            billAmount=billGenerator.getBill(unitsConsumed, consumersMasterBean.getConsumerType());
+           
     	   transaction.begin();
     	   bill.setBillAmount(billAmount);
     	   bill.setConsumption(unitsConsumed);
@@ -234,17 +235,22 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 		   Double unitsConsumed=currentBill.getPresentReading()-initialReading;
 		   TariffBillGenerator generator=new TariffBillGenerator();
 		   billAmount=generator.getBill(unitsConsumed, consumersMasterBean.getConsumerType());
-	   
-		   try {
-			   Double presentReading=unitsConsumed+initialReading;
-			   transaction.begin();
-			   
-			   currentBill.setRrNumber(consumersMasterBean.getRrNumber());
-			   currentBill.setConsumption(unitsConsumed);
-			   currentBill.setBillAmount(billAmount);
-			   currentBill.setInitialReading(initialReading);
-			
+		   
+		   
 		  
+    	   
+    	   try {
+    		   
+			
+
+			Double presentReading = unitsConsumed + initialReading;
+		    transaction.begin();
+
+			currentBill.setRrNumber(consumersMasterBean.getRrNumber());
+			currentBill.setConsumption(unitsConsumed);
+			currentBill.setBillAmount(billAmount);
+			currentBill.setInitialReading(initialReading);
+
 			manager.persist(currentBill);
 			transaction.commit();
 			
@@ -261,6 +267,20 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 			manager.persist(monthlyConsumption);
 			transaction.commit();
 			
+			
+			 BillHistoryPK billHistoryPK=new BillHistoryPK();
+	    	   billHistoryPK.setRrNumber(consumersMasterBean.getRrNumber());
+	    	   billHistoryPK.setDate(new Date());
+	    	   
+	    	   BillHistory billHistory =new BillHistory();
+	    	   billHistory.setBillAmount(currentBill.getBillAmount());
+	    	   billHistory.setRegion(consumersMasterBean.getRegion());
+	    	   billHistory.setUnitsConsumed(currentBill.getConsumption());
+	    	   billHistory.setStatus("NotPaid");
+	    	   billHistory.setBillHistoryPK(billHistoryPK);
+	    	   transaction.begin();
+			manager.persist(billHistory);
+			transaction.commit();
 			
 			manager.close();
 			return true; 

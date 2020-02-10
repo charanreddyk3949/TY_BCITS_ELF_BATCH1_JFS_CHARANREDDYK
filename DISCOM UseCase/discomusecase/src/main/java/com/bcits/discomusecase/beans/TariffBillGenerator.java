@@ -24,7 +24,7 @@ public class TariffBillGenerator {
 			   }else {
 				   amount=(1000*10)+((2000-1000)*15)+(units-2000)*18;
 			   }	   	
-		}else if(consumerType.equalsIgnoreCase("Industrial")) {
+		}else if(consumerType.equalsIgnoreCase("Industries")) {
 			if(units <= 10000) {
 				amount=units*10;
 			   }else if(units > 10000 && units <= 20000) {

@@ -7,8 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-    <% String msg=(String) request
-    .getAttribute("msg");
+    <% String msg=(String) request.getAttribute("msg");
        String errMsg=(String) request.getAttribute("errMsg"); 
        ConsumersMasterBean consumersMasterBean=(ConsumersMasterBean) request.getAttribute("consumerDetails");
        List<BillHistory> billData=(List<BillHistory>) request.getAttribute("billHistory");
@@ -199,6 +198,7 @@
               </tr>
              
            </table>
+           
                <a href="../consumer/paymentPage" role="button" class="btn btn-info"style="width: 200px;color :white; font-size: 20px;margin-left: 00px ">Online Payment</a>
        
        </div>

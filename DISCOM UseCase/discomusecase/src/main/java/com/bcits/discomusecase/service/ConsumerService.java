@@ -13,11 +13,11 @@ import com.bcits.discomusecase.beans.PaymentDetails;
 
 public interface ConsumerService {
 	
-public ConsumersMasterBean authenticate(String rrNumber, String password);
+    public ConsumersMasterBean authenticate(String rrNumber, String password);
 	
 	public boolean addConsumer(ConsumersMasterBean consumersMasterBean);
 	public boolean deleteConsumer(Integer rrNumber);
-	public boolean updateConsumer(ConsumersMasterBean consumersMasterBean);
+	public boolean updateConsumer(String rrNumber,ConsumersMasterBean consumersMasterBean);
 	public ConsumersMasterBean getConsumer(String rrNumber);
 	public List<ConsumersMasterBean> getAllConsumers();
     

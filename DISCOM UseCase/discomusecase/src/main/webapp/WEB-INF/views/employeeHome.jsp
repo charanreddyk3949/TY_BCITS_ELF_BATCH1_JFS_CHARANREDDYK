@@ -15,7 +15,7 @@
      List<ConsumerSupportRequest> requestList=(List<ConsumerSupportRequest>) request.getAttribute("consumerRequestList");
 
      
-     List<BillHistory> billList=(List<BillHistory>) request.getAttribute("billHistoryDetails");
+     List<BillHistory> billList=(List<BillHistory>) request.getAttribute("billHistory");
       %>
     
     <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -203,6 +203,8 @@ background-size: cover; height: 724px;">
                  <th>Date</th>
                  <th>Bill Amount</th>
                  <th>Units</th>
+                 <th>Status</th>
+                 
                  
               </tr>
               <%for(BillHistory billDetails :billList) { %>
@@ -211,6 +213,7 @@ background-size: cover; height: 724px;">
                    <td><%= billDetails.getBillHistoryPK().getDate() %></td>
                    <td><%= billDetails.getBillAmount() %></td>
                    <td><%= billDetails.getUnitsConsumed() %></td>
+                   <td><%= billDetails.getStatus() %></td>
               </tr>
               <% } %>
            </table>

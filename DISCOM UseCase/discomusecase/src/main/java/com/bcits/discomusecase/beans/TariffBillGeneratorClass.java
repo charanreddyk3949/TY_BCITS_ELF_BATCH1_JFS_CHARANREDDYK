@@ -8,7 +8,7 @@ public class TariffBillGeneratorClass {
 		Scanner scanner=new Scanner(System.in);
 		System.out.println("Enter No. of Units...");
 		Double units=scanner.nextDouble();
-		System.out.println("enter One type of Consumer...1.Residential \n 2.Commertial \n 3.Industrial");
+		System.out.println("enter One type of Consumer...1.Residential \n 2.Commertial \n 3.Industries");
 		String consumerType=scanner.next();
 		Double bill=tariffBillGenerator.getBill(units, consumerType);
 		

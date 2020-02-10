@@ -192,26 +192,24 @@ public class EmployeeController {
 		
 	}//getGenerateBillAmount()
 	
-	@GetMapping("/getBillHistory")
-	public String getBillHistory(BillHistory billHistory,HttpSession session,@SessionAttribute (name = "loggedinEmpInfo",required = false) EmployeeMaster employeeMaster,ModelMap modelMap) {
-		
-		if (employeeMaster != null) {
-		        CurrentBill currentBill =(CurrentBill) session.getAttribute("finalreadingValue");
-			List<BillHistory> history=servicec.getBillHistory(currentBill.getRrNumber());
-			if (history != null) {
-				modelMap.addAttribute("billHistoryDetails", history);
-			}else {
-				modelMap.addAttribute("errMsg", "No previous Bill present.");
-			}
-			return "employeeHome";
-			
-		}else {
-			modelMap.addAttribute("errMsg", "Please Login First");
-			return "employeeLogin";
-		}
-		
-	}//End of getBillhistory()
-	
+	/*
+	 * @GetMapping("/getBillHistory") public String getBillHistory(BillHistory
+	 * billHistory,HttpSession session,@SessionAttribute (name =
+	 * "loggedinEmpInfo",required = false) EmployeeMaster employeeMaster,ModelMap
+	 * modelMap) {
+	 * 
+	 * if (employeeMaster != null) { CurrentBill currentBill =(CurrentBill)
+	 * session.getAttribute("finalreadingValue"); List<BillHistory>
+	 * history=servicec.getBillHistory(currentBill.getRrNumber()); if (history !=
+	 * null) { modelMap.addAttribute("billHistoryDetails", history); }else {
+	 * modelMap.addAttribute("errMsg", "No previous Bill present."); } return
+	 * "employeeHome";
+	 * 
+	 * }else { modelMap.addAttribute("errMsg", "Please Login First"); return
+	 * "employeeLogin"; }
+	 * 
+	 * }//End of getBillhistory()
+	 */	
 
 	@GetMapping("/displayRequests")
 	public String getAllRequests(HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
@@ -228,6 +226,24 @@ public class EmployeeController {
 			modelMap.addAttribute("errMsg", "Please Login First");
 			return "employeeLogin";
 		}
-	}
+	}//End of getAllRequests()
+	
+	
+	@GetMapping("/getBillHistory")
+	public String getBillHIstrory(String status,@SessionAttribute(name = "loggedinEmpInfo",required = false) EmployeeMaster employeeMaster,ModelMap modelMap){
+		
+		if (employeeMaster != null) {
+			List<BillHistory> billHistories=service.getBillHistory("NotPaid");
+			if (billHistories != null) {
+				modelMap.addAttribute("billHistory", billHistories);
+			}else {
+				modelMap.addAttribute("errMsg", "No Pending Lists Found");		
+			}
+			return "employeeHome";
+		}else {
+			modelMap.addAttribute("errMsg", "Please Login First");
+			return "employeeLogin";
+		}
+	}//End of getBillHistory()
 	
 }//End of controller

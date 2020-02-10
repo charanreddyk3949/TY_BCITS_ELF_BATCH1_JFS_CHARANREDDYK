@@ -24,12 +24,9 @@ public class ConsumerServiceImpl implements ConsumerService{
 
 	@Override
 	public ConsumersMasterBean authenticate(String rrNumber, String password) {
-		if (dao.authenticate(rrNumber, password) == null) {
-			
-			throw new ConsumerException("Please Provide Valid Credentials...");
-		}else {
-			return dao.authenticate(rrNumber, password);
-		}
+		
+	 return dao.authenticate(rrNumber, password);
+		
 		
 	}//End of authenticate()
 
@@ -50,9 +47,9 @@ public class ConsumerServiceImpl implements ConsumerService{
 
 	
 	@Override
-	public boolean updateConsumer(ConsumersMasterBean consumersMasterBean) {
+	public boolean updateConsumer(String rrNumber,ConsumersMasterBean consumersMasterBean) {
 		
-		return dao.updateConsumer(consumersMasterBean);
+		return dao.updateConsumer(rrNumber,consumersMasterBean);
 	}//End of updateConsumer()
 
 	

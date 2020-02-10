@@ -72,13 +72,13 @@
               <form action="../consumer/updateConsumer" method="post">
                 <div class="form-row" >
                 
-                <div class="form-group col-md-12"style="margin-top: 0px;">
+               <!--  <div class="form-group col-md-12"style="margin-top: 0px;">
                   <label for="inputAddress">RR Number</label>
                   <input type="text" class="form-control" id="rrNumber" name="rrNumber" placeholder="enter rr number...">
-                </div>
+                </div> -->
                   <div class="col col-md-12">
                     <label for="inputEmail4">Name</label>
-                    <input type="text" class="form-control"id="firstName" name="firstName" placeholder="First name">
+                    <input type="text" class="form-control"id="firstName" name="firstName" placeholder="enter name">
                   </div>
                   
                 </div>
@@ -93,9 +93,14 @@
                 <input type="text" class="form-control" id="address1"name="address1" placeholder="HouseNo.street...">
               </div>
               
+               <div class="form-group col-md-13" style="margin-top: -10px;margin-left: -2px">
+                <label for="inputAddress">Mobile Number</label>
+                <input type="number" class="form-control" id="mobileNumber"name="mobileNumber" style="height: 25px;" placeholder="enter mobile number...">
+              </div>
+              
               
             
-                <div class="form-row" style="margin-top: -20px;">
+               <!--  <div class="form-row" style="margin-top: -20px;">
                   <div class="col">
                     <label for="inputEmail4">Region</label>
                     <select id="inputState" class="form-control"id="region" name="region"style="height: 25px;font-size:15px;padding-top:0px">
@@ -104,7 +109,7 @@
                       <option>Banglore-South</option>
                     </select>
                   </div>
-         </div>
+         </div> -->
               
                 <div class="form-row"style="margin-top: 10px;">
                   <div class="form-group col-md-12">

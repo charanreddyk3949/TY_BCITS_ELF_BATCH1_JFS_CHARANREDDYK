@@ -89,64 +89,37 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	}//End of deleteConsumer()
 
 	@Override
-	public boolean updateConsumer(ConsumersMasterBean consumersMasterBean) {
+	public boolean updateConsumer(String rrNumber,ConsumersMasterBean consumersMasterBean) {
 		EntityManager manager=factory.createEntityManager();
-        EntityTransaction transaction=manager.getTransaction();
-        
-        String rrNumber=consumersMasterBean.getRrNumber();
-        String firstName= consumersMasterBean.getFirstName();
-        String lastName= consumersMasterBean.getLastName();
+        EntityTransaction transaction=manager.getTransaction();            
+        String firstName= consumersMasterBean.getFirstName();     
         String email=consumersMasterBean.getEmail();
-        String address1=consumersMasterBean.getAddress1();
-        String address2=consumersMasterBean.getAddress2();
-        String city=consumersMasterBean.getCity();
-        String state=consumersMasterBean.getState();
-        String region=consumersMasterBean.getRegion();
-        String consumerType=consumersMasterBean.getConsumerType();
+        String address1=consumersMasterBean.getAddress1();      
         String password=consumersMasterBean.getPassword();
-        String confirmPassword=consumersMasterBean.getConfirmPassword();
+        Long mobileNumber=consumersMasterBean.getMobileNumber();
         ConsumersMasterBean consumersMasterBean2=manager.find(ConsumersMasterBean.class, rrNumber);
         boolean isUpdate=false;
         try {
       	  transaction.begin();
-      	  if (rrNumber != null && rrNumber.isEmpty()) {
-      		consumersMasterBean2.setRrNumber(rrNumber);    		
-		   }
-      	  if (firstName != null && firstName.isEmpty()) {
+      	  
+      	  if (firstName != null && !firstName.isEmpty()) {
       		consumersMasterBean2.setFirstName(firstName);    		
 		   }
-      	  if (lastName != null && lastName.isEmpty()) {
-		 	consumersMasterBean2.setLastName(lastName);
-		}
-      	if (email != null && email.isEmpty()) {
+      	 
+      	if (email != null && !email.isEmpty()) {
 		 	consumersMasterBean2.setEmail(email);
 		}
-      	if (address1 != null && address1.isEmpty()) {
+      	if (address1 != null && !address1.isEmpty()) {
 		 	consumersMasterBean2.setAddress1(address1);
 		}
-      	if (address2 != null && address2.isEmpty()) {
-		 	consumersMasterBean2.setAddress2(address2);
-		}
-      	if (city != null && city.isEmpty()) {
-		 	consumersMasterBean2.setCity(city);
-		}
-      	if (state != null && state.isEmpty()) {
-		 	consumersMasterBean2.setState(state);
-		}
-      	if (region != null && region.isEmpty()) {
-		 	consumersMasterBean2.setRegion(region);
-		}
-      	if (consumerType != null && consumerType.isEmpty()) {
-		 	consumersMasterBean2.setConsumerType(consumerType);
-		}
-      	if (password != null && password.isEmpty()) {
-		 	consumersMasterBean2.setPassword(password);
-		}
-      	if (confirmPassword != null && confirmPassword.isEmpty()) {
-		 	consumersMasterBean2.setConfirmPassword(confirmPassword);
+      	if (mobileNumber != null ) {
+		 	consumersMasterBean2.setMobileNumber(mobileNumber);
 		}
       	
-      	  
+      	if (password != null && !password.isEmpty()) {
+		 	consumersMasterBean2.setPassword(password);
+		}
+      	 
       	  transaction.commit();  
       	  isUpdate=true; 
       	  return isUpdate;
@@ -227,15 +200,103 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 		return consumptionList;
 	}//End of getMonthlyConsuption()
 
+//	@Override
+//	public boolean billPaymentPage(String rrNumber, Date date, Double amtPaid) {
+//		
+//		EntityManager manager =factory.createEntityManager();
+//		EntityTransaction transaction=manager.getTransaction();
+//	  
+//	    CurrentBill currentBill= manager.find(CurrentBill.class, rrNumber);
+//	    PaymentDetails details=manager.find(PaymentDetails.class, rrNumber);
+//	  
+//	    
+////	    String jpql="from BillHistory b where b.billHistoryPK.rrNumber= :rrNum and b.status= :statusVal";
+////	    Query query=manager.createQuery(jpql);
+////	    query.setParameter("rrNum", rrNumber);
+////	    query.setParameter("statusVal", "NotPaid");
+////	    BillHistory billHistory2= (BillHistory) query.getSingleResult();
+//	  
+//	    ConsumersMasterBean consumersMasterBean=manager.find(ConsumersMasterBean.class, rrNumber);
+//	    
+//	    boolean isAdded=false;	
+////	   if (currentBill != null) {
+////		   transaction.begin();
+////		   billHistory2.setStatus("Paid");
+////		   transaction.commit();
+//	
+//	    
+//	   if(details == null) {
+//		PaymentDetails paymentDetails=  new PaymentDetails();
+//	    paymentDetails.setRrNumber(rrNumber);
+//	    paymentDetails.setTxnNumber(8756487);
+//	    paymentDetails.setTxnDate(date);
+//	    paymentDetails.setTxnType("Online payment");
+//	    paymentDetails.setTxnAmount(amtPaid);
+//	    paymentDetails.setAmtPaid(amtPaid);
+//	    paymentDetails.setTxnStatus("Success");
+//    
+//	     
+//	    try {
+//	    	transaction.begin();
+//	    	manager.persist(paymentDetails);
+//	       
+//	    	transaction.commit();
+//	    	isAdded= true;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			transaction.rollback();
+//		}	
+//	  }
+//	  }else {
+//		  try {
+//			  transaction.begin();
+////			  BillHistory billHistory=new BillHistory();
+////			  BillHistoryPK billHistoryPK=new BillHistoryPK();
+////			  billHistoryPK.setRrNumber(rrNumber);
+////			  billHistoryPK.setDate(date);
+////			  billHistory.setBillAmount(amtPaid);
+////			  billHistory.setRegion(consumersMasterBean.getRegion());
+////			  billHistory.setUnitsConsumed(currentBill.getConsumption());
+////			  billHistory.setBillHistoryPK(billHistoryPK);
+//			  billHistory2.setStatus("Paid");
+//			  transaction.commit();
+//			  
+////			  manager.persist(billHistory2);
+//  
+//			  details.setTxnNumber(9756487);
+//			  details.setTxnDate(date);
+//			  details.setTxnType("Online payment");
+//			  details.setTxnAmount(amtPaid);
+//			  details.setAmtPaid(amtPaid);
+//			  details.setTxnStatus("Success");
+//			  transaction.commit();
+//		      isAdded= true;
+//			
+//		} catch (Exception e) {
+//			transaction.rollback();
+//			e.printStackTrace();
+//		}
+//		    
+//	   isAdded=true;
+//	}
+//		return isAdded;
+//	}//End of 
+	
 	@Override
 	public boolean billPaymentPage(String rrNumber, Date date, Double amtPaid) {
 		CurrentBill bill=new CurrentBill();
 		EntityManager manager =factory.createEntityManager();
 		EntityTransaction transaction=manager.getTransaction();
 	    PaymentDetails paymentDetails=  new PaymentDetails();
-	     CurrentBill currentBill= manager.find(CurrentBill.class, rrNumber);
+	    CurrentBill currentBill= manager.find(CurrentBill.class, rrNumber);
 	    PaymentDetails details=manager.find(PaymentDetails.class, rrNumber);
 	    ConsumersMasterBean consumersMasterBean=manager.find(ConsumersMasterBean.class, rrNumber);
+	    
+	    String jpql="from BillHistory b where b.billHistoryPK.rrNumber= :rrNum and b.status= :statusVal";
+        Query query=manager.createQuery(jpql);
+       query.setParameter("rrNum", rrNumber);
+       query.setParameter("statusVal", "NotPaid");
+       BillHistory billHistory2= (BillHistory) query.getSingleResult();
 	    boolean isAdded=false;		
 	  if(details == null) {
 	    paymentDetails.setRrNumber(rrNumber);
@@ -245,8 +306,24 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	    paymentDetails.setTxnAmount(amtPaid);
 	    paymentDetails.setAmtPaid(amtPaid);
 	    paymentDetails.setTxnStatus("Success");
-    
-	     
+	    
+        transaction.begin();
+	    manager.remove(billHistory2);
+	    transaction.commit();
+	    
+	    transaction.begin();
+		  BillHistory billHistory=new BillHistory();
+		  BillHistoryPK billHistoryPK=new BillHistoryPK();
+		  billHistoryPK.setRrNumber(rrNumber);
+		  billHistoryPK.setDate(date);
+		  billHistory.setBillAmount(amtPaid);
+		  billHistory.setRegion(consumersMasterBean.getRegion());
+		  billHistory.setUnitsConsumed(currentBill.getConsumption());
+		  billHistory.setBillHistoryPK(billHistoryPK);
+		  billHistory.setStatus("Paid");
+	
+		  manager.persist(billHistory);
+		  transaction.commit();
 	    try {
 	    	transaction.begin();
 	    	manager.persist(paymentDetails);
@@ -259,6 +336,10 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 		}	
 	  }else {
 		  try {
+			  transaction.begin();
+			   manager.remove(billHistory2);
+			   transaction.commit();
+			  
 			  transaction.begin();
 			  BillHistory billHistory=new BillHistory();
 			  BillHistoryPK billHistoryPK=new BillHistoryPK();
