@@ -28,4 +28,6 @@ public interface EmployeeDAO {
     
     public List<BillHistory> getBillHistory(String status);
 
+    public boolean sendMail(String rrNumber);
+
 }//End of EmployueeDAO

@@ -68,4 +68,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return dao.getBillHistory(status);
 	}
 
+	@Override
+	public boolean sendMail(String rrNumber) {
+		
+		return dao.sendMail(rrNumber);
+	}
+
 }//End of Service

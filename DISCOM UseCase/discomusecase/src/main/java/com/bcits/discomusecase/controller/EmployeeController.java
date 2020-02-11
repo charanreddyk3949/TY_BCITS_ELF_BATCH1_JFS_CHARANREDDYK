@@ -152,9 +152,8 @@ public class EmployeeController {
 		
 	   if (employeeMaster != null) {
 		   ConsumersMasterBean consumersMasterBean=service.getConsumer(rrNumber);
-//		   Double finalReading=service.getFinalReading(rrNumber);
 		   CurrentBill currentBill=servicec.getBill(rrNumber);
-		   if (consumersMasterBean != null) {
+		   if (consumersMasterBean != null) {	
 			   session.setAttribute("finalreadingValue", currentBill);
 			 modelMap.addAttribute("consumerDetails", consumersMasterBean);
 			 modelMap.addAttribute("finalreadingValue", currentBill); 
@@ -179,13 +178,19 @@ public class EmployeeController {
 			boolean currentBill2=service.getBillGenerator(dueDate, currentBill);
 					
              if (currentBill2 ) {
-				modelMap.addAttribute("msg","Bill is Generated Successfully!!!");
+            	 if (service.sendMail(getCurrentBill.getRrNumber())) {
+            		 modelMap.addAttribute("msg","Bill is Generated Successfully!!!");
+            	 
+				}else {
+					modelMap.addAttribute("errMsg", "Unable to generate.");
+				}
+
 			    }
              return "employeeHome";
 		}else {
-			modelMap.addAttribute("errMsg", "Bill generation is failed Please try again.");
+			modelMap.addAttribute("errMsg", "Please Login First.");
 			
-			return "employeeHome";
+			return "employeeLogin";
 		  }
 		
 		

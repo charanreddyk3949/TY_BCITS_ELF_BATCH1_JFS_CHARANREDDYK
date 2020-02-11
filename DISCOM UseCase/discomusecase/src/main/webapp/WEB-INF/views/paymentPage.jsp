@@ -1,5 +1,15 @@
+<%@page import="com.bcits.discomusecase.beans.CurrentBill"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
+
+     <%
+       String errMsg=(String) request.getAttribute("errMsg"); 
+       CurrentBill currentBill=(CurrentBill) request.getAttribute("currentBillDetails");
+
+    %>
+
+
 
  <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
     
@@ -36,14 +46,9 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 <ul  class="navbar-nav mr-auto">
   <li class="nav-item active">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/homepage/homepage.html">Home </a>
+    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/getConsumer">Consumer Home </a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/consumerlogin/consumerlogin1.html">Consumer Portal</a>
-  </li>
-  <li class="nav-item">
-      <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
-    </li>
+  
 </ul>
 <form class="form-inline my-2 my-lg-0">
          <a href="../consumer/logout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
@@ -78,7 +83,7 @@
         </div>
         <div>          
             <label for="" style="padding-left: 20px;font-size: 15px; padding-left: 180px;margin-top: 30PX;">Amount :</label>
-            <input type="number" name="amtPaid" id="amtPaid" style="height: 25px;width: 200px; required" placeholder="Enter amount...">
+            <input type="number" name="amtPaid" id="amtPaid" style="height: 25px;width: 200px; required" value="<%=currentBill.getBillAmount() %>">
         </div>
         <div style="padding-top: 20px;">
              <label for="" style="padding-left: 20px;font-size: 15px; padding-left: 120px;">Card Holder Name:</label>

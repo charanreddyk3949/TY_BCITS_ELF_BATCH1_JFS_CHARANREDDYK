@@ -69,12 +69,9 @@ public class ConsumerServiceImpl implements ConsumerService{
 
 	@Override
 	public CurrentBill getBill(String rrNumber) {
-//		if (dao.getBill(rrNumber) == null) {
-//			throw new ConsumerException("New User No Current Bill is Found.");
-//
-//		}else {
+
 			return dao.getBill(rrNumber);
-//		}
+
 		
 	}
 
@@ -110,6 +107,8 @@ public class ConsumerServiceImpl implements ConsumerService{
 		
 		return dao.addComments(rrNumber, region, consumerSupportRequest);
 	}
+
+	
 
 	
 	

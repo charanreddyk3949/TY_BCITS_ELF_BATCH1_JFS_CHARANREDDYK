@@ -33,5 +33,6 @@ public interface ConsumerDAO {
     public boolean billPaymentPage(String rrNumber,Date date, Double amtPaid);
     
     public boolean addComments(String rrNumber,String region,ConsumerSupportRequest consumerSupportRequest);
+    
 }
 

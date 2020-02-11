@@ -73,11 +73,11 @@
                 <h2 style="text-align: center;color:blue;">Bill Generation</h2>
                 <div style="margin-left: 150px;margin-top: 30px;">
                    <label> RR Number</label><br>
-                   <input type="text" id="rrNumber" name="rrNumber"  value="<%= currentBill.getRrNumber() %>" style="width: 250px;height: 35px;">
+                   <input type="text" id="rrNumber" name="rrNumber"  value="<%= currentBill.getRrNumber() %>" style="width: 250px;height: 35px;" readonly="readonly">
                 </div> 
                <div style="margin-left: 150px;margin-top: 20px;">
                 <label> Initial Reading</label><br>
-                <input type="number" id="initialReading" name="initialReading" value="<%=currentBill.getPresentReading()%>" style="width: 250px;height: 35px;">
+                <input type="number" id="initialReading" name="initialReading" value="<%=currentBill.getPresentReading()%>" style="width: 250px;height: 35px;"readonly="readonly">
                </div>
                <div style="margin-left: 150px;margin-top: 20px;">
                 <label> Final Reading</label><br>
@@ -85,7 +85,7 @@
                </div> 
                <div style="margin-left: 150px;margin-top: 20px;">
                 <label> Consumer Type</label><br>
-                <input type="text" id="consumerType" name="consumerType" value="<%= consumersMasterBean.getConsumerType() %>" style="width: 250px;height: 35px;">
+                <input type="text" id="consumerType" name="consumerType" value="<%= consumersMasterBean.getConsumerType() %>" style="width: 250px;height: 35px;"readonly="readonly">
                </div><br>
                <div style="margin-left: 150px;margin-top: 0px;">
                 <label> Due date</label><br>

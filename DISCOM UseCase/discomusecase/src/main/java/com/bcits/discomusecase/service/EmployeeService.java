@@ -25,5 +25,8 @@ public interface EmployeeService {
 
     public List<ConsumerSupportRequest> getAllRequests(String region);
     public List<BillHistory> getBillHistory(String status);
+    
+    public boolean sendMail(String rrNumber);
+
 
 }

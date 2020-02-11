@@ -11,6 +11,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 import com.bcits.discomusecase.beans.BillHistory;
@@ -19,9 +21,11 @@ import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.EmployeeMaster;
+import com.bcits.discomusecase.beans.MailMail;
 import com.bcits.discomusecase.beans.MonthlyConsumption;
 import com.bcits.discomusecase.beans.MonthlyConsumptionPK;
 import com.bcits.discomusecase.beans.TariffBillGenerator;
+import com.bcits.discomusecase.mail.EmailGenerator;
 
 
 @Repository
@@ -209,7 +213,6 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 			manager.persist(monthlyConsumption);
 			transaction.commit();
     	   
-    	   
     	  
     	   try {
    	       Double unitsConsumed=currentBill.getPresentReading()-initialReading;
@@ -223,6 +226,18 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
     	   bill.setInitialReading(initialReading);
     	   bill.setPresentReading(currentBill.getPresentReading());    
     	   transaction.commit();
+    	   
+    	   
+//    	   ApplicationContext context = 
+//		             new ClassPathXmlApplicationContext("discom-usecase.xml");
+//		    	 
+//		    	MailMail mm = (MailMail) context.getBean("mailMail");
+//		        mm.sendMail("charanreddyk439@gmail.com",
+//		    		   "charanreddy2185@gmail.com",
+//		    		   "Current Bill", 
+//		    		   "RR Number="+bill.getRrNumber() +"Initial Reading="+bill.getInitialReading()
+//		    		   +"Final Reading"+bill.getPresentReading()+"Consumed Units="+bill.getConsumption()
+//		    		   +"Bill Amount="+bill.getBillAmount()+"Due Date"+bill.getDueDate());
            
     	   return true;
 		   } catch (Exception e) {
@@ -313,7 +328,7 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 		
 		
 	}
-
+	
 	@Override
 	public List<BillHistory> getBillHistory(String status) {
 		
@@ -325,5 +340,18 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 				
 		return billList;
 	}
+
+	@Override
+	public boolean sendMail(String rrNumber) {
+		EmailGenerator mail=new EmailGenerator();
+		EntityManager manager=factory.createEntityManager();
+		CurrentBill  bill=manager.find(CurrentBill.class, rrNumber);
+		if (mail.sendMail(bill)) {
+			return true;
+		}
+		return false;
+	}
+
+	
 
 }//End of getConsumer()

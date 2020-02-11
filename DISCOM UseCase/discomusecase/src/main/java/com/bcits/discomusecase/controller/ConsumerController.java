@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -71,12 +72,7 @@ public class ConsumerController {
 		
 	}//End of homePage()
 	
-	@GetMapping("/paymentPage")
-	public String displayPaymentPage() {
-		
-		return "paymentPage";
-		
-	}//End of paymentPage()
+	
 	
 	@GetMapping("/paymentSuccessPage")
 	public String displayPaymentSuccessPage() {
@@ -94,13 +90,13 @@ public class ConsumerController {
 	public String displayconsumerQueriesForm() {
 		return "commentsForm";
 	}//End of displayUpdateEmployee()
-
 	
+
 	@PostMapping("/login")
 	public String authenticate(String rrNumber, String password,HttpServletRequest req, ModelMap modelMap) {
 
 		ConsumersMasterBean consumersMasterBean=service.authenticate(rrNumber, password);
-//		ConsumersMasterBean masterBean=service.getConsumer(consumersMasterBean.getRrNumber());
+
 		if (consumersMasterBean != null) {
 			//Valid credentials
 			HttpSession session= req.getSession(true);
@@ -247,6 +243,32 @@ public class ConsumerController {
 		}
 		}//End of getBill
 	
+	/*
+	 * @GetMapping("/paymentPage") public String displayPaymentPage() {
+	 * 
+	 * return "paymentPage";
+	 * 
+	 * }//End of paymentPage()
+	 */	
+	@GetMapping("/paymentPage")
+	public String getPaymentDetails(HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap) {
+		if (consumersMasterBean != null) {
+			ConsumersMasterBean masterBean=(ConsumersMasterBean) session.getAttribute("loggedinEmpInfo");
+			CurrentBill currentBill=service.getBill(masterBean.getRrNumber());
+			if (currentBill != null) {
+				modelMap.addAttribute("currentBillDetails", currentBill);
+				
+			}else {
+				modelMap.addAttribute("errMsg", "CurrentBill Not Yet Generated");	
+			}
+			return "paymentPage";
+		}else {
+			modelMap.addAttribute("errMsg", "Please Login First");
+			return "consumerLogin";
+		}
+		
+	}//End of getPaymentDetails()
+	
 	@GetMapping("/getBillHistory")
 	public String getBillHistory(HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean history,ModelMap modelMap) {
 	   
@@ -268,16 +290,22 @@ public class ConsumerController {
 	}//End of getBillHistory()
 	
 	@GetMapping("/paymentDetails")
-	public String paymentDetails(String rrNumber,ModelMap modelMap) {
-	   PaymentDetails paymentDetails=service.getPaymentDetails(rrNumber);
-	   
+	public String paymentDetails(String rrNumber,HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap) {
+	
+	  if (consumersMasterBean != null) {
+		ConsumersMasterBean masterBean=(ConsumersMasterBean) session.getAttribute("loggedinEmpInfo");
+	    PaymentDetails paymentDetails=service.getPaymentDetails(masterBean.getRrNumber());  
 		if (paymentDetails != null) {	
 			modelMap.addAttribute("paymentInfo", paymentDetails);
 			
-			return "PaymentDetails";
+			return "consumerHome";
 		}else {
-			modelMap.addAttribute("errMsg", "Payment Not SuccessFull");
-			return "paymentPage";
+			modelMap.addAttribute("errMsg", "No payments done up now");
+			return "consumerHome";
+		}
+		}else {
+			modelMap.addAttribute("errMsg", "Please Login First");
+			return "consumerLogin";
 		}
 	}//End of consumptionHistory()
 	

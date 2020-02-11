@@ -23,6 +23,7 @@ import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.MonthlyConsumption;
 import com.bcits.discomusecase.beans.PaymentDetails;
 import com.bcits.discomusecase.customeexceptions.ConsumerException;
+import com.bcits.discomusecase.mail.EmailGenerator;
 
 @Repository
 public class ConsumerDAOHibernateImpl implements ConsumerDAO{
@@ -155,17 +156,15 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	public CurrentBill getBill(String rrNumber) {
 		EntityManager manager=factory.createEntityManager();
 		CurrentBill currentBill=manager.find(CurrentBill.class, rrNumber);
-//		String jpql="from CurrentBill where rrNumber= :rrNum";
-//	    Query query=manager.createQuery(jpql);
-//		query.setParameter("rrNum", rrNumber);
-//		CurrentBill currentBill2=(CurrentBill) query.getSingleResult();
+
 		if (currentBill != null) {
 			 return currentBill;
 		}
 		else {
-			 CurrentBill  currentBill3=new CurrentBill();
+			CurrentBill  currentBill3=new CurrentBill();
 			currentBill3.setRrNumber(rrNumber);
 			currentBill3.setPresentReading(0.0);
+			
 			 return currentBill3;
 			
 		}
@@ -187,6 +186,7 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	public PaymentDetails getPaymentDetails(String rrNumber) {
 		EntityManager manager=factory.createEntityManager();
 		PaymentDetails paymentDetails=manager.find(PaymentDetails.class, rrNumber);
+		
 		return paymentDetails;
 	}
 
@@ -394,6 +394,8 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	  }	
 		return isAdded;
 	}//End of addcomments()
+
+	
 
 	
 
