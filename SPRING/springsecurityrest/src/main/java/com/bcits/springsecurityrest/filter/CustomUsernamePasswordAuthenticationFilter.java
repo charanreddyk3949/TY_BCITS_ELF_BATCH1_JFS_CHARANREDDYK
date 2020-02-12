@@ -17,6 +17,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
 	
 	@Override
 	protected String obtainUsername(HttpServletRequest request) {
+		empInfo =null;
 		if (request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
 			try {
 				EmpInfoBean infoBean = getEmpInfo(request);
