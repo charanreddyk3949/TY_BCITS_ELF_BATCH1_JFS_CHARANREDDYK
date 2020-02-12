@@ -384,6 +384,7 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 		   consumerSupportRequestPK.setDate(new Date());
 		   consumerSupportRequest.setConsumerSupportRequestPK(consumerSupportRequestPK);
 		   consumerSupportRequest.setRegion(region);
+		   consumerSupportRequest.setResponse("Not Responded");
 			manager.persist(consumerSupportRequest);
 			transaction.commit();
 		    isAdded=true;	    
@@ -394,6 +395,19 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	  }	
 		return isAdded;
 	}//End of addcomments()
+
+	@Override
+	public List<ConsumerSupportRequest> displayResponse(String rrNumber) {
+		EntityManager manager=factory.createEntityManager();
+		String jpql=" from ConsumerSupportRequest where consumerSupportRequestPK.rrNumber= :rrNum ";
+		Query  query=manager.createQuery(jpql);
+		query.setParameter("rrNum", rrNumber);
+		List<ConsumerSupportRequest> consumerSupportRequest= query.getResultList();
+	  if (consumerSupportRequest != null) {
+		return consumerSupportRequest;
+	   }
+		return null;
+	}//End of displayRequest()
 
 	
 

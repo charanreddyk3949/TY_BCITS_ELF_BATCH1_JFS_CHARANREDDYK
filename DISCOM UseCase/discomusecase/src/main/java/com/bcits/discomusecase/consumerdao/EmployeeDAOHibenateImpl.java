@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import com.bcits.discomusecase.beans.BillHistory;
 import com.bcits.discomusecase.beans.BillHistoryPK;
 import com.bcits.discomusecase.beans.ConsumerSupportRequest;
+import com.bcits.discomusecase.beans.ConsumerSupportRequestPK;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.EmployeeMaster;
@@ -350,6 +351,39 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean updateResopnse(String rrNumber, Date date, String response) {
+		EntityManager manager=factory.createEntityManager();
+		EntityTransaction transaction=manager.getTransaction();
+		String jpql=" from ConsumerSupportRequest where consumerSupportRequestPK.rrNumber= :rrNum and consumerSupportRequestPK.date= :dateVal ";
+		Query  query=manager.createQuery(jpql);
+		query.setParameter("rrNum", rrNumber);
+		query.setParameter("dateVal", date);
+		ConsumerSupportRequest consumerSupportRequest=(ConsumerSupportRequest) query.getSingleResult();
+		
+        if (consumerSupportRequest != null) {
+        	transaction.begin();
+    		consumerSupportRequest.setResponse(response);
+    		transaction.commit();
+    		return true;
+		}else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public ConsumerSupportRequest getRequestRecord(String rrNumber, Date date) {
+		EntityManager manager=factory.createEntityManager();
+		EntityTransaction transaction=manager.getTransaction();
+		String jpql="from ConsumerSupportRequest c where c.consumerSupportRequestPK.rrNumber= :rrNum and c.consumerSupportRequestPK.Date= :dateVal";
+		Query  query=manager.createQuery(jpql);
+		query.setParameter("rrNum", rrNumber);
+		query.setParameter("dateVal", date);
+		ConsumerSupportRequest consumerSupportRequest=(ConsumerSupportRequest) query.getSingleResult();
+		return consumerSupportRequest;
 	}
 
 	

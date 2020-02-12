@@ -74,4 +74,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return dao.sendMail(rrNumber);
 	}
 
+	@Override
+	public boolean updateResopnse(String rrNumber, Date date, String response) {
+		
+		return dao.updateResopnse(rrNumber, date, response);
+	}
+
+	@Override
+	public ConsumerSupportRequest getRequestRecord(String rrNumber, Date date) {
+		
+		return dao.getRequestRecord(rrNumber, date);
+	}
+
 }//End of Service

@@ -15,6 +15,8 @@ public class ConsumerQueries {
 	   private String email;
 	   @Column
 	   private String comments;
+	   @Column
+	   private String response;
 	
 	
    public String getRrNumber() {

@@ -21,6 +21,8 @@ public class ConsumerSupportRequest {
 	private String text;
 	@Column
     private	String region;
+	@Column
+	private String response;
 	
 
 }

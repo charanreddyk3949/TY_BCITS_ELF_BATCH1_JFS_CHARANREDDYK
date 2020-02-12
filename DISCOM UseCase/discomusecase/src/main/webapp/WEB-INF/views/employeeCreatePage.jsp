@@ -44,6 +44,9 @@
     <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../admin/adminHomePage">Home </a>
   </li>
 </ul>
+   <form class="form-inline my-2 my-lg-0">
+      <a href="../admin/adminLogout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
+   </form>
 </div>
 </nav>
 <body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; 

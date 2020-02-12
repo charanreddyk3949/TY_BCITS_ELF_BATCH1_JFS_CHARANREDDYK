@@ -34,10 +34,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul  class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../home/homePage">Home </a>
-      </li>
-      
+          <li class="nav-item active">
+            <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/homePage">Home </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../admin/adminLoginForm">Admin</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../employee/employeeLogin">Employee Portal</a>
+          </li>  
     </ul>
   </div>
 </nav>

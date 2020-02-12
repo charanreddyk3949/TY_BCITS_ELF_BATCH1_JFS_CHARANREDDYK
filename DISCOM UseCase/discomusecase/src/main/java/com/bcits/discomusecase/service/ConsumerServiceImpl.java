@@ -108,6 +108,12 @@ public class ConsumerServiceImpl implements ConsumerService{
 		return dao.addComments(rrNumber, region, consumerSupportRequest);
 	}
 
+	@Override
+	public List<ConsumerSupportRequest> displayResponse(String rrNumber) {
+		
+		return dao.displayResponse(rrNumber);
+	}
+
 	
 
 	

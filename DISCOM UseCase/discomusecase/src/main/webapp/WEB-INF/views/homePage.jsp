@@ -37,6 +37,9 @@
             <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/homePage">Home </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../admin/adminLoginForm">Admin</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
           </li>
           <li class="nav-item">

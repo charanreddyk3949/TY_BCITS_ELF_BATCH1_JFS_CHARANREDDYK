@@ -34,5 +34,7 @@ public interface ConsumerDAO {
     
     public boolean addComments(String rrNumber,String region,ConsumerSupportRequest consumerSupportRequest);
     
+    public List<ConsumerSupportRequest> displayResponse(String rrNumber);
+    
 }
 

@@ -27,6 +27,10 @@ public interface EmployeeService {
     public List<BillHistory> getBillHistory(String status);
     
     public boolean sendMail(String rrNumber);
+    
+    public ConsumerSupportRequest getRequestRecord(String rrNumber,Date date);
 
+
+    public boolean updateResopnse(String rrNumber,Date date,String response);
 
 }

@@ -362,7 +362,7 @@ public class ConsumerController {
 			}else {
 				modelMap.addAttribute("errMsg", "Failed to add the Request");
 			}
-			return "commentsForm";
+			return "consumerHome";
 		}else {
 			modelMap.addAttribute("errMsg", "Please Login First");
 			
@@ -371,4 +371,22 @@ public class ConsumerController {
 		}
 	}//End of addComments()
 	
+	@GetMapping("/getResponseList")
+	public String getResponseList(String rrNumber,HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap) {
+		
+		 if (consumersMasterBean != null) {
+			 ConsumersMasterBean masterBean=(ConsumersMasterBean) session.getAttribute("loggedinEmpInfo");
+			List<ConsumerSupportRequest> supportRequest=service.displayResponse(masterBean.getRrNumber());
+			if (supportRequest != null) {
+				modelMap.addAttribute("supportRequestDetails", supportRequest);
+			}else {
+				modelMap.addAttribute("errMsg", "No requests found!");
+			}
+			return "consumerHome";
+		}else {
+            modelMap.addAttribute("errMsg", "Please Login First");
+			
+			return "consumerLogin";
+		}
+	}//End of getResponseList()
 }//End of Class

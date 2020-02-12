@@ -1,4 +1,5 @@
 
+<%@page import="com.bcits.discomusecase.beans.ConsumerSupportRequest"%>
 <%@page import="com.bcits.discomusecase.beans.PaymentDetails"%>
 <%@page import="com.bcits.discomusecase.beans.MonthlyConsumption"%>
 <%@page import="com.bcits.discomusecase.beans.CurrentBill"%>
@@ -15,6 +16,8 @@
        CurrentBill currentBill=(CurrentBill) request.getAttribute("currentBillDetails");
        List<MonthlyConsumption> monthlyConsumptions=(List<MonthlyConsumption>)request.getAttribute("monthlyConsumptionList");
        PaymentDetails paymentDetails=(PaymentDetails) request.getAttribute("paymentInfo");
+       List<ConsumerSupportRequest> responseList=(List<ConsumerSupportRequest>) request.getAttribute("supportRequestDetails");
+    
     %>
     
     <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -56,9 +59,6 @@
   <li class="nav-item">
     <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/consumerLogin">Consumer Portal</a>
   </li>
-  <li class="nav-item">
-      <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="../consumer/updateConsumerForm">Update Consumer</a>
-    </li>
 </ul>
 <form class="form-inline my-2 my-lg-0">
       <a href="../consumer/logout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
@@ -72,19 +72,21 @@
   
   
   
-  <div class="col-3" style="margin-top: 200px" >
+  <div class="col-3" style="margin-top: 150px" >
     <div class="list-group" id="list-tab" role="tablist" >     
       <a class="list-group-item list-group-item-action"style="background-color: aqua ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/getConsumer" role="tab" aria-controls="profile">Consumer Details</a>
+      <a class="list-group-item list-group-item-action"style="background-color: green ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/updateConsumerForm" role="tab" aria-controls="profile">Update Consumer</a>     
       <a class="list-group-item list-group-item-action" style="background-color: navy;color: white;font-size: 20px"id="list-messages-list" data-toggle="list" href="../consumer/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
       <a class="list-group-item list-group-item-action" style="background-color: aqua;color: white;font-size: 20px"id="list-settings-list" data-toggle="list" href="./getCurrentBill" role="tab" aria-controls="settings">Current Bill</a>
-      <a class="list-group-item list-group-item-action"style="background-color: navy;color: white;font-size: 20px" id="list-settings-list" data-toggle="list" href="../consumer/consumerQueriesForm" role="tab" aria-controls="settings">Add Comments</a>
       <a class="list-group-item list-group-item-action"style="background-color: green ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/paymentDetails" role="tab" aria-controls="profile">Payment Details</a>
+      <a class="list-group-item list-group-item-action"style="background-color: navy;color: white;font-size: 20px" id="list-settings-list" data-toggle="list" href="../consumer/consumerQueriesForm" role="tab" aria-controls="settings">Add Comments</a>
+      <a class="list-group-item list-group-item-action"style="background-color: aqua;color: white;font-size: 20px" id="list-settings-list" data-toggle="list" href="../consumer/getResponseList" role="tab" aria-controls="settings">See Response</a>
  
     </div>
   </div>
   
   <%if (consumersMasterBean != null) { %>
-       <div align="center" style="margin-top: -300px;color: white;">
+       <div align="center" style="margin-top: -350px;color: white;">
        <h3 style="color: blue;">Consumer Details</h3>
            <table style="font-size: 20px ;border:2px solid white;" >
               <tr>
@@ -158,7 +160,7 @@
   
   
    <%if (currentBill != null) { %>
-       <div align="center" style="margin-top: -200px;color: white;">
+       <div align="center" style="margin-top: -350px;color: white;">
        <h3 style="color: blue">Current Bill Details</h3>
            <table style="font-size: 20px;border:2px solid white;" >
               <tr>
@@ -204,7 +206,7 @@
  
  
  <% if(monthlyConsumptions != null) { %>
-       <div align="center" style="margin-left: 400px; margin-top: -300px">
+       <div align="center" style="margin-left: 400px; margin-top: -350px">
         <h3 style="color: blue">Monthly Consumption Details</h3>
            <table border="1" style="width: 70%">
               <tr style="background: navy; color: white">
@@ -233,7 +235,7 @@
     
     
     <%if (paymentDetails != null) { %>
-       <div align="center" style="margin-left: 70px; margin-top: -170px" >
+       <div align="center" style="margin-left: 70px; margin-top: -350px" >
          <h3 style="color: blue">Payment Details</h3>
            <table style="margin-left: 50px;font-size: 20px;color:white;border:2px solid white;" >
               <tr>
@@ -277,6 +279,41 @@
        </div>
    <% }%>
   
+  
+    <% if(responseList != null) { %>
+       <div align="center" style="margin-left: 300px;color: white;margin-top: -300px">
+       <h3 style="color: navy">Response Details</h3>
+           <table border="1" style="width: 1200px;background-color: black">
+              <tr style="background: navy; color: white;height: 35px;font-size: 20px">
+                 <th>SN No.</th>
+                 <th>RR Number</th>
+                 <th>Email</th>
+                 <th>Date</th>
+                 <th>Region</th>
+                 <th>Request</th>
+                 <th>Response</th>
+               
+                 
+              </tr>
+              
+              <% int i=1; for(ConsumerSupportRequest consumerRequest : responseList) { %>
+              <tr style="height: 35px;font-size: 17px">
+                   <td>    <%= i %>   </td>
+                   <td><%= consumerRequest.getConsumerSupportRequestPK().getRrNumber() %></td>
+                   <td><%= consumerRequest.getEmail() %></td>
+                   <td><%= consumerRequest.getConsumerSupportRequestPK().getDate() %></td>
+                   <td><%= consumerRequest.getRegion() %></td>
+                   <td><%= consumerRequest.getText() %></td>
+                   <td><%= consumerRequest.getResponse() %></td>
+                    <% i++;%>
+              </tr>
+              </form>
+              <% } %>
+            
+           </table>
+       </div>
+    <% } %>  
+
   
   <%if(msg !=null && !msg.isEmpty()) {%>
 <h3 style="color: green"><%= msg %></h3>

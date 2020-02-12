@@ -75,10 +75,12 @@ background-size: cover; height: 724px;">
   <div class="row" style="margin-top: 200px;">
   <div class="col-3" >
     <div class="list-group" id="list-tab" role="tablist" >     
-      <a class="list-group-item list-group-item-action"style="background-color: aqua;color: black;font-size: 20px" id="list-profile-list" data-toggle="list" href="../employee/employeeConsumerDetails" role="tab" aria-controls="profile">Consumer Details</a>
-      <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-messages-list" data-toggle="list" href="../employee/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
-      <a class="list-group-item list-group-item-action"style="background-color: aqua;color: black;font-size: 20px" id="list-settings-list" data-toggle="list" href="../employee/consumerBillGeneration" role="tab" aria-controls="settings">Month Bill Generation</a>
-     <a class="list-group-item list-group-item-action" style="background-color: aqua;color: black;font-size: 20px"id="list-settings-list" data-toggle="list" href="../employee/displayRequests" role="tab" aria-controls="settings">View Consumer Requests</a>
+       <a class="list-group-item list-group-item-action"style="background-color: aqua;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../employee/getEmployeeDetails" role="tab" aria-controls="profile">Employee Details</a>
+    
+      <a class="list-group-item list-group-item-action"style="background-color: green;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../employee/employeeConsumerDetails" role="tab" aria-controls="profile">Consumer Details</a>
+      <a class="list-group-item list-group-item-action" style="background-color: blue;color: white;font-size: 20px"id="list-messages-list" data-toggle="list" href="../employee/getBillHistory" role="tab" aria-controls="messages">Bill History</a>
+      <a class="list-group-item list-group-item-action"style="background-color: aqua;color: white;font-size: 20px" id="list-settings-list" data-toggle="list" href="../employee/consumerBillGeneration" role="tab" aria-controls="settings">Month Bill Generation</a>
+     <a class="list-group-item list-group-item-action" style="background-color: green;color: white;font-size: 20px"id="list-settings-list" data-toggle="list" href="../employee/displayRequests" role="tab" aria-controls="settings">View Consumer Requests</a>
       
     </div>
   </div>
@@ -115,8 +117,8 @@ background-size: cover; height: 724px;">
 
 
   <%if(consumersMasterBeanList != null){ %>
-   <h1 style="margin-left: 300px;color: navy;">Consumer Details</h1>
-   <table style="margin-left: 450px;font-size: 20px;margin-top : -150px;border: 1px;width: 70%;color:white;background: black" >
+   <h1 style="margin-left: 300px;color: navy;margin-top : -40px;">Consumer Details</h1>
+   <table style="margin-left: 450px;font-size: 20px;margin-top : -250px;border: 1px;width: 70%;color:white;background: black" >
    
      <thead style="background: navy;color: white">
         <tr style="height: 35px">
@@ -157,8 +159,8 @@ background-size: cover; height: 724px;">
    </table>
    <% } %>
    
-  <%if(consumersBillGenerationList != null){ %>
-     <table style="margin-left: 450px;font-size: 20px;margin-top : -150px;border: 1px;width: 70%;background-color: black;color:white" >
+  <%if(consumersBillGenerationList != null ){ %>
+     <table style="margin-left: 450px;font-size: 20px;margin-top : -200px;border: 1px;width: 70%;background-color: black;color:white" >
     <h1 style="margin-left: 300px;color: navy">Consumer Bill Pendings</h1>
      <thead style="background: navy;color: white">
         <tr style="height: 35px">
@@ -184,6 +186,8 @@ background-size: cover; height: 724px;">
               <td><%= consumerInfo.getRegion() %></td>
               <td><%= consumerInfo.getMobileNumber() %></td>
               <td><%= consumerInfo.getEmail() %></td>
+              
+              
               <td><a href="../employee/getBillInputDetails?rrNumber=<%=consumerInfo.getRrNumber()%>">Generate Bill</a></td>
               <% i++;%>
            </tr>
@@ -195,9 +199,9 @@ background-size: cover; height: 724px;">
   
   
   <% if(billList != null) { %>
-       <div align="center" style="margin-left: 200px;margin-top: 0px">
+       <div align="center" style="margin-left: 200px;">
        <h3 style="color: navy">Bill History Details</h3>
-           <table border="1" style="width: 900px">
+           <table border="1" style="width: 900px;background-color: black;color:white">
               <tr style="background: navy; color: white;height: 35px;">
                  <th>RR Number</th>
                  <th>Date</th>
@@ -223,25 +227,39 @@ background-size: cover; height: 724px;">
   
   <% if(requestList != null) { %>
        <div align="center" style="margin-left: 100px;color: white;">
-       <h3 style="color: navy">Consumer Request Details</h3>
-           <table border="1" style="width: 1000px;background-color: black">
+       <h1 style="color: navy">Consumer Request Details</h1>
+           <table border="1" style="width: 1100px;background-color: black">
               <tr style="background: navy; color: white;height: 35px;font-size: 20px">
+                 <th>SN No.</th>
                  <th>RR Number</th>
                  <th>Email</th>
                  <th>Date</th>
                  <th>Region</th>
                  <th>Request</th>
+                 <th>Response</th>
+                 <th>Send Response</th>
                  
               </tr>
-              <%for(ConsumerSupportRequest consumerRequest :requestList) { %>
+              
+              <% int i=1; for(ConsumerSupportRequest consumerRequest :requestList) { %>
+              <form action="../employee/updateResponse" method="post">
+                <input type="text" class="form-control" id="rrNumber"name="rrNumber" value="<%=consumerRequest.getConsumerSupportRequestPK().getRrNumber() %>" hidden="true" >
+               <input type="text" class="form-control" id="date"name="date" value="<%=consumerRequest.getConsumerSupportRequestPK().getDate() %>" hidden="true">
+                
               <tr style="height: 35px;font-size: 17px">
+                   <td>    <%= i %>   </td>
                    <td><%= consumerRequest.getConsumerSupportRequestPK().getRrNumber() %></td>
                    <td><%= consumerRequest.getEmail() %></td>
                    <td><%= consumerRequest.getConsumerSupportRequestPK().getDate() %></td>
                    <td><%= consumerRequest.getRegion() %></td>
                    <td><%= consumerRequest.getText() %></td>
+                   <td><input type="text" class="form-control" id="response"name="response" value="<%=consumerRequest.getResponse() %>"></td>
+                  <td><button>submit</button></td>
+                    <% i++;%>
               </tr>
+              </form>
               <% } %>
+            
            </table>
        </div>
     <% } %>  

@@ -24,63 +24,37 @@
     <link rel="stylesheet" href="${css}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${css}/all.css">
 </head>
+<body>
+  <body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; background-repeat: no-repeat; background-size: cover; height: 724px;">
 
-<body background="${images}/Pylons_Main.jpg" style="background-size:cover;background-position: center; background-repeat: no-repeat; background-size: cover; height: 724px;">
-
-<nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
-  <img id="headImg" src="${images}/discom.png" alt="">
-  <form class="form-inline">
-      <p id="headText" style="font-size: 45px;margin-right: 570px;">Discom Power Limited  </p> 
-      
-      <a href="">English</a>&nbsp;|&nbsp;
-       <a href="" style="margin-right:20px">Kannada</a>
-  </form>
-</nav>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-<ul  class="navbar-nav mr-auto">
-  <li class="nav-item active">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/homepage/homepage.html">Home </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/consumerlogin/consumerlogin1.html">Consumer Portal</a>
-  </li>
-  <li class="nav-item">
-      <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
-    </li>
-  
- 
-</ul>
+   <nav id="head" style="background-color: aquamarine; margin-top: -20px;" class="navbar navbar-light bg-light">
+     <img id="headImg" src="${images}/discom.png" alt="">
+      <form class="form-inline">
+        <p id="headText" style="font-size: 45px;margin-right: 570px;">Discom Power Limited  </p> 
+   </form>
+  </nav>
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+     <ul  class="navbar-nav mr-auto">
+       <li class="nav-item active">
+         <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/homepage/homepage.html">Home </a>
+       </li>
+     </ul>
 <form class="form-inline my-2 my-lg-0">
          <a href="../consumer/logout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
         </form>
 </div>
 </nav>
 
-
   <div class="container">
     <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">
-      
-      
-      <body background="${images}/power-lines-fields-seen.jpg" style="background-size:cover;background-position: center; background-repeat: no-repeat; 
-            background-size: cover; height: 724px;">
-
-           <!--  <form id="consumersignupform"  > -->
-             <h1 id="heading">Edit Consumer</h1>
-              <form action="../consumer/updateConsumer" method="post">
+           <h1 id="heading" style=" color: white">Udate Consumer</h1>
+              <form action="../consumer/updateConsumer" method="post" style=" color: white">
                 <div class="form-row" >
-                
-               <!--  <div class="form-group col-md-12"style="margin-top: 0px;">
-                  <label for="inputAddress">RR Number</label>
-                  <input type="text" class="form-control" id="rrNumber" name="rrNumber" placeholder="enter rr number...">
-                </div> -->
                   <div class="col col-md-12">
                     <label for="inputEmail4">Name</label>
                     <input type="text" class="form-control"id="firstName" name="firstName" placeholder="enter name">
-                  </div>
-                  
+                  </div>               
                 </div>
               <div class="form-row">
                 <div class="form-group col-md-12">
@@ -92,39 +66,18 @@
                 <label for="inputAddress">Address</label>
                 <input type="text" class="form-control" id="address1"name="address1" placeholder="HouseNo.street...">
               </div>
-              
                <div class="form-group col-md-13" style="margin-top: -10px;margin-left: -2px">
                 <label for="inputAddress">Mobile Number</label>
                 <input type="number" class="form-control" id="mobileNumber"name="mobileNumber" style="height: 25px;" placeholder="enter mobile number...">
               </div>
-              
-              
-            
-               <!--  <div class="form-row" style="margin-top: -20px;">
-                  <div class="col">
-                    <label for="inputEmail4">Region</label>
-                    <select id="inputState" class="form-control"id="region" name="region"style="height: 25px;font-size:15px;padding-top:0px">
-                      <option selected disabled>select region</option>
-                      <option>Banglore-North</option>
-                      <option>Banglore-South</option>
-                    </select>
-                  </div>
-         </div> -->
-              
-                <div class="form-row"style="margin-top: 10px;">
+               <div class="form-row"style="margin-top: 10px;">
                   <div class="form-group col-md-12">
                     <label for="inputpassword">Password</label>
                     <input type="password" class="form-control" id="password"name="password"placeholder="Enter password">
                   </div> 
                 </div>
-
-            
-              <button id="button" type="submit" class="btn btn-primary" class="form-group col-md-5"style="margin-left: 350px;margin-top: -20px;">Submit</button>
+             <button id="button" type="submit" class="btn btn-primary" class="form-group col-md-5"style="margin-left: 350px;margin-top: 0px;">Submit</button>
            </form>
-
-        <!--   </form> -->
-
-       
     </div>
   </div>
   

@@ -24,6 +24,7 @@ import com.bcits.discomusecase.beans.ConsumerSupportRequest;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.EmployeeMaster;
+import com.bcits.discomusecase.beans.MonthlyConsumption;
 import com.bcits.discomusecase.service.ConsumerService;
 import com.bcits.discomusecase.service.EmployeeService;
 
@@ -57,6 +58,12 @@ public class EmployeeController {
 		return "billGeneration";
 		
 	}//End of displayBillGenerationForm()
+	@GetMapping("/employeeQueryResponse")
+	public String displayEmployeeQueryForm() {
+		
+		return "employeeQueryResponse";
+		
+	}//End of displayBillGenerationForm()
 	
 	
 	@GetMapping("/employeeLogout")
@@ -73,19 +80,11 @@ public class EmployeeController {
 	public String authenticate(Integer empId, String password,HttpServletRequest req, ModelMap modelMap) {
 
 		EmployeeMaster employeeMaster=service.authenticate(empId, password);
-		
-		
+	
 		if (employeeMaster != null) {
 			//Valid credentials
 			HttpSession session= req.getSession(true);
 			session.setAttribute("loggedinEmpInfo", employeeMaster);
-			
-			EmployeeMaster master=service.getEmployeedetails(empId);
-			if (master != null) {
-				modelMap.addAttribute("employeeDetails", master);
-			}else {
-				modelMap.addAttribute("msg", "No Employee Details Found");
-			}	
 			return "employeeHome";	
 		}else {
 			//Invalid credentials
@@ -93,6 +92,23 @@ public class EmployeeController {
 			return "employeeLogin";
 		}
 	}//End of authenticate()
+	
+	@GetMapping("/getEmployeeDetails")
+	public String getEmployeeDetails(Integer empId,HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
+		if (employeeMaster != null) {
+			EmployeeMaster master=(EmployeeMaster) session.getAttribute("loggedinEmpInfo");			
+			EmployeeMaster employeeMaster2=service.getEmployeedetails(master.getEmpId());
+			if (employeeMaster2 != null) {
+				modelMap.addAttribute("employeeDetails", employeeMaster2);		
+			}else {
+				modelMap.addAttribute("errMsg", "Employee Details Not Found.");
+			}
+			return "employeeHome";
+		}else {
+			modelMap.addAttribute("errMsg", "Invalid Credentials!");
+			return "employeeLogin";
+		}
+	}//End of getEmployeeDeatils()
 	
 	
 	//@RequestMapping(path = "/getConsumers" ,method = RequestMethod.GET)
@@ -133,8 +149,10 @@ public class EmployeeController {
 			}else {
 				if(employeemaster != null) {
 			   //Valid Session
+				
 			   String region=employeemaster.getRegion();
 	           List<ConsumersMasterBean> masterBean= service.getemployeeConsumers(region);
+	         
 	           
 	           modelMap.addAttribute("consumerBillDetails",masterBean);
 	           return "employeeHome";
@@ -182,7 +200,7 @@ public class EmployeeController {
             		 modelMap.addAttribute("msg","Bill is Generated Successfully!!!");
             	 
 				}else {
-					modelMap.addAttribute("errMsg", "Unable to generate.");
+					 modelMap.addAttribute("msg","Bill is Generated Successfully!!!");
 				}
 
 			    }
@@ -197,24 +215,6 @@ public class EmployeeController {
 		
 	}//getGenerateBillAmount()
 	
-	/*
-	 * @GetMapping("/getBillHistory") public String getBillHistory(BillHistory
-	 * billHistory,HttpSession session,@SessionAttribute (name =
-	 * "loggedinEmpInfo",required = false) EmployeeMaster employeeMaster,ModelMap
-	 * modelMap) {
-	 * 
-	 * if (employeeMaster != null) { CurrentBill currentBill =(CurrentBill)
-	 * session.getAttribute("finalreadingValue"); List<BillHistory>
-	 * history=servicec.getBillHistory(currentBill.getRrNumber()); if (history !=
-	 * null) { modelMap.addAttribute("billHistoryDetails", history); }else {
-	 * modelMap.addAttribute("errMsg", "No previous Bill present."); } return
-	 * "employeeHome";
-	 * 
-	 * }else { modelMap.addAttribute("errMsg", "Please Login First"); return
-	 * "employeeLogin"; }
-	 * 
-	 * }//End of getBillhistory()
-	 */	
 
 	@GetMapping("/displayRequests")
 	public String getAllRequests(HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
@@ -250,5 +250,23 @@ public class EmployeeController {
 			return "employeeLogin";
 		}
 	}//End of getBillHistory()
+	
+	@PostMapping("/updateResponse")
+	public String updateConsumerResponse(String rrNumber,Date date,String response,@SessionAttribute(name = "loggedinEmpInfo" , required = false)EmployeeMaster employeeMaster,ModelMap modelMap) {
+		if (employeeMaster != null) {
+			
+			if (service.updateResopnse(rrNumber, date, response)) {
+				modelMap.addAttribute("msg", "Response is Updated SuccessFully");
+			}else {
+				modelMap.addAttribute("errMsg", "Unable to send Response.");
+			}
+			return "employeeHome";
+			
+		}else {
+			modelMap.addAttribute("errMsg", "Please Login First");
+			return "employeeLogin";
+		}
+		
+	}//End of updateConsumerResponse()
 	
 }//End of controller
