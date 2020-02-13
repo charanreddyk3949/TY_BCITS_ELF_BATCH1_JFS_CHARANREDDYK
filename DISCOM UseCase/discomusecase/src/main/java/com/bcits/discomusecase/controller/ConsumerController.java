@@ -243,13 +243,6 @@ public class ConsumerController {
 		}
 		}//End of getBill
 	
-	/*
-	 * @GetMapping("/paymentPage") public String displayPaymentPage() {
-	 * 
-	 * return "paymentPage";
-	 * 
-	 * }//End of paymentPage()
-	 */	
 	@GetMapping("/paymentPage")
 	public String getPaymentDetails(HttpSession session,@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap) {
 		if (consumersMasterBean != null) {
@@ -300,7 +293,7 @@ public class ConsumerController {
 			
 			return "consumerHome";
 		}else {
-			modelMap.addAttribute("errMsg", "No payments done up now");
+			modelMap.addAttribute("errMsg", "Already Paid!!!");
 			return "consumerHome";
 		}
 		}else {
@@ -335,11 +328,12 @@ public class ConsumerController {
 		  
 		  Date date1=new Date();
 		 boolean isAdd= service.billPaymentPage(consumersMasterBean.getRrNumber(), date1, amtPaid);
+		
 		 if (isAdd) {
-			 
-			 return "paymentSuccessPage";
+			 modelMap.addAttribute("paymentSuccessMsg", "Payment of amount " +amtPaid+"/- is done Successfully!!!");
+			 return "consumerHome";
 		}else {
-			modelMap.addAttribute("errMsg", "Payment failed");
+			modelMap.addAttribute("errMsg", "Already paid for this month.");
 		}
 		return "paymentPage";
 	}else {
@@ -389,4 +383,27 @@ public class ConsumerController {
 			return "consumerLogin";
 		}
 	}//End of getResponseList()
+	
+	
+	@GetMapping("/getPendingBillLists")
+	public String getPendingBills(String rrNumber,HttpSession  session,String status,@SessionAttribute(name = "loggedinEmpInfo",required = false)ConsumersMasterBean consumersMasterBean,ModelMap modelMap) {
+		
+		if (consumersMasterBean != null) {
+			ConsumersMasterBean masterBean=(ConsumersMasterBean) session.getAttribute("loggedinEmpInfo");
+		  List<BillHistory> pendingBillList=service.getPendingBills(masterBean.getRrNumber(), status);
+		  if (pendingBillList != null) {
+			modelMap.addAttribute("PendingBills", pendingBillList);
+		}else {
+			modelMap.addAttribute("errMsg", "No Pending bills.");
+		}
+		  return "consumerHome";
+		}else {
+            modelMap.addAttribute("errMsg", "Please Login First");
+			
+			return "consumerLogin";
+		}
+		
+	
+	}//End of getPendingBills()
+	
 }//End of Class

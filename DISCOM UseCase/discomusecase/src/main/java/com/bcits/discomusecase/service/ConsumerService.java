@@ -32,5 +32,7 @@ public interface ConsumerService {
 	public boolean addComments(String rrNumber,String region,ConsumerSupportRequest consumerSupportRequest);
 
 	 public List<ConsumerSupportRequest> displayResponse(String rrNumber);
+	 
+	 public List<BillHistory> getPendingBills(String rrNumber,String status);
 
 }//End of ConsumerService

@@ -46,7 +46,7 @@ public class EmailGenerator {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("charanreddy2185@gmail.com"));
 			message.setSubject("Testing Gmail TLS");
 			message.setText("Dear Consumer," + "\n\n This  Month you have Consumed  " + currentBill.getConsumption()
-					+ " units" + "\n\n Total Bill will be rupees  " + currentBill.getBillAmount()
+					+ " units" + "\n\n Total Bill(Previous pending bill amount + This month Bill) will be rupees  " + currentBill.getBillAmount()
 					+ "\n\n The Due Date will be " + dueDate + "\n\n" + "\n\n" + " Statmented On " + date
 					+ "\n\n Thank You " +"\n"+ " Regards, " + "\n" + " DISCOM PVT LTD" );
 

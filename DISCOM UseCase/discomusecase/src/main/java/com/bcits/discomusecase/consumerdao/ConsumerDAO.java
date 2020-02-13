@@ -36,5 +36,7 @@ public interface ConsumerDAO {
     
     public List<ConsumerSupportRequest> displayResponse(String rrNumber);
     
+    public List<BillHistory> getPendingBills(String rrNumber,String status);
+    
 }
 

@@ -68,13 +68,12 @@
 			<br>
 			<br>
 			<br> <input type="image" src="${images}/user.png" alt="">
-			<input type="text" name="empId" id="empId" placeholder="employee Id"><br>
+			<input type="number" name="empId" id="empId" placeholder="employee Id"><br>
 			<br> <input type="password" name="password"
 				placeholder="password"><br>
 			<br>
 			<div id="nemp" style="color: white;">
-				New Employee? <a href=" "> SIGNUP</a> &nbsp; | &nbsp; <a
-					href="/forgot-user-id" target="_self" title="Forgot User ID?">Forgot
+				<a href="/forgot-user-id" target="_self" title="Forgot User ID?" style="margin-left: 100px">Forgot
 					Password</a>
 			</div>
 			<br>

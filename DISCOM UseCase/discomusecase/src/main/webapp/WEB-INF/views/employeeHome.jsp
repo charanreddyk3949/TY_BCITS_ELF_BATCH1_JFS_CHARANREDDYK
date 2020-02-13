@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="${css}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${css}/all.css">
 </head>
-
+<body>
 <body background="${images}/bulb1.jpg" style="background-size:cover;background-position: center; 
 background-repeat: no-repeat; 
 background-size: cover; height: 724px;">
@@ -59,19 +59,13 @@ background-size: cover; height: 724px;">
   <li class="nav-item active">
     <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/homepage/homepage.html">Home </a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/consumerlogin/consumerlogin1.html">Consumer Portal</a>
-  </li>
-  <li class="nav-item">
-      <a class="nav-link" style="color: aqua;padding-left: 100px;font-size: 20px;" href="/employeelogin/employeelogin.html">Employee Portal</a>
-    </li>
 </ul>
 <form class="form-inline my-2 my-lg-0">
          <a href="../employee/employeeLogout" class="btn btn-outline-success my-2 my-sm-0"style="border:1px solid">Logout</a>
         </form>
 </div>
 </nav>
-  
+  <div align="center" style="background-color: aqua;color: black;height: 45px"><h2>Welcome to Employee Home</h2></div>
   <div class="row" style="margin-top: 200px;">
   <div class="col-3" >
     <div class="list-group" id="list-tab" role="tablist" >     
@@ -121,7 +115,7 @@ background-size: cover; height: 724px;">
    <table style="margin-left: 450px;font-size: 20px;margin-top : -250px;border: 1px;width: 70%;color:white;background: black" >
    
      <thead style="background: navy;color: white">
-        <tr style="height: 35px">
+        <tr style="height: 35px;text-align: center;">
            <th>SN No.</th>
            <th>RrNumber</th>
            <th>Name </th>
@@ -139,7 +133,7 @@ background-size: cover; height: 724px;">
          
         <%int i=1 ; for(ConsumersMasterBean consumerInfo: consumersMasterBeanList)  {%>
           
-           <tr>
+           <tr style="text-align: center;">
               
               <td>    <%= i %>   </td>
               <td><%= consumerInfo.getRrNumber() %></td>
@@ -163,7 +157,7 @@ background-size: cover; height: 724px;">
      <table style="margin-left: 450px;font-size: 20px;margin-top : -200px;border: 1px;width: 70%;background-color: black;color:white" >
     <h1 style="margin-left: 300px;color: navy">Consumer Bill Pendings</h1>
      <thead style="background: navy;color: white">
-        <tr style="height: 35px">
+        <tr style="height: 35px;text-align: center;">
            <th>SN No.</th>
            <th>RrNumber</th>
            <th>Name </th>
@@ -180,7 +174,7 @@ background-size: cover; height: 724px;">
           
            <tr>
               
-              <td>    <%= i %>   </td>
+              <td style="text-align: center;">    <%= i %>   </td>
               <td><%= consumerInfo.getRrNumber() %></td>
               <td><%= consumerInfo.getFirstName() %></td>
               <td><%= consumerInfo.getRegion() %></td>
@@ -188,7 +182,7 @@ background-size: cover; height: 724px;">
               <td><%= consumerInfo.getEmail() %></td>
               
               
-              <td><a href="../employee/getBillInputDetails?rrNumber=<%=consumerInfo.getRrNumber()%>">Generate Bill</a></td>
+              <td style="height: 50px;width: 150px"><a href="../employee/getBillInputDetails?rrNumber=<%=consumerInfo.getRrNumber()%>" style="background-color: aqua;">Generate Bill</a></td>
               <% i++;%>
            </tr>
           
@@ -201,8 +195,8 @@ background-size: cover; height: 724px;">
   <% if(billList != null) { %>
        <div align="center" style="margin-left: 200px;">
        <h3 style="color: navy">Bill History Details</h3>
-           <table border="1" style="width: 900px;background-color: black;color:white">
-              <tr style="background: navy; color: white;height: 35px;">
+           <table border="1" style="width: 1000px;background-color: black;color:white">
+              <tr style="background: navy; color: white;height: 50px;font-size: 20px;text-align: center">
                  <th>RR Number</th>
                  <th>Date</th>
                  <th>Bill Amount</th>
@@ -212,7 +206,7 @@ background-size: cover; height: 724px;">
                  
               </tr>
               <%for(BillHistory billDetails :billList) { %>
-              <tr style="height: 35px">
+              <tr style="height: 50px;text-align: center;">
                    <td><%= billDetails.getBillHistoryPK().getRrNumber() %></td>
                    <td><%= billDetails.getBillHistoryPK().getDate() %></td>
                    <td><%= billDetails.getBillAmount() %></td>
@@ -226,9 +220,9 @@ background-size: cover; height: 724px;">
   
   
   <% if(requestList != null) { %>
-       <div align="center" style="margin-left: 100px;color: white;">
+       <div align="center" style="margin-left: 60px;color: white;">
        <h1 style="color: navy">Consumer Request Details</h1>
-           <table border="1" style="width: 1100px;background-color: black">
+           <table border="1" style="width: 1200px;background-color: black">
               <tr style="background: navy; color: white;height: 35px;font-size: 20px">
                  <th>SN No.</th>
                  <th>RR Number</th>
@@ -253,8 +247,8 @@ background-size: cover; height: 724px;">
                    <td><%= consumerRequest.getConsumerSupportRequestPK().getDate() %></td>
                    <td><%= consumerRequest.getRegion() %></td>
                    <td><%= consumerRequest.getText() %></td>
-                   <td><input type="text" class="form-control" id="response"name="response" value="<%=consumerRequest.getResponse() %>"></td>
-                  <td><button>submit</button></td>
+                   <td><input type="text" class="form-control" id="response" name="response" style="height: 50px;" value="<%=consumerRequest.getResponse() %>"></td>
+                  <td><button style="height: 50px;width: 120px;background-color: aqua;color: blue">submit</button></td>
                     <% i++;%>
               </tr>
               </form>

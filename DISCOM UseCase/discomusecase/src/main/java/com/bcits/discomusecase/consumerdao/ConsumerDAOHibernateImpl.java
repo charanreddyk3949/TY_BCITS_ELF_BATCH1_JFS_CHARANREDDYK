@@ -284,94 +284,108 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	
 	@Override
 	public boolean billPaymentPage(String rrNumber, Date date, Double amtPaid) {
-		CurrentBill bill=new CurrentBill();
-		EntityManager manager =factory.createEntityManager();
-		EntityTransaction transaction=manager.getTransaction();
-	    PaymentDetails paymentDetails=  new PaymentDetails();
-	    CurrentBill currentBill= manager.find(CurrentBill.class, rrNumber);
-	    PaymentDetails details=manager.find(PaymentDetails.class, rrNumber);
-	    ConsumersMasterBean consumersMasterBean=manager.find(ConsumersMasterBean.class, rrNumber);
-	    
-	    String jpql="from BillHistory b where b.billHistoryPK.rrNumber= :rrNum and b.status= :statusVal";
-        Query query=manager.createQuery(jpql);
-       query.setParameter("rrNum", rrNumber);
-       query.setParameter("statusVal", "NotPaid");
-       BillHistory billHistory2= (BillHistory) query.getSingleResult();
-	    boolean isAdded=false;		
-	  if(details == null) {
-	    paymentDetails.setRrNumber(rrNumber);
-	    paymentDetails.setTxnNumber(8756487);
-	    paymentDetails.setTxnDate(date);
-	    paymentDetails.setTxnType("Online payment");
-	    paymentDetails.setTxnAmount(amtPaid);
-	    paymentDetails.setAmtPaid(amtPaid);
-	    paymentDetails.setTxnStatus("Success");
-	    
-        transaction.begin();
-	    manager.remove(billHistory2);
-	    transaction.commit();
-	    
-	    transaction.begin();
-		  BillHistory billHistory=new BillHistory();
-		  BillHistoryPK billHistoryPK=new BillHistoryPK();
-		  billHistoryPK.setRrNumber(rrNumber);
-		  billHistoryPK.setDate(date);
-		  billHistory.setBillAmount(amtPaid);
-		  billHistory.setRegion(consumersMasterBean.getRegion());
-		  billHistory.setUnitsConsumed(currentBill.getConsumption());
-		  billHistory.setBillHistoryPK(billHistoryPK);
-		  billHistory.setStatus("Paid");
-	
-		  manager.persist(billHistory);
-		  transaction.commit();
-	    try {
-	    	transaction.begin();
-	    	manager.persist(paymentDetails);
-	       
-	    	transaction.commit();
-	    	isAdded= true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			transaction.rollback();
-		}	
-	  }else {
-		  try {
-			  transaction.begin();
-			   manager.remove(billHistory2);
-			   transaction.commit();
-			  
-			  transaction.begin();
-			  BillHistory billHistory=new BillHistory();
-			  BillHistoryPK billHistoryPK=new BillHistoryPK();
-			  billHistoryPK.setRrNumber(rrNumber);
-			  billHistoryPK.setDate(date);
-			  billHistory.setBillAmount(amtPaid);
-			  billHistory.setRegion(consumersMasterBean.getRegion());
-			  billHistory.setUnitsConsumed(currentBill.getConsumption());
-			  billHistory.setBillHistoryPK(billHistoryPK);
-			  billHistory.setStatus("Paid");
+		CurrentBill bill = new CurrentBill();
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		PaymentDetails paymentDetails = new PaymentDetails();
+		CurrentBill currentBill = manager.find(CurrentBill.class, rrNumber);
+		PaymentDetails details = manager.find(PaymentDetails.class, rrNumber);
+		ConsumersMasterBean consumersMasterBean = manager.find(ConsumersMasterBean.class, rrNumber);
+
 		
-			  manager.persist(billHistory);
-  
-			  details.setTxnNumber(9756487);
-			  details.setTxnDate(date);
-			  details.setTxnType("Online payment");
-			  details.setTxnAmount(amtPaid);
-			  details.setAmtPaid(amtPaid);
-			  details.setTxnStatus("Success");
-			  transaction.commit();
-		      isAdded= true;
+//        String jpql1="from PaymentDetails where rrNumber= :rrNum and amtPaid= :amtVal";	
+//        Query query1 = manager.createQuery(jpql1);
+//        query1.setParameter("rrNum", rrNumber);
+//        query1.setParameter("amtVal", amtPaid);
+//        PaymentDetails details1=(PaymentDetails) query1.getSingleResult();
+        
+		String jpql = "from BillHistory b where b.billHistoryPK.rrNumber= :rrNum and b.status= :statusVal ";
+		Query query = manager.createQuery(jpql);
+		query.setMaxResults(1);
+		query.setParameter("rrNum", rrNumber);
+		query.setParameter("statusVal", "NotPaid");
+		
+		BillHistory billHistory2 = (BillHistory) query.getSingleResult();
 			
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
+		boolean isAdded = false;		
+		if (details == null) {
+//			if (details1 == null) {
+				
+			
+			paymentDetails.setRrNumber(rrNumber);
+			paymentDetails.setTxnNumber(8756487);
+			paymentDetails.setTxnDate(date);
+			paymentDetails.setTxnType("Online payment");
+			paymentDetails.setTxnAmount(amtPaid);
+			paymentDetails.setAmtPaid(amtPaid);
+			paymentDetails.setTxnStatus("Success");
+
+			transaction.begin();
+			manager.remove(billHistory2);
+			transaction.commit();
+
+			transaction.begin();
+			BillHistory billHistory = new BillHistory();
+			BillHistoryPK billHistoryPK = new BillHistoryPK();
+			billHistoryPK.setRrNumber(rrNumber);
+			billHistoryPK.setDate(date);
+			billHistory.setBillAmount(amtPaid);
+			billHistory.setRegion(consumersMasterBean.getRegion());
+			billHistory.setUnitsConsumed(currentBill.getConsumption());
+			billHistory.setBillHistoryPK(billHistoryPK);
+			billHistory.setStatus("Paid");
+
+			manager.persist(billHistory);
+			transaction.commit();
+			try {
+				transaction.begin();
+				manager.persist(paymentDetails);
+
+				transaction.commit();
+				isAdded = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				transaction.rollback();
+			}
+		} else {
+			try {
+				transaction.begin();
+				manager.remove(billHistory2);
+				transaction.commit();
+
+				transaction.begin();
+				BillHistory billHistory = new BillHistory();
+				BillHistoryPK billHistoryPK = new BillHistoryPK();
+				billHistoryPK.setRrNumber(rrNumber);
+				billHistoryPK.setDate(date);
+				billHistory.setBillAmount(amtPaid);
+				billHistory.setRegion(consumersMasterBean.getRegion());
+				billHistory.setUnitsConsumed(currentBill.getConsumption());
+				billHistory.setBillHistoryPK(billHistoryPK);
+				billHistory.setStatus("Paid");
+
+				manager.persist(billHistory);
+
+				details.setTxnNumber(9756487);
+				details.setTxnDate(date);
+				details.setTxnType("Online payment");
+				details.setTxnAmount(amtPaid);
+				details.setAmtPaid(amtPaid);
+				details.setTxnStatus("Success");
+				transaction.commit();
+				isAdded = true;
+
+			} catch (Exception e) {
+				transaction.rollback();
+				e.printStackTrace();
+			}
+			isAdded = true;
 		}
-		    
-	   isAdded=true;
-	}
+//		}else {
+//			isAdded=false;
+//		}
 		return isAdded;
 	}
-
 	@Override
 	public boolean addComments(String rrNumber,String region,ConsumerSupportRequest consumerSupportRequest) {
 		EntityManager manager=factory.createEntityManager();
@@ -408,6 +422,18 @@ public class ConsumerDAOHibernateImpl implements ConsumerDAO{
 	   }
 		return null;
 	}//End of displayRequest()
+
+	@Override
+	public List<BillHistory> getPendingBills(String rrNumber, String status) {
+		
+		EntityManager manager=factory.createEntityManager();
+		String jpql=" from BillHistory where billHistoryPK.rrNumber= :rrNum and status= :statusVal ";
+		Query  query=manager.createQuery(jpql);
+		query.setParameter("rrNum", rrNumber);
+		query.setParameter("statusVal", "NotPaid");
+		List<BillHistory> billList=query.getResultList();
+		return billList;
+	}//End of billList()
 
 	
 

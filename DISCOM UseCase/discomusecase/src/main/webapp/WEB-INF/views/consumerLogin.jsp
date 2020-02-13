@@ -74,13 +74,13 @@
        <% } %>
       
      <% if(msg !=null && !msg.isEmpty()) {%>
-       <h3 style="color: green; padding-left:270px"><%= msg %></h3>
+       <h3 style="color: green; padding-left:350px"><%= msg %></h3>
        <% } %>
       
       <div class="container">
         <div class=" col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-5">
       <div id="consumerform">
-        <form class="formc" action="../consumer/login" method="post"onsubmit="validateForm();return  false">
+        <form class="formc" action="../consumer/login" method="post" onsubmit= "validateForm(); return  false">
           <input type="image" src="${images}/user3.png" alt="">
          <h2 style="padding-left: 70px;color: skyblue;">Consumer Login</h2>
           <div class="form-group" >
@@ -109,8 +109,8 @@
 <h3 style="color: red;padding-left:270px"><%= errMsg %></h3>
 <% } %>
     
-  <script src="${js}/consumerLogin.js"></script>   
-  <script src="./jquery-3.4.1.js"></script> 
-  <script src="./js/bootstrap.min.js"></script>    
+  <script src="/consumerlogin.js"></script>   
+  <script src="/jquery-3.4.1.js"></script> 
+  <script src="/js/bootstrap.min.js"></script>    
 </body>
 </html>

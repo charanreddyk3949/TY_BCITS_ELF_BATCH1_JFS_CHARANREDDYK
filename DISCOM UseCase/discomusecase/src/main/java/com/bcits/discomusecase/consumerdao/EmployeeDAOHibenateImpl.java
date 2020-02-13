@@ -2,6 +2,7 @@ package com.bcits.discomusecase.consumerdao;
 
 import java.util.Date;
 
+
 import java.util.List;
 
 
@@ -22,9 +23,9 @@ import com.bcits.discomusecase.beans.ConsumerSupportRequestPK;
 import com.bcits.discomusecase.beans.ConsumersMasterBean;
 import com.bcits.discomusecase.beans.CurrentBill;
 import com.bcits.discomusecase.beans.EmployeeMaster;
-import com.bcits.discomusecase.beans.MailMail;
 import com.bcits.discomusecase.beans.MonthlyConsumption;
 import com.bcits.discomusecase.beans.MonthlyConsumptionPK;
+import com.bcits.discomusecase.beans.PaymentDetails;
 import com.bcits.discomusecase.beans.TariffBillGenerator;
 import com.bcits.discomusecase.mail.EmailGenerator;
 
@@ -173,143 +174,123 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 **/
 	
 	@Override
-	public boolean getBillGenerator(Date dueDate,CurrentBill currentBill) {
-        EntityManager manager=factory.createEntityManager();
-        EntityTransaction transaction=manager.getTransaction();
-        CurrentBill  bill= manager.find(CurrentBill.class, currentBill.getRrNumber());
-        ConsumersMasterBean consumersMasterBean=manager.find(ConsumersMasterBean.class, currentBill.getRrNumber());
-        Double initialReading=0.0;
-        Double billAmount=0.0;
-       
-       if (consumersMasterBean != null) {
-    	  if(bill != null) {
-    	   initialReading=bill.getPresentReading();
-  
-    	   BillHistoryPK billHistoryPK=new BillHistoryPK();
-    	   billHistoryPK.setRrNumber(bill.getRrNumber());
-    	   billHistoryPK.setDate(new Date());
-    	   
-    	   BillHistory billHistory =new BillHistory();
-    	   billHistory.setBillAmount(bill.getBillAmount());
-    	   billHistory.setRegion(consumersMasterBean.getRegion());
-    	   billHistory.setUnitsConsumed(bill.getConsumption());
-    	   billHistory.setStatus("NotPaid");
-    	   billHistory.setBillHistoryPK(billHistoryPK);
-    	   
-    	   transaction.begin();
-    	   manager.persist(billHistory);
-    	   transaction.commit();
-    	   
-    	   
-    	   transaction.begin();
-			MonthlyConsumption monthlyConsumption=new MonthlyConsumption();
-			MonthlyConsumptionPK monthlyConsumptionPK= new MonthlyConsumptionPK();
-			monthlyConsumptionPK.setRrNumber(consumersMasterBean.getRrNumber());
-			monthlyConsumptionPK.setInitialDate(new Date());
-			monthlyConsumption.setFinalDate(dueDate);
-			monthlyConsumption.setInitialReading(bill.getInitialReading());
-			monthlyConsumption.setFinalReading(initialReading);
-			monthlyConsumption.setConsumptionUnits(bill.getConsumption());
-			monthlyConsumption.setMonthlyConsumptionPK(monthlyConsumptionPK);
-			manager.persist(monthlyConsumption);
-			transaction.commit();
-    	   
-    	  
-    	   try {
-   	       Double unitsConsumed=currentBill.getPresentReading()-initialReading;
-   	    TariffBillGenerator billGenerator=new TariffBillGenerator();
-           billAmount=billGenerator.getBill(unitsConsumed, consumersMasterBean.getConsumerType());
-           
-    	   transaction.begin();
-    	   bill.setBillAmount(billAmount);
-    	   bill.setConsumption(unitsConsumed);
-    	   bill.setDueDate(dueDate);
-    	   bill.setInitialReading(initialReading);
-    	   bill.setPresentReading(currentBill.getPresentReading());    
-    	   transaction.commit();
-    	   
-    	   
-//    	   ApplicationContext context = 
-//		             new ClassPathXmlApplicationContext("discom-usecase.xml");
-//		    	 
-//		    	MailMail mm = (MailMail) context.getBean("mailMail");
-//		        mm.sendMail("charanreddyk439@gmail.com",
-//		    		   "charanreddy2185@gmail.com",
-//		    		   "Current Bill", 
-//		    		   "RR Number="+bill.getRrNumber() +"Initial Reading="+bill.getInitialReading()
-//		    		   +"Final Reading"+bill.getPresentReading()+"Consumed Units="+bill.getConsumption()
-//		    		   +"Bill Amount="+bill.getBillAmount()+"Due Date"+bill.getDueDate());
-           
-    	   return true;
-		   } catch (Exception e) {
-			   e.printStackTrace();
-			return false;
-		   }
-    	  
-		 
-	   }else {
-		   Double unitsConsumed=currentBill.getPresentReading()-initialReading;
-		   TariffBillGenerator generator=new TariffBillGenerator();
-		   billAmount=generator.getBill(unitsConsumed, consumersMasterBean.getConsumerType());
-		   
-		   
-		  
-    	   
-    	   try {
-    		   
-			
+	public boolean getBillGenerator(Date dueDate, CurrentBill currentBill) {
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		CurrentBill bill = manager.find(CurrentBill.class, currentBill.getRrNumber());
+		ConsumersMasterBean consumersMasterBean = manager.find(ConsumersMasterBean.class, currentBill.getRrNumber());
+		Double initialReading = 0.0;
+		Double billAmount = 0.0;
+	
+		if (consumersMasterBean != null) {
+			if (bill != null) {
+				
+				initialReading = bill.getPresentReading();
+				
+			try {
+					Double unitsConsumed = currentBill.getPresentReading() - initialReading;
+					TariffBillGenerator billGenerator = new TariffBillGenerator();
+				    billAmount = billGenerator.getBill(unitsConsumed, consumersMasterBean.getConsumerType());
+                  
+					transaction.begin();
+					bill.setBillAmount(billAmount);
+					bill.setConsumption(unitsConsumed);
+					bill.setDueDate(dueDate);
+					bill.setInitialReading(initialReading);
+					bill.setPresentReading(currentBill.getPresentReading());
+					transaction.commit();
+				
 
-			Double presentReading = unitsConsumed + initialReading;
-		    transaction.begin();
+				BillHistoryPK billHistoryPK = new BillHistoryPK();
+				billHistoryPK.setRrNumber(bill.getRrNumber());
+				billHistoryPK.setDate(new Date());
 
-			currentBill.setRrNumber(consumersMasterBean.getRrNumber());
-			currentBill.setConsumption(unitsConsumed);
-			currentBill.setBillAmount(billAmount);
-			currentBill.setInitialReading(initialReading);
+				BillHistory billHistory = new BillHistory();
+				billHistory.setBillAmount(billAmount);
+				billHistory.setRegion(consumersMasterBean.getRegion());
+				billHistory.setUnitsConsumed(unitsConsumed);
+				billHistory.setStatus("NotPaid");
+				billHistory.setBillHistoryPK(billHistoryPK);
 
-			manager.persist(currentBill);
-			transaction.commit();
-			
-			transaction.begin();
-			MonthlyConsumption monthlyConsumption=new MonthlyConsumption();
-			MonthlyConsumptionPK monthlyConsumptionPK= new MonthlyConsumptionPK();
-			monthlyConsumptionPK.setRrNumber(consumersMasterBean.getRrNumber());
-			monthlyConsumptionPK.setInitialDate(new Date());
-			monthlyConsumption.setFinalDate(dueDate);
-			monthlyConsumption.setInitialReading(initialReading);
-			monthlyConsumption.setFinalReading(presentReading);
-			monthlyConsumption.setConsumptionUnits(unitsConsumed);
-			monthlyConsumption.setMonthlyConsumptionPK(monthlyConsumptionPK);
-			manager.persist(monthlyConsumption);
-			transaction.commit();
-			
-			
-			 BillHistoryPK billHistoryPK=new BillHistoryPK();
-	    	   billHistoryPK.setRrNumber(consumersMasterBean.getRrNumber());
-	    	   billHistoryPK.setDate(new Date());
-	    	   
-	    	   BillHistory billHistory =new BillHistory();
-	    	   billHistory.setBillAmount(currentBill.getBillAmount());
-	    	   billHistory.setRegion(consumersMasterBean.getRegion());
-	    	   billHistory.setUnitsConsumed(currentBill.getConsumption());
-	    	   billHistory.setStatus("NotPaid");
-	    	   billHistory.setBillHistoryPK(billHistoryPK);
-	    	   transaction.begin();
-			manager.persist(billHistory);
-			transaction.commit();
-			
-			manager.close();
-			return true; 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		
+				transaction.begin();
+				manager.persist(billHistory);
+				transaction.commit();
+
+				transaction.begin();
+				MonthlyConsumption monthlyConsumption = new MonthlyConsumption();
+				MonthlyConsumptionPK monthlyConsumptionPK = new MonthlyConsumptionPK();
+				monthlyConsumptionPK.setRrNumber(consumersMasterBean.getRrNumber());
+				monthlyConsumptionPK.setInitialDate(new Date());
+				monthlyConsumption.setFinalDate(dueDate);
+				monthlyConsumption.setInitialReading(initialReading);
+				monthlyConsumption.setFinalReading(currentBill.getPresentReading());
+				monthlyConsumption.setConsumptionUnits(unitsConsumed);
+				monthlyConsumption.setMonthlyConsumptionPK(monthlyConsumptionPK);
+				manager.persist(monthlyConsumption);
+				transaction.commit();
+
+				
+
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+				}
+
+			} else {
+				Double unitsConsumed = currentBill.getPresentReading() - initialReading;
+				TariffBillGenerator generator = new TariffBillGenerator();
+				billAmount = generator.getBill(unitsConsumed, consumersMasterBean.getConsumerType());
+				
+				try {
+					Double presentReading = unitsConsumed + initialReading;
+					transaction.begin();
+
+					currentBill.setRrNumber(consumersMasterBean.getRrNumber());
+					currentBill.setConsumption(unitsConsumed);
+					currentBill.setBillAmount(billAmount);
+					currentBill.setInitialReading(initialReading);
+
+					manager.persist(currentBill);
+					transaction.commit();
+
+					transaction.begin();
+					MonthlyConsumption monthlyConsumption = new MonthlyConsumption();
+					MonthlyConsumptionPK monthlyConsumptionPK = new MonthlyConsumptionPK();
+					monthlyConsumptionPK.setRrNumber(consumersMasterBean.getRrNumber());
+					monthlyConsumptionPK.setInitialDate(new Date());
+					monthlyConsumption.setFinalDate(dueDate);
+					monthlyConsumption.setInitialReading(initialReading);
+					monthlyConsumption.setFinalReading(presentReading);
+					monthlyConsumption.setConsumptionUnits(unitsConsumed);
+					monthlyConsumption.setMonthlyConsumptionPK(monthlyConsumptionPK);
+					manager.persist(monthlyConsumption);
+					transaction.commit();
+
+					BillHistoryPK billHistoryPK = new BillHistoryPK();
+					billHistoryPK.setRrNumber(consumersMasterBean.getRrNumber());
+					billHistoryPK.setDate(new Date());
+
+					BillHistory billHistory = new BillHistory();
+					billHistory.setBillAmount(currentBill.getBillAmount());
+					billHistory.setRegion(consumersMasterBean.getRegion());
+					billHistory.setUnitsConsumed(currentBill.getConsumption());
+					billHistory.setStatus("NotPaid");
+					billHistory.setBillHistoryPK(billHistoryPK);
+					transaction.begin();
+					manager.persist(billHistory);
+					transaction.commit();
+
+					manager.close();
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			} // End of else
 		}
-		   
-    }//End of else
-       }
-	return false;        
-	}//End of getBillGenerator()
+		return false;
+	}// End of getBillGenerator()
 
 
 	
@@ -355,23 +336,23 @@ public class EmployeeDAOHibenateImpl implements EmployeeDAO{
 
 	@Override
 	public boolean updateResopnse(String rrNumber, Date date, String response) {
-		EntityManager manager=factory.createEntityManager();
-		EntityTransaction transaction=manager.getTransaction();
-		String jpql=" from ConsumerSupportRequest where consumerSupportRequestPK.rrNumber= :rrNum and consumerSupportRequestPK.date= :dateVal ";
-		Query  query=manager.createQuery(jpql);
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		String jpql = " from ConsumerSupportRequest where consumerSupportRequestPK.rrNumber= :rrNum and consumerSupportRequestPK.date= :dateVal ";
+		Query query = manager.createQuery(jpql);
 		query.setParameter("rrNum", rrNumber);
 		query.setParameter("dateVal", date);
-		ConsumerSupportRequest consumerSupportRequest=(ConsumerSupportRequest) query.getSingleResult();
-		
-        if (consumerSupportRequest != null) {
-        	transaction.begin();
-    		consumerSupportRequest.setResponse(response);
-    		transaction.commit();
-    		return true;
-		}else {
+		ConsumerSupportRequest consumerSupportRequest = (ConsumerSupportRequest) query.getSingleResult();
+
+		if (consumerSupportRequest != null) {
+			transaction.begin();
+			consumerSupportRequest.setResponse(response);
+			transaction.commit();
+			return true;
+		} else {
 			return false;
 		}
-		
+
 	}
 
 	@Override

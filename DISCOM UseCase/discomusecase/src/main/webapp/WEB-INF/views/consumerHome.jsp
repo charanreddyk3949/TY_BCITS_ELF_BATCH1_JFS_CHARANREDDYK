@@ -11,6 +11,7 @@
     
     <% String msg=(String) request.getAttribute("msg");
        String errMsg=(String) request.getAttribute("errMsg"); 
+       String paymentMsg=(String) request.getAttribute("paymentSuccessMsg");
        ConsumersMasterBean consumersMasterBean=(ConsumersMasterBean) request.getAttribute("consumerDetails");
        List<BillHistory> billData=(List<BillHistory>) request.getAttribute("billHistory");
        CurrentBill currentBill=(CurrentBill) request.getAttribute("currentBillDetails");
@@ -18,6 +19,7 @@
        PaymentDetails paymentDetails=(PaymentDetails) request.getAttribute("paymentInfo");
        List<ConsumerSupportRequest> responseList=(List<ConsumerSupportRequest>) request.getAttribute("supportRequestDetails");
     
+       List<BillHistory> pendingBillData=(List<BillHistory>) request.getAttribute("PendingBills");
     %>
     
     <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -69,8 +71,11 @@
           background-repeat: no-repeat; 
           background-size: cover; height: 724px;"/>
  
+    <div align="center" style="background-color: aqua;color: black;height: 45px"><h2>Welcome to Consumer Home</h2></div>
   
-  
+   <%if(paymentMsg !=null && !paymentMsg.isEmpty()) {%>
+     <h1 style="color: green;margin-left: 450px;margin-top: 50px;"><%= paymentMsg %></h1>
+   <% } %>
   
   <div class="col-3" style="margin-top: 150px" >
     <div class="list-group" id="list-tab" role="tablist" >     
@@ -81,15 +86,18 @@
       <a class="list-group-item list-group-item-action"style="background-color: green ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/paymentDetails" role="tab" aria-controls="profile">Payment Details</a>
       <a class="list-group-item list-group-item-action"style="background-color: navy;color: white;font-size: 20px" id="list-settings-list" data-toggle="list" href="../consumer/consumerQueriesForm" role="tab" aria-controls="settings">Add Comments</a>
       <a class="list-group-item list-group-item-action"style="background-color: aqua;color: white;font-size: 20px" id="list-settings-list" data-toggle="list" href="../consumer/getResponseList" role="tab" aria-controls="settings">See Response</a>
+      <a class="list-group-item list-group-item-action"style="background-color: green ;color: white;font-size: 20px" id="list-profile-list" data-toggle="list" href="../consumer/getPendingBillLists" role="tab" aria-controls="profile">Pending Bills</a>     
  
     </div>
   </div>
+  
+  
   
   <%if (consumersMasterBean != null) { %>
        <div align="center" style="margin-top: -350px;color: white;">
        <h3 style="color: blue;">Consumer Details</h3>
            <table style="font-size: 20px ;border:2px solid white;" >
-              <tr>
+              <tr >
                  <th>RR Number</th>
                  <td>:</td>
                 <td> <%= consumersMasterBean.getRrNumber() %></td>
@@ -134,7 +142,7 @@
        <div align="center" style="margin-left: 300px;margin-top: -300px;">
        <h3 style="color: blue">Bill History Details</h3>
            <table border="1" style="width: 70%;background-color: black;color: white">
-              <tr style="background: navy; color: white">
+              <tr style="background: navy; color: white;height: 50px;text-align: center">
                  <th>RR Number</th>
                  <th>Date</th>
                  <th>Bill Amount</th>
@@ -143,7 +151,7 @@
                  
               </tr>
               <%for(BillHistory billDetails :billData) { %>
-              <tr>
+              <tr style="height: 50px;text-align: center">
                    <td><%= billDetails.getBillHistoryPK().getRrNumber() %></td>
                    <td><%= billDetails.getBillHistoryPK().getDate() %></td>
                    <td><%= billDetails.getBillAmount() %></td>
@@ -153,63 +161,64 @@
               <% } %>
            </table>
        </div>
-    <% } %>  
-    
-    
-    
-  
-  
-   <%if (currentBill != null) { %>
-       <div align="center" style="margin-top: -350px;color: white;">
-       <h3 style="color: blue">Current Bill Details</h3>
-           <table style="font-size: 20px;border:2px solid white;" >
-              <tr>
-                 <th>RR Number</th>
-                 <td>:</td>
-                <td> <%= currentBill.getRrNumber() %></td>
-              </tr>
-              
-               <tr>
-                 <th>Initial Reading</th>
-                 <td>:</td>
-                <td> <%= currentBill.getInitialReading() %></td>
-              </tr>
-              <tr>
-                 <th>Present reading</th>
-                 <td>:</td>
-                <td> <%= currentBill.getPresentReading() %></td>
-              </tr>
-              <tr>
-                 <th>Units Consumed</th>
-                 <td>:</td>
-                <td> <%= currentBill.getConsumption() %></td>
-              </tr>
-              
-              <tr>
-                 <th>Bill Amount</th>
-                 <td>:</td>
-                <td> <%= currentBill.getBillAmount() %></td>
-              </tr>
-              <tr>
-                 <th>Due date</th>
-                 <td>:</td>
-                <td> <%= currentBill.getDueDate() %></td>
-              </tr>
-             
-           </table>
-           
-               <a href="../consumer/paymentPage" role="button" class="btn btn-info"style="width: 200px;color :white; font-size: 20px;margin-left: 00px ">Online Payment</a>
-       
-       </div>
-   <% }%>
- 
- 
- 
- <% if(monthlyConsumptions != null) { %>
+    <% } %>
+
+
+
+
+
+<% if (currentBill != null) { %>
+  <div align="center" style="margin-top: -350px; color: white;">
+	<h3 style="color: blue">Current Bill Details</h3>
+	<table style="font-size: 20px; border: 2px solid white;">
+		<tr>
+			<th>RR Number</th>
+			<td>:</td>
+			<td><%=currentBill.getRrNumber()%></td>
+		</tr>
+
+		<tr>
+			<th>Initial Reading</th>
+			<td>:</td>
+			<td><%=currentBill.getInitialReading()%></td>
+		</tr>
+		<tr>
+			<th>Present reading</th>
+			<td>:</td>
+			<td><%=currentBill.getPresentReading()%></td>
+		</tr>
+		<tr>
+			<th>Units Consumed</th>
+			<td>:</td>
+			<td><%=currentBill.getConsumption()%></td>
+		</tr>
+
+		<tr>
+			<th>(Previous Bill amounts)+ Bill Amount </th>
+			<td>:</td>
+			<td><%=currentBill.getBillAmount()%></td>
+		</tr>
+		<tr>
+			<th>Due date</th>
+			<td>:</td>
+			<td><%=currentBill.getDueDate()%></td>
+		</tr>
+
+	</table>
+
+	<a href="../consumer/paymentPage" role="button" class="btn btn-info"style="width: 200px; 
+	          color: white; font-size: 20px; margin-left: 00px">OnlinePayment</a>
+
+  </div>
+  <% } %>
+
+
+
+<% if (monthlyConsumptions != null) { %>
        <div align="center" style="margin-left: 400px; margin-top: -350px">
         <h3 style="color: blue">Monthly Consumption Details</h3>
            <table border="1" style="width: 70%">
-              <tr style="background: navy; color: white">
+              <tr style="background: navy; color: white;height: 50px; text-align: center;">
                  <th>RR Number</th>
                  <th>Initial Date</th>
                  <th>Final Date</th>
@@ -218,9 +227,9 @@
                  <th>Consumption Units</th>
                  
                  
-              </tr>
+              </tr >
               <%for(MonthlyConsumption consumption :monthlyConsumptions) { %>
-              <tr>
+              <tr style="height: 50px;text-align: center;">
                    <td><%= consumption.getMonthlyConsumption().getRrNumber() %></td>
                    <td><%= consumption.getMonthlyConsumption().getInitialDate() %></td>
                    <td><%= consumption.getFinalDate() %></td>
@@ -284,7 +293,7 @@
        <div align="center" style="margin-left: 300px;color: white;margin-top: -300px">
        <h3 style="color: navy">Response Details</h3>
            <table border="1" style="width: 1200px;background-color: black">
-              <tr style="background: navy; color: white;height: 35px;font-size: 20px">
+              <tr style="background: navy; color: white;height: 50px;font-size: 20px;text-align: center;">
                  <th>SN No.</th>
                  <th>RR Number</th>
                  <th>Email</th>
@@ -297,7 +306,7 @@
               </tr>
               
               <% int i=1; for(ConsumerSupportRequest consumerRequest : responseList) { %>
-              <tr style="height: 35px;font-size: 17px">
+              <tr style="height: 50px;font-size: 17px;text-align: center;">
                    <td>    <%= i %>   </td>
                    <td><%= consumerRequest.getConsumerSupportRequestPK().getRrNumber() %></td>
                    <td><%= consumerRequest.getEmail() %></td>
@@ -305,6 +314,46 @@
                    <td><%= consumerRequest.getRegion() %></td>
                    <td><%= consumerRequest.getText() %></td>
                    <td><%= consumerRequest.getResponse() %></td>
+                    <% i++;%>
+              </tr>
+              </form>
+              <% } %>
+            
+           </table>
+       </div>
+    <% } %>  
+    
+    
+    
+    
+    <% if(pendingBillData != null) { %>
+       <div align="center" style="margin-left: 300px;color: white;margin-top: -300px">
+       <h3 style="color: navy">Pending bills</h3>
+           <table border="1" style="width: 1200px;background-color: black">
+              <tr style="background: navy; color: white;height: 50px;font-size: 20px;text-align: center;">
+                 <th>SN No.</th>
+                 <th>RR Number</th>
+                 <th>Region</th>
+                 <th>BillAmount</th>
+                 <th>Status</th>
+                 <th>Due Date</th>
+                 <th>Generate Bill</th>
+               
+                 
+              </tr>
+              
+              <% int i=1; for(BillHistory pendingBills : pendingBillData) { %>
+              <tr style="height: 50px;font-size: 17px;text-align: center;">
+                   <td>    <%= i %>   </td>
+                   <td><%= pendingBills.getBillHistoryPK().getRrNumber() %></td>
+                   <td><%= pendingBills.getRegion() %></td>
+                   <td><%= pendingBills.getUnitsConsumed() %></td>
+                   <td><%= pendingBills.getBillAmount() %></td>
+                   <td><%= pendingBills.getStatus() %></td>
+                   <td><%= pendingBills.getBillHistoryPK().getDate() %></td>
+                  <td style="height: 50px;width: 150px"><a href="../employee/getBillInputDetails?rrNumber=
+                  <%=pendingBills.getBillHistoryPK().getRrNumber()%>" style="background-color: aqua;">Generate Bill</a></td>
+                   
                     <% i++;%>
               </tr>
               </form>

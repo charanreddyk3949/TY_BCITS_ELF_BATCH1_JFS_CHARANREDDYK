@@ -98,8 +98,8 @@ public class ConsumerServiceImpl implements ConsumerService{
 
 	@Override
 	public boolean billPaymentPage(String rrNumber, Date date, Double amtPaid) {
-		
-		return dao.billPaymentPage(rrNumber, date, amtPaid);
+	
+			return dao.billPaymentPage(rrNumber, date, amtPaid);
 	}
 
 	@Override
@@ -112,6 +112,12 @@ public class ConsumerServiceImpl implements ConsumerService{
 	public List<ConsumerSupportRequest> displayResponse(String rrNumber) {
 		
 		return dao.displayResponse(rrNumber);
+	}
+
+	@Override
+	public List<BillHistory> getPendingBills(String rrNumber, String status) {
+		
+		return dao.getPendingBills(rrNumber, status);
 	}
 
 	
