@@ -1,0 +1,28 @@
+@charset "ISO-8859-1";
+
+#head{
+    height: 100px;
+    background-color: cyan;
+    
+}
+#headImg{ 
+  margin-top: 0px;
+width: 200px;
+height: 100px;
+}
+#headText{
+   font-size: 45px;
+   
+   color: skyblue;
+   padding-top: 10PX;
+   text-align: center;
+   margin-right: 570px;
+}
+
+#navbarSupportedContent{
+    
+    background-color: slategrey;
+    width: 500px;
+    padding-left: 20px;
+
+}
